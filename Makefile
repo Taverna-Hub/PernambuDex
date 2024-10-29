@@ -14,3 +14,6 @@ clean:
 	rm -f $(OBJ) $(TARGET)
 
 all: $(TARGET)
+
+run:
+	./game
