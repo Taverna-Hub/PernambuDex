@@ -1,19 +1,5 @@
-CC = gcc
-SRC = $(shell find src -name '*.c')  
-OBJ = $(SRC:.c=.o)  
-TARGET = game  
-CFLAGS = -lraylib -lGL -lm -lpthread -ldl -lrt -lX11  
-
-$(TARGET): $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
-
-%.o: %.c
-	$(CC) -c $< -o $@
-
-clean:
-	rm -f $(OBJ) $(TARGET)
-
-all: $(TARGET)
+all: 
+	gcc src/main.c src/utils/resizeImage.c -o game -lraylib -lm -lpthread -ldl -lrt -lX11
 
 run:
 	./game
