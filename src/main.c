@@ -1,35 +1,45 @@
+#include <stdio.h>
 #include <raylib.h>
 #include "utils/constants.h"
-#include "utils/resizeImage.h"
+#include "utils/resizeImage/resizeImage.h"
+#include "utils/init/init.h"
+#include "utils/cleanup/cleanup.h"
+#include "screens/menu/menu.h"
+#include "screens/select-place/place.h"
 
 int main(void)
 {
-  // Initialize the window dimensions
-  InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Full Window Image");
+  Screen currentScreen = MENU;
 
-  // Load the image and convert it to a texture
-  Image image = LoadImage("./assets/1.png"); // Load your image here
-  Texture2D texture = LoadTextureFromImage(image);
-  UnloadImage(image); // Unload the image, we only need the texture now
+  InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Pernambudex");
 
-  imageProps imageProps = resizeImage(texture);
+  Assets assets = LoadAssets();
+  Vector2 mousePosition = GetMousePosition();
 
-  // Main game loop
+  // HideCursor();
   while (!WindowShouldClose())
   {
-    // Start drawing
     BeginDrawing();
-    ClearBackground(RAYWHITE); // Clear background with white color
+    mousePosition = GetMousePosition();
 
-    // Draw the texture at the calculated position and size
-    DrawTextureEx(texture, (Vector2){imageProps.x, imageProps.y}, 0.0f, imageProps.scale, WHITE);
+    if (currentScreen == MENU)
+    {
+      DrawMenu(&currentScreen, mousePosition, assets);
+      UpdateMenu(&currentScreen, mousePosition, assets);
+    }
+    else if (currentScreen == SELECT_PLACE)
+    {
+      DrawSelectPlace(&currentScreen, mousePosition, assets);
+    }
 
+    // assets.pernamBall.width = 24;
+    // assets.pernamBall.height = 24;
+    // DrawTexture(assets.pernamBall, mousePosition.x, mousePosition.y, WHITE);
     EndDrawing();
   }
 
-  // Cleanup
-  UnloadTexture(texture); // Unload the texture
-  CloseWindow();          // Close the window and OpenGL context
+  UnloadAssets(assets);
+  CloseWindow();
 
   return 0;
 }

@@ -1,4 +1,4 @@
-#include "constants.h"
+#include "../constants.h"
 #include "resizeImage.h"
 #include <raylib.h>
 
