@@ -15,9 +15,6 @@ void DrawMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   imageProps imageProps = resizeImage(assets.noivaMenu);
   DrawTextureEx(assets.noivaMenu, (Vector2){imageProps.x, imageProps.y}, 0.0f, imageProps.scale, WHITE);
   handleButtons(mousePosition, assets);
-  // assets.pernamBall.width = 24;
-  // assets.pernamBall.height = 24;
-  // DrawTexture(assets.pernamBall, mousePosition.x, mousePosition.y, WHITE);
 }
 
 void UpdateMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets)

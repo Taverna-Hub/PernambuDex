@@ -14,16 +14,48 @@ typedef enum Places
   OLINDA = 2,
   FEIRA = 3,
   PEDRA = 4,
+  SAIR = 5,
 } Places;
 
 Places place = BOA_VIAGEM;
+
+typedef struct SelectBackground
+{
+  Texture2D texture;
+  imageProps props;
+} SelectBackground;
+
+typedef struct Button
+{
+  Rectangle blueRect;
+  Rectangle redRect;
+  Texture2D blueTexture;
+  Texture2D redTexture;
+  int place;
+} Button;
 
 void DrawSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   ClearBackground(RAYWHITE);
 
-  imageProps imageProps = resizeImage(assets.noivaMenu);
-  DrawTextureEx(assets.noivaMenu, (Vector2){imageProps.x, imageProps.y}, 0.0f, imageProps.scale, WHITE);
+  SelectBackground backgrounds[] = {
+      {assets.boaViagemMenu,
+       resizeImage(assets.boaViagemMenu)},
+      {assets.noivaMenu,
+       resizeImage(assets.noivaMenu)},
+      {assets.olindaMenu,
+       resizeImage(assets.olindaMenu)},
+      {assets.pedraMenu,
+       resizeImage(assets.pedraMenu)},
+      {assets.feiraMenu,
+       resizeImage(assets.feiraMenu)}};
+
+  DrawTextureEx(backgrounds[place].texture,
+                (Vector2){backgrounds[place].props.x,
+                          backgrounds[place].props.y},
+                0.0f,
+                backgrounds[place].props.scale,
+                WHITE);
 
   DrawTexture(assets.trapezeSelector, 512, 0, RAYWHITE);
   handleButtons(mousePosition, assets);
@@ -79,53 +111,38 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
   assets.feiraButtonRed.height = heightSelected;
   Rectangle feiraButtonRedRect = {519, 485, assets.feiraButtonRed.width, assets.feiraButtonRed.height};
 
-  if (CheckCollisionPointRec(mousePosition, boaViagemButtonBlueRect))
+  // Leave button
+  assets.leaveButtonBlue.width = 105;
+  assets.leaveButtonBlue.height = heightNotSelected;
+  Rectangle leaveButtonBlueRect = {649, 652, assets.leaveButtonBlue.width, assets.leaveButtonBlue.height};
+
+  Button buttons[] = {
+      {boaViagemButtonBlueRect, boaViagemButtonRedRect, assets.boaViagemButtonBlue, assets.boaViagemButtonRed, BOA_VIAGEM},
+      {olindaButtonBlueRect, olindaButtonRedRect, assets.olindaButtonBlue, assets.olindaButtonRed, OLINDA},
+      {noivaButtonBlueRect, noivaButtonRedRect, assets.noivaButtonBlue, assets.noivaButtonRed, NOIVA},
+      {pedraButtonBlueRect, pedraButtonRedRect, assets.pedraButtonBlue, assets.pedraButtonRed, PEDRA},
+      {feiraButtonBlueRect, feiraButtonRedRect, assets.feiraButtonBlue, assets.feiraButtonRed, FEIRA}};
+
+  for (int i = 0; i < sizeof(buttons) / sizeof(buttons[0]); i++)
   {
-    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
-    DrawTexture(assets.boaViagemButtonRed, boaViagemButtonRedRect.x, boaViagemButtonRedRect.y, RAYWHITE);
-  }
-  else
-  {
-    DrawTexture(assets.boaViagemButtonBlue, boaViagemButtonBlueRect.x, boaViagemButtonBlueRect.y, RAYWHITE);
+    if (CheckCollisionPointRec(mousePosition, buttons[i].blueRect))
+    {
+      SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+      place = buttons[i].place;
+    }
   }
 
-  if (CheckCollisionPointRec(mousePosition, olindaButtonBlueRect))
+  for (int i = 0; i < sizeof(buttons) / sizeof(buttons[0]); i++)
   {
-    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
-    DrawTexture(assets.olindaButtonRed, olindaButtonRedRect.x, olindaButtonRedRect.y, RAYWHITE);
-  }
-  else
-  {
-    DrawTexture(assets.olindaButtonBlue, olindaButtonBlueRect.x, olindaButtonBlueRect.y, RAYWHITE);
-  }
-
-  if (CheckCollisionPointRec(mousePosition, noivaButtonBlueRect))
-  {
-    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
-    DrawTexture(assets.noivaButtonRed, noivaButtonRedRect.x, noivaButtonRedRect.y, RAYWHITE);
-  }
-  else
-  {
-    DrawTexture(assets.noivaButtonBlue, noivaButtonBlueRect.x, noivaButtonBlueRect.y, RAYWHITE);
+    if (place == buttons[i].place)
+    {
+      DrawTexture(buttons[i].redTexture, buttons[i].redRect.x, buttons[i].redRect.y, RAYWHITE);
+    }
+    else
+    {
+      DrawTexture(buttons[i].blueTexture, buttons[i].blueRect.x, buttons[i].blueRect.y, RAYWHITE);
+    }
   }
 
-  if (CheckCollisionPointRec(mousePosition, pedraButtonBlueRect))
-  {
-    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
-    DrawTexture(assets.pedraButtonRed, pedraButtonRedRect.x, pedraButtonRedRect.y, RAYWHITE);
-  }
-  else
-  {
-    DrawTexture(assets.pedraButtonBlue, pedraButtonBlueRect.x, pedraButtonBlueRect.y, RAYWHITE);
-  }
-
-  if (CheckCollisionPointRec(mousePosition, feiraButtonBlueRect))
-  {
-    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
-    DrawTexture(assets.feiraButtonRed, feiraButtonRedRect.x, feiraButtonRedRect.y, RAYWHITE);
-  }
-  else
-  {
-    DrawTexture(assets.feiraButtonBlue, feiraButtonBlueRect.x, feiraButtonBlueRect.y, RAYWHITE);
-  }
+    DrawTexture(assets.leaveButtonBlue, leaveButtonBlueRect.x, leaveButtonBlueRect.y, RAYWHITE);
 }
