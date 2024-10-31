@@ -41,6 +41,7 @@ typedef struct
   Texture2D feiraButtonBlue;
 
   Texture2D pernamBall;
+  Texture2D coin;
 
 } Assets;
 

@@ -6,6 +6,7 @@
 #include "utils/cleanup/cleanup.h"
 #include "screens/menu/menu.h"
 #include "screens/select-place/place.h"
+#include "screens/feira/feira.h"
 
 int main(void)
 {
@@ -16,7 +17,7 @@ int main(void)
   Assets assets = LoadAssets();
   Vector2 mousePosition = GetMousePosition();
 
-  // HideCursor();
+  HideCursor();
   while (!WindowShouldClose())
   {
     BeginDrawing();
@@ -30,11 +31,16 @@ int main(void)
     else if (currentScreen == SELECT_PLACE)
     {
       DrawSelectPlace(&currentScreen, mousePosition, assets);
+      UpdateSelectPlace(&currentScreen, mousePosition, assets);
+    }
+    else if (currentScreen == FEIRA)
+    {
+      DrawFeira(&currentScreen, mousePosition, assets);
     }
 
-    // assets.pernamBall.width = 24;
-    // assets.pernamBall.height = 24;
-    // DrawTexture(assets.pernamBall, mousePosition.x, mousePosition.y, WHITE);
+    assets.pernamBall.width = 24;
+    assets.pernamBall.height = 24;
+    DrawTexture(assets.pernamBall, mousePosition.x, mousePosition.y, WHITE);
     EndDrawing();
   }
 

@@ -2,22 +2,24 @@
 #include "../../utils/constants.h"
 #include "../../utils/resizeImage/resizeImage.h"
 #include "../../utils/init/init.h"
+#include "../../utils/cleanup/cleanup.h"
 #include "../../utils/button/button.h"
 #include "place.h"
+#include <stdio.h>
 
 static void handleButtons(Vector2 mousePos, Assets assets);
 
 typedef enum Places
 {
-  BOA_VIAGEM = 0,
-  NOIVA = 1,
-  OLINDA = 2,
-  FEIRA = 3,
-  PEDRA = 4,
-  SAIR = 5,
+  PBOA_VIAGEM = 0,
+  PNOIVA = 1,
+  POLINDA = 2,
+  PPEDRA = 3,
+  PFEIRA = 4,
+  PSAIR = 5,
 } Places;
 
-Places place = BOA_VIAGEM;
+Places place = PBOA_VIAGEM;
 
 typedef struct SelectBackground
 {
@@ -59,6 +61,28 @@ void DrawSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets assets
 
   DrawTexture(assets.trapezeSelector, 512, 0, RAYWHITE);
   handleButtons(mousePosition, assets);
+}
+
+void UpdateSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets assets)
+{
+  Rectangle feiraButtonRedRect = {519, 485, assets.feiraButtonRed.width, assets.feiraButtonRed.height};
+  Rectangle leaveButtonBlueRect = {649, 652, assets.leaveButtonBlue.width, assets.leaveButtonBlue.height};
+
+  if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+  {
+    if (CheckCollisionPointRec(mousePosition, feiraButtonRedRect))
+    {
+      printf("Caso feira");
+      *currentScreen = FEIRA;
+      return;
+    }
+  }
+
+  if (CheckCollisionPointRec(mousePosition, leaveButtonBlueRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+  {
+    *currentScreen = MENU;
+    return;
+  }
 }
 
 static void handleButtons(Vector2 mousePosition, Assets assets)
@@ -117,11 +141,11 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
   Rectangle leaveButtonBlueRect = {649, 652, assets.leaveButtonBlue.width, assets.leaveButtonBlue.height};
 
   Button buttons[] = {
-      {boaViagemButtonBlueRect, boaViagemButtonRedRect, assets.boaViagemButtonBlue, assets.boaViagemButtonRed, BOA_VIAGEM},
-      {olindaButtonBlueRect, olindaButtonRedRect, assets.olindaButtonBlue, assets.olindaButtonRed, OLINDA},
-      {noivaButtonBlueRect, noivaButtonRedRect, assets.noivaButtonBlue, assets.noivaButtonRed, NOIVA},
-      {pedraButtonBlueRect, pedraButtonRedRect, assets.pedraButtonBlue, assets.pedraButtonRed, PEDRA},
-      {feiraButtonBlueRect, feiraButtonRedRect, assets.feiraButtonBlue, assets.feiraButtonRed, FEIRA}};
+      {boaViagemButtonBlueRect, boaViagemButtonRedRect, assets.boaViagemButtonBlue, assets.boaViagemButtonRed, PBOA_VIAGEM},
+      {olindaButtonBlueRect, olindaButtonRedRect, assets.olindaButtonBlue, assets.olindaButtonRed, POLINDA},
+      {noivaButtonBlueRect, noivaButtonRedRect, assets.noivaButtonBlue, assets.noivaButtonRed, PNOIVA},
+      {pedraButtonBlueRect, pedraButtonRedRect, assets.pedraButtonBlue, assets.pedraButtonRed, PPEDRA},
+      {feiraButtonBlueRect, feiraButtonRedRect, assets.feiraButtonBlue, assets.feiraButtonRed, PFEIRA}};
 
   for (int i = 0; i < sizeof(buttons) / sizeof(buttons[0]); i++)
   {
@@ -144,5 +168,5 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
     }
   }
 
-    DrawTexture(assets.leaveButtonBlue, leaveButtonBlueRect.x, leaveButtonBlueRect.y, RAYWHITE);
+  DrawTexture(assets.leaveButtonBlue, leaveButtonBlueRect.x, leaveButtonBlueRect.y, RAYWHITE);
 }

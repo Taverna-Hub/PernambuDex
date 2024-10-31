@@ -13,6 +13,8 @@ Assets LoadAssets(void)
   assets.olindaMenu = LoadTexture("assets/backgrounds/olindaMenu.png");
   assets.pedraMenu = LoadTexture("assets/backgrounds/pedraMenu.png");
 
+  assets.feiraPlay = LoadTexture("assets/backgrounds/feiraPlay.png");
+
   assets.trapezeSelector = LoadTexture("assets/backgrounds/trapezeSelector.png");
 
   assets.playButton = LoadTexture("assets/buttons/playButton.png");
@@ -34,6 +36,7 @@ Assets LoadAssets(void)
   assets.pedraButtonRed = LoadTexture("assets/buttons/red/pedraButton.png");
 
   assets.pernamBall = LoadTexture("assets/pernam-ball.png");
+  assets.coin = LoadTexture("assets/coin.png");
 
   return assets;
 }
