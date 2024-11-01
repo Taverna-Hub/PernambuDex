@@ -40,11 +40,7 @@ typedef struct itemLabel
   int imageX;
   int imageY;
   char * text;
-  int textX;
-  int textY; 
   char * coinNumber;
-  int numberX;
-  int numberY;
   
 }itemLabel;
 
@@ -56,10 +52,17 @@ void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   imageProps feiraBeckerShots = resizeImage(assets.feiraPlay);
   DrawTextureEx(assets.feiraPlay, (Vector2){feiraBeckerShots.x, feiraBeckerShots.y}, 0.0f, feiraBeckerShots.scale, WHITE);
-  DrawTexture(assets.cyndaquill, 281, 226, RAYWHITE);
+
+  assets.typhlosion.width = assets.typhlosion.height = 392;
+  DrawTexture(assets.typhlosion, -18, 136, RAYWHITE);
+
+  assets.speechBubble.width = assets.speechBubble.height = 472;
+  DrawTexture(assets.speechBubble, 197, -59, RAYWHITE);
+  
   handleBUttons(mousePosition, assets);
 
 }
+
 void showItemLabel(itemLabel item, Assets coin);
 
 
@@ -69,56 +72,54 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     Rectangle PraiaLimpaButtonRect = {694, 248, assets.PraiaLimpaButtonRed.width, assets.PraiaLimpaButtonRed.height};
     Rectangle SinalFarolButtonRect = {688, 341, assets.SinalFarolButtonRed.width, assets.SinalFarolButtonRed.height};
     Rectangle EncantoIlhaButtonRect = {663, 432, assets.EncantoItamaracaButtonRed.width, assets.EncantoItamaracaButtonRed.height};
+    Rectangle leaveButtonRedRec = {749, 578, assets.leaveButtonRed.width, assets.leaveButtonRed.height };
 
-    if(level == LPRAIA_LIMPA_1){
+    if(level == LPRAIA_LIMPA_1)
+    {
           itemLabel item;
-          item.text = "Reduz minimamente o lixo das áreas criando um ambiente mais limpo e preservado ideal para ajudar a manter praias e parquer livres de residuos, incentivando pokemons e treinadores a se aventurarem mais nesses locais";
-          item.textX = 62;
-          item.textY = 89;
+          item.text = " Reduz minimamente o lixo das áreas criando um\n ambiente mais limpo e preservado ideal para\n ajudar a manter praias e parquer livres de\n residuos, incentivando pokemons e treinadores\n a se aventurarem mais nesses locais";
 
-          item.numberX = 105;
-          item.numberY = 48;
           item.coinNumber = "5";
 
           showItemLabel(item, assets);
         
-      }
+    }
 
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-      
-      if(CheckCollisionPointRec(mousePosition, PraiaLimpaButtonRect)){
-          printf("cu");
-        
-      }
-      
-      // if(CheckCollisionPointRec(mousePosition, SinalFarolButtonRect)){
-        
-      //   return;
-      // }
+    // if(level == LSINAL_FAROL_1){
+    //   itemLabel item;
+    //   //item.text = ""
+    // }
 
-      // if(CheckCollisionPointRec(mousePosition, EncantoIlhaButtonRect)){
-        
-      //   return;
-      // }
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+      if (CheckCollisionPointRec(mousePosition, leaveButtonRedRec))
+      {
+        *currentScreen = SELECT_PLACE;
+        return;
+      }
     }
     
 }
 
 void showItemLabel(itemLabel item, Assets coin)
-{    
-  Rectangle limit = {62, 89, 329, 89};
-  coin.coin.height = coin.coin.width = 40;
-  DrawTexture(coin.coin, 94, 467, RAYWHITE);
+{
 
-  DrawText(item.coinNumber, item.numberX, item.numberY, 20,BLACK);
-  Vector2 size = {item.textX , item.textY};
-  Vector2 origem = {0, 0};
+    coin.coin.height = 40;
+    coin.coin.width = 40;
 
-  DrawTextPro(GetFontDefault(), item.text, size, origem, 0.0f, 14, 1.0f, BLACK);
-  
+    DrawTexture(coin.coin, 94, 467, RAYWHITE);
 
-  
+    DrawText(item.coinNumber, 137, 480, 20, BLACK);
 
+    Vector2 position = { 380, 521 }; 
+    Vector2 size = { 300, 0 }; 
+    float rotation = 0.0f; 
+    float fontSize = 15; 
+    float spacing = 1.0f; 
+
+    Font font = GetFontDefault();
+    DrawTextPro(font, item.text, position, size, rotation, fontSize, spacing, BLACK);
 }
 
   static void handleBUttons(Vector2 mousePosition, Assets assets)
