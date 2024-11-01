@@ -72,17 +72,18 @@ void UpdateSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets asse
   {
     if (CheckCollisionPointRec(mousePosition, feiraButtonRedRect))
     {
-      printf("Caso feira");
       *currentScreen = FEIRA;
+      return;
+    }
+
+    if (CheckCollisionPointRec(mousePosition, leaveButtonBlueRect))
+    {
+      *currentScreen = MENU;
       return;
     }
   }
 
-  if (CheckCollisionPointRec(mousePosition, leaveButtonBlueRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-  {
-    *currentScreen = MENU;
-    return;
-  }
+  
 }
 
 static void handleButtons(Vector2 mousePosition, Assets assets)

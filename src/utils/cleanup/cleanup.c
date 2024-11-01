@@ -28,4 +28,16 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.pedraButtonRed);
   UnloadTexture(assets.feiraButtonRed);
   UnloadTexture(assets.pernamBall);
+
+  UnloadTexture(assets.confirmButton);
+  UnloadTexture(assets.cyndaquill);
+  UnloadTexture(assets.quilava);
+  UnloadTexture(assets.typhlosion);
+  UnloadTexture(assets.EncantoItamaracaButtonBlue);
+  UnloadTexture(assets.EncantoItamaracaButtonRed);
+  UnloadTexture(assets.PraiaLimpaButtonBlue);
+  UnloadTexture(assets.PraiaLimpaButtonRed);
+  UnloadTexture(assets.SinalFarolButtonBlue);
+  UnloadTexture(assets.SinalFarolButtonRed);
+
 }
