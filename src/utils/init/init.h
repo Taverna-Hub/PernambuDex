@@ -63,7 +63,9 @@ typedef struct
   Texture2D cyndaquill;
 
   Texture2D speechBubble;
-  
+
+  Texture2D captureCircle;
+  Texture2D captureIndicator;
 
 } Assets;
 

@@ -7,6 +7,7 @@
 #include "screens/menu/menu.h"
 #include "screens/select-place/place.h"
 #include "screens/feira/feira.h"
+#include "screens/olinda/olinda.h"
 
 int main(void)
 {
@@ -37,6 +38,11 @@ int main(void)
     {
       DrawFeira(&currentScreen, mousePosition, assets);
       UpdateFeira(&currentScreen, mousePosition, assets);
+    }
+    else if (currentScreen == OLINDA)
+    {
+      DrawOlinda(&currentScreen, mousePosition, assets);
+      UpdateOlinda(&currentScreen, mousePosition, assets);
     }
 
     assets.pernamBall.width = 24;

@@ -65,6 +65,7 @@ void DrawSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets assets
 
 void UpdateSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
+  Rectangle olindaButtonRedRect = {500, 319, assets.olindaButtonRed.width, assets.olindaButtonRed.height};
   Rectangle feiraButtonRedRect = {519, 485, assets.feiraButtonRed.width, assets.feiraButtonRed.height};
   Rectangle leaveButtonBlueRect = {649, 652, assets.leaveButtonBlue.width, assets.leaveButtonBlue.height};
 
@@ -76,14 +77,18 @@ void UpdateSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets asse
       return;
     }
 
+    if (CheckCollisionPointRec(mousePosition, olindaButtonRedRect))
+    {
+      *currentScreen = OLINDA;
+      return;
+    }
+
     if (CheckCollisionPointRec(mousePosition, leaveButtonBlueRect))
     {
       *currentScreen = MENU;
       return;
     }
   }
-
-  
 }
 
 static void handleButtons(Vector2 mousePosition, Assets assets)
