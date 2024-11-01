@@ -82,6 +82,8 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
           item.coinNumber = "5";
 
           showItemLabel(item, assets);
+          assets.itemPraiaLimpa_1.width = assets.itemPraiaLimpa_1.height = 69;
+          DrawTexture(assets.itemPraiaLimpa_1, 343, 445, RAYWHITE);
         
     }
 
@@ -89,6 +91,17 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     //   itemLabel item;
     //   //item.text = ""
     // }
+
+    if(level == LENCT_ITAM_1)
+    {
+      itemLabel item;
+      item.text = "";
+      item.coinNumber = "7";
+
+      showItemLabel(item, assets);
+      assets.itemEncanto_1.width = assets.itemEncanto_1.height = 65;
+      DrawTexture(assets.itemEncanto_1, 343, 448, RAYWHITE);
+    }
 
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -102,13 +115,12 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     
 }
 
-void showItemLabel(itemLabel item, Assets coin)
+void showItemLabel(itemLabel item, Assets assets)
 {
+    assets.coin.height = 40;
+    assets.coin.width = 40;
 
-    coin.coin.height = 40;
-    coin.coin.width = 40;
-
-    DrawTexture(coin.coin, 94, 467, RAYWHITE);
+    DrawTexture(assets.coin, 94, 467, RAYWHITE);
 
     DrawText(item.coinNumber, 137, 480, 20, BLACK);
 
@@ -120,6 +132,11 @@ void showItemLabel(itemLabel item, Assets coin)
 
     Font font = GetFontDefault();
     DrawTextPro(font, item.text, position, size, rotation, fontSize, spacing, BLACK);
+
+    assets.confirmButton.width = 106;
+    assets.confirmButton.height = 40;
+    Rectangle confirmButtonRect = {324, 616, assets.confirmButton.width, assets.confirmButton.height};
+    DrawTexture(assets.confirmButton, confirmButtonRect.x, confirmButtonRect.y, RAYWHITE);
 }
 
   static void handleBUttons(Vector2 mousePosition, Assets assets)
