@@ -36,6 +36,7 @@ int main(void)
     else if (currentScreen == FEIRA)
     {
       DrawFeira(&currentScreen, mousePosition, assets);
+      UpdateFeira(&currentScreen, mousePosition, assets);
     }
 
     assets.pernamBall.width = 24;

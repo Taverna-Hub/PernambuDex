@@ -42,7 +42,6 @@ typedef struct itemLabel
   char * text;
   int textX;
   int textY; 
-  int templateID;
   char * coinNumber;
   int numberX;
   int numberY;
@@ -61,14 +60,8 @@ void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   handleBUttons(mousePosition, assets);
 
 }
+void showItemLabel(itemLabel item, Assets coin);
 
-// void showItemLabel(itemLabel item, Assets coin)
-// {    
-//   Rectangle limit = {62, 89, 329, 89};
-//   DrawTexture(coin.coin, 62, 35, RAYWHITE);
-//   DrawText(item.coinNumber, item.numberX, item.numberY, 20,BLACK);
-//   DrawTextRec(GetFontDefault(), item.text, limit, 12, 2.0f, true, BLACK);
-// }
 
 void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
@@ -77,25 +70,55 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     Rectangle SinalFarolButtonRect = {688, 341, assets.SinalFarolButtonRed.width, assets.SinalFarolButtonRed.height};
     Rectangle EncantoIlhaButtonRect = {663, 432, assets.EncantoItamaracaButtonRed.width, assets.EncantoItamaracaButtonRed.height};
 
-    // if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-      
-    //   if(CheckCollisionsPointRec(mousePosition, PraiaLimpaButtonRect)){
-        
-        
-    //     return;
-    //   }
-      
-    //   if(CheckCollisionsPointRec(mousePosition, SinalFarolButtonRect)){
-        
-    //     return;
-    //   }
+    if(level == LPRAIA_LIMPA_1){
+          itemLabel item;
+          item.text = "Reduz minimamente o lixo das áreas criando um ambiente mais limpo e preservado ideal para ajudar a manter praias e parquer livres de residuos, incentivando pokemons e treinadores a se aventurarem mais nesses locais";
+          item.textX = 62;
+          item.textY = 89;
 
-    //   if(CheckCollisionsPointRec(mousePosition, EncantoIlhaButtonRect)){
+          item.numberX = 105;
+          item.numberY = 48;
+          item.coinNumber = "5";
+
+          showItemLabel(item, assets);
         
-    //     return;
-    //   }
-    // }
+      }
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+      
+      if(CheckCollisionPointRec(mousePosition, PraiaLimpaButtonRect)){
+          printf("cu");
+        
+      }
+      
+      // if(CheckCollisionPointRec(mousePosition, SinalFarolButtonRect)){
+        
+      //   return;
+      // }
+
+      // if(CheckCollisionPointRec(mousePosition, EncantoIlhaButtonRect)){
+        
+      //   return;
+      // }
+    }
     
+}
+
+void showItemLabel(itemLabel item, Assets coin)
+{    
+  Rectangle limit = {62, 89, 329, 89};
+  coin.coin.height = coin.coin.width = 40;
+  DrawTexture(coin.coin, 94, 467, RAYWHITE);
+
+  DrawText(item.coinNumber, item.numberX, item.numberY, 20,BLACK);
+  Vector2 size = {item.textX , item.textY};
+  Vector2 origem = {0, 0};
+
+  DrawTextPro(GetFontDefault(), item.text, size, origem, 0.0f, 14, 1.0f, BLACK);
+  
+
+  
+
 }
 
   static void handleBUttons(Vector2 mousePosition, Assets assets)
