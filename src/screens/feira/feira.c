@@ -36,9 +36,8 @@ typedef struct Button
 
 typedef struct itemLabel
 {
-  Assets image;
-  int imageX;
-  int imageY;
+  Texture2D image;
+  int imageSize;
   char * text;
   char * coinNumber;
   
@@ -80,27 +79,32 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
           item.text = " Reduz minimamente o lixo das áreas criando um\n ambiente mais limpo e preservado ideal para\n ajudar a manter praias e parquer livres de\n residuos, incentivando pokemons e treinadores\n a se aventurarem mais nesses locais";
 
           item.coinNumber = "5";
-
+          item.image = assets.itemPraiaLimpa_1;
+          item.imageSize = 69;
           showItemLabel(item, assets);
-          assets.itemPraiaLimpa_1.width = assets.itemPraiaLimpa_1.height = 69;
-          DrawTexture(assets.itemPraiaLimpa_1, 343, 445, RAYWHITE);
+          // assets.itemPraiaLimpa_1.width = assets.itemPraiaLimpa_1.height = 69;
+          // DrawTexture(assets.itemPraiaLimpa_1, 343, 445, RAYWHITE);
+
         
     }
 
-    // if(level == LSINAL_FAROL_1){
-    //   itemLabel item;
-    //   //item.text = ""
-    // }
+    if(level == LSINAL_FAROL_1){
+      itemLabel item;
+      item.text = "Aumenta suavemente a chance de capturar\n um pokemon de raridade maior. Esse farol irá\n ilumiar as aguas e florestas, facilitando a caça\n de pokemons lendarios.";
+      item.coinNumber = "10";
+      // item.image = ;
+      // item.imageSize = ;
+      showItemLabel(item, assets);
+    }
 
     if(level == LENCT_ITAM_1)
     {
       itemLabel item;
-      item.text = "";
+      item.text = " Aumenta um pouco a sua chance de capturar\n um pokemon. Esse encanto faz com que\n pokemons fiquem mais sucetiveis a cair em\n suas armadilhas e iscas.";
       item.coinNumber = "7";
-
+      item.image = assets.itemEncanto_1;
+      item.imageSize = 65;
       showItemLabel(item, assets);
-      assets.itemEncanto_1.width = assets.itemEncanto_1.height = 65;
-      DrawTexture(assets.itemEncanto_1, 343, 448, RAYWHITE);
     }
 
 
@@ -123,6 +127,9 @@ void showItemLabel(itemLabel item, Assets assets)
     DrawTexture(assets.coin, 94, 467, RAYWHITE);
 
     DrawText(item.coinNumber, 137, 480, 20, BLACK);
+    item.image.width = item.image.height = item.imageSize;
+    DrawTexture(item.image, 343, 448, RAYWHITE);
+
 
     Vector2 position = { 380, 521 }; 
     Vector2 size = { 300, 0 }; 
