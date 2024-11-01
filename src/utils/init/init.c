@@ -28,7 +28,7 @@ Assets LoadAssets(void)
   assets.noivaButtonBlue = LoadTexture("assets/buttons/blue/noivaButton.png");
   assets.olindaButtonBlue = LoadTexture("assets/buttons/blue/olindaButton.png");
   assets.pedraButtonBlue = LoadTexture("assets/buttons/blue/pedraButton.png");
-  assets.PraiaLimpaButtonBlue = LoadTexture("assets/buttons/blue/praiaLimpaButton.png"); 
+  assets.PraiaLimpaButtonBlue = LoadTexture("assets/buttons/blue/praiaLimpaButton.png");
   assets.SinalFarolButtonBlue = LoadTexture("assets/buttons/blue/sinalFarolButton.png");
   assets.EncantoItamaracaButtonBlue = LoadTexture("assets/buttons/blue/encantoItamaracaButton.png");
 
@@ -49,6 +49,8 @@ Assets LoadAssets(void)
   assets.cyndaquill = LoadTexture("assets/pokemons/feira/cyndaquill.png");
   assets.speechBubble = LoadTexture("assets/speech-bubble.png");
 
+  assets.captureCircle = LoadTexture("assets/captureCircle.png");
+  assets.captureIndicator = LoadTexture("assets/captureIndicator.png");
 
   return assets;
 }

@@ -40,4 +40,6 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.SinalFarolButtonBlue);
   UnloadTexture(assets.SinalFarolButtonRed);
 
+  UnloadTexture(assets.captureCircle);
+  UnloadTexture(assets.captureIndicator);
 }
