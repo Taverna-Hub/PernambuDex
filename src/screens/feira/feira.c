@@ -86,14 +86,60 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
         
     }
 
+    if(level == LPRAIA_LIMPA_2)
+    {
+          itemLabel item;
+          item.text = " Diminuir drasticamente o aparecimento de\n lixo nos locais de captura. redes que pegam\n os Trubbish antes de chegarem à areia. Menos\n lixo, mais diversão.";
+
+          item.coinNumber = "30";
+          item.image = assets.itemPraiaLimpa_3;
+          item.imageSize = 69;
+          showItemLabel(item, assets);
+
+        
+    }
+
+    if(level == LPRAIA_LIMPA_3)
+    {
+          itemLabel item;
+          item.text = " Erradica o lixo nas areas de captura. Porque\n quem quer um Garbodor na praia? Vamos\n transformar nosso paraíso em um lugar livre\n de Trubbish! ";
+
+          item.coinNumber = "200";
+          item.image = assets.itemPraiaLimpa_3;
+          item.imageSize = 69;
+          showItemLabel(item, assets);
+
+        
+    }
+
     if(level == LSINAL_FAROL_1){
       itemLabel item;
-      item.text = "Aumenta suavemente a chance de capturar\n um pokemon de raridade maior. Esse farol irá\n ilumiar as aguas e florestas, facilitando a caça\n de pokemons lendarios.";
+      item.text = " Aumenta suavemente a chance de capturar\n um pokemon de raridade maior. Esse farol irá\n ilumiar as aguas e florestas, facilitando a caça\n de pokemons lendarios.";
       item.coinNumber = "10";
       // item.image = ;
       // item.imageSize = ;
       showItemLabel(item, assets);
     }
+
+    if(level == LSINAL_FAROL_2){
+      itemLabel item;
+      item.text = " Facilita ainda mais a captura de pokemons.\n Com essa luz encandeante, os pokemons mais\n resistentes se tornam mais facil de serem\n caçados.";
+      item.coinNumber = "75";
+      // item.image = ;
+      // item.imageSize = ;
+      showItemLabel(item, assets);
+    }
+
+    if(level == LSINAL_FAROL_3){
+      itemLabel item;
+      item.text = " Aumenta suavemente a chance de capturar\n um pokemon de raridade maior. Esse farol irá\n ilumiar as aguas e florestas, facilitando a caça\n de pokemons lendarios.";
+      item.coinNumber = "500";
+      // item.image = ;
+      // item.imageSize = ;
+      showItemLabel(item, assets);
+    }
+
+
 
     if(level == LENCT_ITAM_1)
     {
@@ -101,6 +147,17 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
       item.text = " Aumenta um pouco a sua chance de capturar\n um pokemon. Esse encanto faz com que\n pokemons fiquem mais sucetiveis a cair em\n suas armadilhas e iscas.";
       item.coinNumber = "7";
       item.image = assets.itemEncanto_1;
+      item.imageSize = 65;
+      showItemLabel(item, assets);
+    }
+
+
+    if(level == LENCT_ITAM_2)
+    {
+      itemLabel item;
+      item.text = " Aumenta ainda mais sua chance de capturar\n um pokemon de raridade maior. Esse encanto\n tem um estramho poder der atrair apenas\n pokemons mais raros.";
+      item.coinNumber = "20";
+      item.image = assets.itemEncanto_2;
       item.imageSize = 65;
       showItemLabel(item, assets);
     }
