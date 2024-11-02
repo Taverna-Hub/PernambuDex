@@ -82,8 +82,6 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
           item.image = assets.itemPraiaLimpa_1;
           item.imageSize = 69;
           showItemLabel(item, assets);
-          // assets.itemPraiaLimpa_1.width = assets.itemPraiaLimpa_1.height = 69;
-          // DrawTexture(assets.itemPraiaLimpa_1, 343, 445, RAYWHITE);
 
         
     }
@@ -121,12 +119,11 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
 void showItemLabel(itemLabel item, Assets assets)
 {
-    assets.coin.height = 40;
-    assets.coin.width = 40;
+    assets.coin.height = assets.coin.width = 60;
 
-    DrawTexture(assets.coin, 94, 467, RAYWHITE);
+    DrawTexture(assets.coin, 326, 141, RAYWHITE);
 
-    DrawText(item.coinNumber, 137, 480, 20, BLACK);
+    DrawText(item.coinNumber, 390, 152, 40, DARKBROWN);
     item.image.width = item.image.height = item.imageSize;
     DrawTexture(item.image, 343, 448, RAYWHITE);
 
