@@ -10,6 +10,10 @@
 #include "screens/olinda/olinda.h"
 #include "character/character.h"
 
+// Lendário - 1
+// Raro - 4
+// Comum - 6
+// Lixo - 9
 
 int main(void)
 {
@@ -19,8 +23,34 @@ int main(void)
 
   Assets assets = LoadAssets();
   Vector2 mousePosition = GetMousePosition();
-  Character character;
-  inicializeCharacter("coiso", 0); //verificar com elas
+  inicializeCharacter("coiso", 0);
+  initializePokemon(assets);
+
+  for (int i = 1; i < 5; i++)
+  {
+    if (pokemons[i].rarity == COMMON)
+    {
+      for (int j = 0; j < 5; j++)
+      {
+        inserir(&olindaHead, &olindaTail, pokemons[i]);
+      }
+    }
+
+    if (pokemons[i].rarity == RARE)
+    {
+      for (int j = 0; j < 3; j++)
+      {
+        inserir(&olindaHead, &olindaTail, pokemons[i]);
+      }
+    }
+
+    inserir(&olindaHead, &olindaTail, pokemons[i]);
+  }
+
+  for (int i = 0; i < 9; i++)
+  {
+    inserir(&olindaHead, &olindaTail, pokemons[0]);
+  }
 
   HideCursor();
   while (!WindowShouldClose())

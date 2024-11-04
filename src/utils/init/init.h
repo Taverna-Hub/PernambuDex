@@ -2,7 +2,7 @@
 #define INIT_H
 
 #include "raylib.h"
-
+#include "../constants.h"
 typedef struct
 {
   Texture2D boaViagemMenu;
@@ -71,8 +71,38 @@ typedef struct
   Texture2D captureCircle;
   Texture2D captureIndicator;
 
+  Texture2D trubbish;
+
+  Texture2D garchomp;
+  Texture2D magikarp;
+  Texture2D sharpedo;
+  Texture2D vaporeon;
+  Texture2D wailord;
+
+  Texture2D chandelure;
+  Texture2D darkrai;
+  Texture2D haunter;
+  Texture2D mismagius;
+  Texture2D zoroark;
+
+  Texture2D cacnea;
+  Texture2D flygon;
+  Texture2D groudon;
+  Texture2D mandibuzz;
+  Texture2D sandile;
+
+  Texture2D hoOh;
+  Texture2D ninjask;
+  Texture2D pidove;
+  Texture2D sweallow;
+  Texture2D yammega;
+
 } Assets;
 
 Assets LoadAssets(void);
+
+extern Pokemon pokemons[25];
+
+void initializePokemon(Assets assets);
 
 #endif

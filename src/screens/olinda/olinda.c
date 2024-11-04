@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../../utils/constants.h"
 #include "../../utils/resizeImage/resizeImage.h"
@@ -44,6 +45,26 @@ void DrawOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   imageProps olindaBackground = resizeImage(assets.olindaMenu);
   DrawTextureEx(assets.olindaMenu, (Vector2){olindaBackground.x, olindaBackground.y}, 0.0f, olindaBackground.scale, WHITE);
+}
+
+void initializeCircularList(PokeNode **head, PokeNode **tail, Pokemon pokemon)
+{
+  PokeNode *newPokeNode = (PokeNode *)malloc(sizeof(PokeNode));
+  newPokeNode->pokemon = pokemon;
+
+  if (newPokeNode != NULL)
+  {
+    if (*head == NULL)
+    {
+      *head = *tail = newPokeNode;
+    }
+    else
+    {
+      newPokeNode->next = *head;
+      *head = newPokeNode;
+    }
+    (*tail)->next = *head;
+  }
 }
 
 void handleCaptureCircle(Assets assets, Vector2 circlePosition, float innerRadius, float speed)
