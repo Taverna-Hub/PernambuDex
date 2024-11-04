@@ -40,6 +40,13 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.SinalFarolButtonBlue);
   UnloadTexture(assets.SinalFarolButtonRed);
 
+  UnloadTexture(assets.itemEncanto_1);
+  UnloadTexture(assets.itemEncanto_2);
+  UnloadTexture(assets.itemEncanto_3);
+  UnloadTexture(assets.itemPraiaLimpa_1);
+  UnloadTexture(assets.itemPraiaLimpa_2);
+  UnloadTexture(assets.itemPraiaLimpa_3);
+
   UnloadTexture(assets.captureCircle);
   UnloadTexture(assets.captureIndicator);
 }

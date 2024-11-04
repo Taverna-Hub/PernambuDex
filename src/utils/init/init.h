@@ -46,6 +46,14 @@ typedef struct
   Texture2D SinalFarolButtonBlue;
   Texture2D EncantoItamaracaButtonBlue;
 
+  Texture2D itemEncanto_1;
+  Texture2D itemEncanto_2;
+  Texture2D itemEncanto_3;
+
+  Texture2D itemPraiaLimpa_1;
+  Texture2D itemPraiaLimpa_2;
+  Texture2D itemPraiaLimpa_3;
+
   Texture2D pernamBall;
   Texture2D coin;
   Texture2D confirmButton;

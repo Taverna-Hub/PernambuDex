@@ -40,6 +40,15 @@ Assets LoadAssets(void)
   assets.PraiaLimpaButtonRed = LoadTexture("assets/buttons/red/praiaLimpaButton.png");
   assets.SinalFarolButtonRed = LoadTexture("assets/buttons/red/sinalFarolButton.png");
   assets.EncantoItamaracaButtonRed = LoadTexture("assets/buttons/red/encantoItamaracaButton.png");
+
+  assets.itemEncanto_1 = LoadTexture("assets/items/itemEncanto_1.png");
+  assets.itemEncanto_2 = LoadTexture("assets/items/itemEncanto_2.png");
+  assets.itemEncanto_3 = LoadTexture("assets/items/itemEncanto_3.png");
+
+  assets.itemPraiaLimpa_1 = LoadTexture("assets/items/itemPraiaLimpa_1.png");
+  assets.itemPraiaLimpa_2 = LoadTexture("assets/items/itemPraiaLimpa_2.png");
+  assets.itemPraiaLimpa_3 = LoadTexture("assets/items/itemPraiaLimpa_3.png");
+
   assets.pernamBall = LoadTexture("assets/pernam-ball.png");
   assets.coin = LoadTexture("assets/coin.png");
   assets.confirmButton = LoadTexture("assets/buttons/green/confirmButton.png");

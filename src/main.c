@@ -8,6 +8,8 @@
 #include "screens/select-place/place.h"
 #include "screens/feira/feira.h"
 #include "screens/olinda/olinda.h"
+#include "character/character.h"
+
 
 int main(void)
 {
@@ -17,6 +19,8 @@ int main(void)
 
   Assets assets = LoadAssets();
   Vector2 mousePosition = GetMousePosition();
+  Character character;
+  inicializeCharacter("coiso", 0); //verificar com elas
 
   HideCursor();
   while (!WindowShouldClose())
