@@ -45,6 +45,10 @@ Assets LoadAssets(void)
   assets.itemEncanto_2 = LoadTexture("assets/items/itemEncanto_2.png");
   assets.itemEncanto_3 = LoadTexture("assets/items/itemEncanto_3.png");
 
+  assets.itemFarol_1 = LoadTexture("assets/items/itemFarol_1.png");
+  assets.itemFarol_2 = LoadTexture("assets/items/itemFarol_2.png");
+  assets.itemFarol_3 = LoadTexture("assets/items/itemFarol_3.png");
+
   assets.itemPraiaLimpa_1 = LoadTexture("assets/items/itemPraiaLimpa_1.png");
   assets.itemPraiaLimpa_2 = LoadTexture("assets/items/itemPraiaLimpa_2.png");
   assets.itemPraiaLimpa_3 = LoadTexture("assets/items/itemPraiaLimpa_3.png");

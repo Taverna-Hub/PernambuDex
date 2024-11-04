@@ -43,6 +43,9 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.itemEncanto_1);
   UnloadTexture(assets.itemEncanto_2);
   UnloadTexture(assets.itemEncanto_3);
+  UnloadTexture(asstes.itemFarol_1);
+  UnloadTexture(asstes.itemFarol_2);
+  UnloadTexture(asstes.itemFarol_3);
   UnloadTexture(assets.itemPraiaLimpa_1);
   UnloadTexture(assets.itemPraiaLimpa_2);
   UnloadTexture(assets.itemPraiaLimpa_3);

@@ -50,6 +50,10 @@ typedef struct
   Texture2D itemEncanto_2;
   Texture2D itemEncanto_3;
 
+  Texture2D itemFarol_1;
+  Texture2D itemFarol_2;
+  Texture2D itemFarol_3;
+
   Texture2D itemPraiaLimpa_1;
   Texture2D itemPraiaLimpa_2;
   Texture2D itemPraiaLimpa_3;
