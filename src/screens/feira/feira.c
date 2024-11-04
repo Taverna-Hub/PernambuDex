@@ -5,8 +5,8 @@
 #include "../../utils/cleanup/cleanup.h"
 #include "../../utils/button/button.h"
 #include "feira.h"
+#include "../../character/character.h"
 #include <stdio.h>
-
 
 typedef enum Levels
 {
