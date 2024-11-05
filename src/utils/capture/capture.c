@@ -17,7 +17,7 @@ void handleCaptureCircle(Assets assets, Vector2 circlePosition, float innerRadiu
   DrawTexture(assets.captureIndicator, ballX, ballY, WHITE);
 }
 
-void handleUpdateCaptureCircle(Vector2 circlePosition, float innerRadius, float *angle)
+bool handleUpdateCaptureCircle(Vector2 circlePosition, float innerRadius, float *angle)
 {
   if (IsKeyReleased(KEY_SPACE))
   {
@@ -31,7 +31,9 @@ void handleUpdateCaptureCircle(Vector2 circlePosition, float innerRadius, float 
 
     if (captureX && captureY)
     {
-      printf("Capturado!");
+      return true;
     }
+
+    return false;
   }
 }

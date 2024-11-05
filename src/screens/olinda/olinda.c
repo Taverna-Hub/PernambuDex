@@ -9,14 +9,14 @@
 #include "../../utils/cleanup/cleanup.h"
 #include "../../utils/button/button.h"
 #include "../../utils/capture/capture.h"
-#include "../../utils/circular/circular.h"
 #include "olinda.h"
 
-static void handleChoosePokemon();
+static bool handleChoosePokemon();
 
 static float angle = 0.0f;
 static PokeNode *currentPokemon = NULL;
 static float timeCounter = 0.0f;
+bool isPokemonChosen = false;
 
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
@@ -24,9 +24,16 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   float innerRadius = (assets.captureCircle.width / 2.0f) * 0.85f;
   float speed = 0.001f;
 
-  handleCaptureCircle(assets, circlePosition, innerRadius, speed, &angle);
-  handleUpdateCaptureCircle(circlePosition, innerRadius, &angle);
-  handleChoosePokemon();
+  if (isPokemonChosen)
+  {
+    DrawTexture(currentPokemon->pokemon.image, 96, 96, RAYWHITE);
+    handleCaptureCircle(assets, circlePosition, innerRadius, speed, &angle);
+    bool isInArea = handleUpdateCaptureCircle(circlePosition, innerRadius, &angle);
+  }
+  else
+  {
+    isPokemonChosen = handleChoosePokemon();
+  }
 }
 
 void DrawOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
@@ -42,21 +49,30 @@ void DrawOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   }
 }
 
-static void handleChoosePokemon()
+static bool handleChoosePokemon()
 {
   timeCounter += GetFrameTime();
 
-  if (timeCounter >= 0.5f)
+  if (!IsKeyPressed(KEY_SPACE))
   {
-    if (currentPokemon == NULL)
+    if (timeCounter >= 0.5f)
     {
-      currentPokemon = olindaHead;
-    }
-    else
-    {
-      currentPokemon = currentPokemon->next;
+      if (currentPokemon == NULL)
+      {
+        currentPokemon = olindaHead;
+      }
+      else
+      {
+        currentPokemon = currentPokemon->next;
+      }
+
+      timeCounter = 0.0f;
     }
 
-    timeCounter = 0.0f;
+    return false;
+  }
+  else
+  {
+    return true;
   }
 }
