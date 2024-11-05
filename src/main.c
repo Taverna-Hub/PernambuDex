@@ -15,25 +15,11 @@
 // Comum - 6
 // Lixo - 9
 
-void imprimir(PokeNode *head, PokeNode *tail)
-{
-  if (head != NULL)
-  {
-    do
-    {
-      printf("%s -> ", head->pokemon.name);
-      head = head->next;
-    } while (head != tail->next);
-  }
-  printf("NULL\n");
-}
-
+PokeNode *olindaHead = NULL;
+PokeNode *olindaTail = NULL;
 int main(void)
 {
   Screen currentScreen = MENU;
-
-  PokeNode *olindaHead = NULL;
-  PokeNode *olindaTail = NULL;
 
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Pernambudex");
 
