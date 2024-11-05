@@ -97,6 +97,8 @@ typedef struct
   Texture2D sweallow;
   Texture2D yammega;
 
+  Texture2D unknownPokemon;
+
 } Assets;
 
 Assets LoadAssets(void);

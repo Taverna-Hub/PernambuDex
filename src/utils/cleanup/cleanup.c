@@ -49,6 +49,34 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.itemPraiaLimpa_1);
   UnloadTexture(assets.itemPraiaLimpa_2);
   UnloadTexture(assets.itemPraiaLimpa_3);
+  
+  UnloadTexture(assets.trubbish);
+
+  UnloadTexture(assets.garchomp);
+  UnloadTexture(assets.magikarp);
+  UnloadTexture(assets.sharpedo);
+  UnloadTexture(assets.vaporeon);
+  UnloadTexture(assets.wailord);
+
+  UnloadTexture(assets.chandelure);
+  UnloadTexture(assets.darkrai);
+  UnloadTexture(assets.haunter);
+  UnloadTexture(assets.mismagius);
+  UnloadTexture(assets.zoroark);
+
+  UnloadTexture(assets.cacnea);
+  UnloadTexture(assets.flygon);
+  UnloadTexture(assets.groudon);
+  UnloadTexture(assets.mandibuzz);
+  UnloadTexture(assets.sandile);
+
+  UnloadTexture(assets.hoOh);
+  UnloadTexture(assets.ninjask);
+  UnloadTexture(assets.pidove);
+  UnloadTexture(assets.sweallow);
+  UnloadTexture(assets.yammega);
+
+  UnloadTexture(assets.unknownPokemon);
 
   UnloadTexture(assets.captureCircle);
   UnloadTexture(assets.captureIndicator);

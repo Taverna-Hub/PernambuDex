@@ -91,6 +91,8 @@ Assets LoadAssets(void)
   assets.sweallow = LoadTexture("assets/pokemons/veuNoiva/sweallow.png");
   assets.yammega = LoadTexture("assets/pokemons/veuNoiva/yammega.png");
 
+  assets.unknownPokemon = LoadTexture("assets/pokemons/unknownPokemon.png");
+
   assets.speechBubble = LoadTexture("assets/speech-bubble.png");
 
   assets.captureCircle = LoadTexture("assets/captureCircle.png");
