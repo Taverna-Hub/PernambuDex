@@ -17,6 +17,13 @@
 
 PokeNode *olindaHead = NULL;
 PokeNode *olindaTail = NULL;
+
+PokeNode *noivaHead = NULL;
+PokeNode *noivaTail = NULL;
+
+PokeNode *pedraHead = NULL;
+PokeNode *pedraTail = NULL;
+
 int main(void)
 {
   Screen currentScreen = MENU;
@@ -28,8 +35,11 @@ int main(void)
   inicializeCharacter("coiso", 0);
   initializePokemon(assets);
 
-  initializeCircularList(pokemons, &olindaHead, &olindaTail, 1);
-
+  initializeCircularList(pokemons, &olindaHead, &olindaTail, 6);
+  initializeCircularList(pokemons, &noivaHead, &noivaTail, 11);
+  initializeCircularList(pokemons, &noivaHead, &noivaTail, 16);
+  Item praiaLimpa;
+  initItem();
   HideCursor();
   while (!WindowShouldClose())
   {

@@ -17,6 +17,7 @@ static float angle = 0.0f;
 static PokeNode *currentPokemon = NULL;
 static float timeCounter = 0.0f;
 bool isPokemonChosen = false;
+bool isInArea = true;
 
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
@@ -26,13 +27,26 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   if (isPokemonChosen)
   {
-    DrawTexture(currentPokemon->pokemon.image, 96, 96, RAYWHITE);
     handleCaptureCircle(assets, circlePosition, innerRadius, speed, &angle);
-    bool isInArea = handleUpdateCaptureCircle(circlePosition, innerRadius, &angle);
+
+    isInArea = handleUpdateCaptureCircle(circlePosition, innerRadius, &angle);
+
+    if (isInArea)
+    {
+      DrawRectangle(0, 189, 1019, 317, RED);
+    }
+    else
+    {
+      DrawRectangle(0, 189, 1019, 317, GREEN);
+    }
   }
   else
   {
     isPokemonChosen = handleChoosePokemon();
+    if (currentPokemon != NULL)
+    {
+      printf("%s -> ", currentPokemon->pokemon.name);
+    }
   }
 }
 
@@ -42,16 +56,11 @@ void DrawOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   imageProps olindaBackground = resizeImage(assets.olindaMenu);
   DrawTextureEx(assets.olindaMenu, (Vector2){olindaBackground.x, olindaBackground.y}, 0.0f, olindaBackground.scale, WHITE);
-
-  if (currentPokemon != NULL)
-  {
-    printf("%s -> ", currentPokemon->pokemon.name);
-  }
 }
 
 static bool handleChoosePokemon()
 {
-  timeCounter += GetFrameTime();
+  false timeCounter += GetFrameTime();
 
   if (!IsKeyPressed(KEY_SPACE))
   {

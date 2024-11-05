@@ -97,6 +97,7 @@ Assets LoadAssets(void)
 
   assets.captureCircle = LoadTexture("assets/captureCircle.png");
   assets.captureIndicator = LoadTexture("assets/captureIndicator.png");
+  assets.capturedRectangle = LoadTexture("assets/capture.png");
 
   return assets;
 }
@@ -293,4 +294,8 @@ void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail
       insertCircular(head, tail, pokemon);
     }
   }
+}
+
+Item initItem(char)
+{
 }
