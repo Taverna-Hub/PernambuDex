@@ -111,6 +111,4 @@ void initializePokemon(Assets assets);
 
 void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail, int startIndex);
 
-Item in
-
 #endif

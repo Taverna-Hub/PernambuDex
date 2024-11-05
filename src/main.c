@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <raylib.h>
+#include <stdlib.h>
 #include "utils/constants.h"
 #include "utils/resizeImage/resizeImage.h"
 #include "utils/init/init.h"
@@ -24,6 +25,10 @@ PokeNode *noivaTail = NULL;
 PokeNode *pedraHead = NULL;
 PokeNode *pedraTail = NULL;
 
+// Item PraiaLimpa;
+// Item SinalFarol;
+// Item EncantoItamaraca;
+
 int main(void)
 {
   Screen currentScreen = MENU;
@@ -32,14 +37,15 @@ int main(void)
 
   Assets assets = LoadAssets();
   Vector2 mousePosition = GetMousePosition();
+
   inicializeCharacter("coiso", 0);
+  handleInitializeAllItems(assets);
   initializePokemon(assets);
 
   initializeCircularList(pokemons, &olindaHead, &olindaTail, 6);
   initializeCircularList(pokemons, &noivaHead, &noivaTail, 11);
   initializeCircularList(pokemons, &noivaHead, &noivaTail, 16);
-  Item praiaLimpa;
-  initItem();
+
   HideCursor();
   while (!WindowShouldClose())
   {

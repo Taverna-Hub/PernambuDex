@@ -60,7 +60,7 @@ void DrawOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
 static bool handleChoosePokemon()
 {
-  false timeCounter += GetFrameTime();
+  timeCounter += GetFrameTime();
 
   if (!IsKeyPressed(KEY_SPACE))
   {

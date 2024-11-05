@@ -1,18 +1,54 @@
-#include <raylib.h>
+#include "raylib.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 #include "../../utils/constants.h"
 #include "../../utils/resizeImage/resizeImage.h"
 #include "../../utils/init/init.h"
 #include "../../utils/cleanup/cleanup.h"
 #include "../../utils/button/button.h"
-#include "feira.h"
 #include "../../character/character.h"
-#include <stdio.h>
-#include <string.h>
+#include "feira.h"
 
-static void handleBUttons(Vector2 mousePosition, Assets assets, Levels lvlPraia, Levels lvlFarol, Levels lvlEncanto);
+static void handleButtons(Vector2 mousePosition, Assets assets);
 
-Levels level = LVL_0;
 int shopkeeperLevel = 0;
+
+void initializeItems(Item *item, char *coinNumber, char *text, Texture2D image, int imageSize)
+{
+  strncpy(item->coinNumber, coinNumber, sizeof(item->coinNumber) - 1);
+  item->coinNumber[sizeof(item->coinNumber) - 1] = '\0';
+
+  strncpy(item->text, text, sizeof(item->text) - 1);
+  item->text[sizeof(item->text) - 1] = '\0';
+
+  item->image = image;
+  item->imageSize = imageSize;
+}
+
+int lvl_Praia = 0;
+int lvl_Encanto = 0;
+int lvl_Farol = 0;
+int botao = 0;
+
+Item PraiaLimpa[3];
+Item SinalFarol[3];
+Item EncantoItamaraca[3];
+void handleInitializeAllItems(Assets assets)
+{
+  initializeItems(&PraiaLimpa[0], "5", " Reduz minimamente o lixo das áreas criando um\n ambiente mais limpo e preservado ideal para\n ajudar a manter praias e parquer livres de\n residuos, incentivando pokemons e treinadores\n a se aventurarem mais nesses locais", assets.itemPraiaLimpa_1, 69);
+  initializeItems(&PraiaLimpa[1], "15", " Diminuir drasticamente o aparecimento de\n lixo nos locais de captura. redes que pegam\n os Trubbish antes de chegarem à areia. Menos\n lixo, mais diversão.", assets.itemPraiaLimpa_2, 69);
+  initializeItems(&PraiaLimpa[2], "100", " Erradica o lixo nas áreas de captura. Porque\n quem quer um Garbodor na praia? Vamos\n transformar nosso paraíso em um lugar livre\n de Trubbish! ", assets.itemPraiaLimpa_3, 69);
+
+  initializeItems(&SinalFarol[0], "7", " Aumenta suavemente a chance de capturar\n um pokemon de raridade maior. Esse farol irá\n ilumiar as aguas e florestas, facilitando a caça\n de pokemons lendarios.", assets.itemFarol_1, 60);
+  initializeItems(&SinalFarol[1], "17", " Facilita ainda mais a captura de pokemons.\n Com essa luz encandeante, os pokemons mais\n resistentes se tornam mais facil de serem\n caçados.", assets.itemFarol_2, 60);
+  initializeItems(&SinalFarol[2], "107", " Cega temporariamente a maioria dos pokemons, facilitando sua captura. Acho que tem uma pedra do sol lá dentro.", assets.itemFarol_3, 60);
+
+  initializeItems(&EncantoItamaraca[0], "10", " Aumenta um pouco a sua chance de capturar\n um pokemon. Esse encanto faz com que\n pokemons fiquem mais sucetiveis a cair em\n suas armadilhas e iscas.", assets.itemEncanto_1, 65);
+  initializeItems(&EncantoItamaraca[1], "20", " Aumenta ainda mais sua chance de capturar\n um pokemon de raridade maior. Esse encanto\n tem um estranho poder der atrair apenas\n pokemons mais raros.", assets.itemEncanto_2, 65);
+  initializeItems(&EncantoItamaraca[2], "110", " Aumenta drasticamente a chance de\n capturar um pokemon de raridade maior. Esse\n farol irá ilumiar as aguas e florestas,\n facilitando a caça de pokemons lendarios.", assets.itemEncanto_3, 65); // todo
+}
 
 void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
@@ -45,7 +81,7 @@ void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   sprintf(moneyStr, "%ld", character.money);
   DrawText(moneyStr, 95, 45, 40, RAYWHITE);
 
-  handleBUttons(mousePosition, assets, );
+  handleButtons(mousePosition, assets);
 }
 
 void showItemLabel(Item item, Assets coin);
@@ -59,99 +95,23 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   Rectangle leaveButtonRedRec = {749, 578, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
   Rectangle confirmButtonRect = {292, 184, assets.confirmButton.width, assets.confirmButton.height};
 
-  if (level == LPRAIA_LIMPA_1)
+  // SELEÇÃO DE ITENS
+  if (botao == 1)
   {
-    Item item;
-    // item.text = character.name;
-    item.text = " Reduz minimamente o lixo das áreas criando um\n ambiente mais limpo e preservado ideal para\n ajudar a manter praias e parquer livres de\n residuos, incentivando pokemons e treinadores\n a se aventurarem mais nesses locais";
-
-    item.coinNumber = "5";
-    item.image = assets.itemPraiaLimpa_1;
-    item.imageSize = 69;
-    showItemLabel(item, assets);
+    showItemLabel(PraiaLimpa[lvl_Praia], assets);
   }
 
-  if (level == LPRAIA_LIMPA_2)
+  else if (botao == 2)
   {
-    Item item;
-    item.text = " Diminuir drasticamente o aparecimento de\n lixo nos locais de captura. redes que pegam\n os Trubbish antes de chegarem à areia. Menos\n lixo, mais diversão.";
-
-    item.coinNumber = "30";
-    item.image = assets.itemPraiaLimpa_3;
-    item.imageSize = 69;
-    showItemLabel(item, assets);
+    showItemLabel(SinalFarol[lvl_Farol + 2], assets);
   }
 
-  if (level == LPRAIA_LIMPA_3)
+  else if (botao == 3)
   {
-    Item item;
-    item.text = " Erradica o lixo nas areas de captura. Porque\n quem quer um Garbodor na praia? Vamos\n transformar nosso paraíso em um lugar livre\n de Trubbish! ";
-
-    item.coinNumber = "200";
-    item.image = assets.itemPraiaLimpa_3;
-    item.imageSize = 69;
-    showItemLabel(item, assets);
+    showItemLabel(EncantoItamaraca[lvl_Encanto], assets);
   }
 
-  if (level == LSINAL_FAROL_1)
-  {
-    Item item;
-    // item.text = pokemons[0].name;
-    item.text = " Aumenta suavemente a chance de capturar\n um pokemon de raridade maior. Esse farol irá\n ilumiar as aguas e florestas, facilitando a caça\n de pokemons lendarios.";
-    item.coinNumber = "10";
-    item.image = assets.itemFarol_1;
-    item.imageSize = 60;
-    showItemLabel(item, assets);
-  }
-
-  if (level == LSINAL_FAROL_2)
-  {
-    Item item;
-    item.text = " Facilita ainda mais a captura de pokemons.\n Com essa luz encandeante, os pokemons mais\n resistentes se tornam mais facil de serem\n caçados.";
-    item.coinNumber = "75";
-    item.image = assets.itemFarol_2;
-    item.imageSize = 60;
-    showItemLabel(item, assets);
-  }
-
-  if (level == LSINAL_FAROL_3)
-  {
-    Item item;
-    item.text = " Aumenta suavemente a chance de capturar\n um pokemon de raridade maior. Esse farol irá\n ilumiar as aguas e florestas, facilitando a caça\n de pokemons lendarios.";
-    item.coinNumber = "500";
-    item.image = assets.itemFarol_3;
-    item.imageSize = 60;
-    showItemLabel(item, assets);
-  }
-
-  if (level == LENCT_ITAM_1)
-  {
-    Item item;
-    item.text = " Aumenta um pouco a sua chance de capturar\n um pokemon. Esse encanto faz com que\n pokemons fiquem mais sucetiveis a cair em\n suas armadilhas e iscas.";
-    item.coinNumber = "7";
-    item.image = assets.itemEncanto_1;
-    item.imageSize = 60;
-    showItemLabel(item, assets);
-  }
-
-  if (level == LENCT_ITAM_2)
-  {
-    Item item;
-    item.text = " Aumenta ainda mais sua chance de capturar\n um pokemon de raridade maior. Esse encanto\n tem um estramho poder der atrair apenas\n pokemons mais raros.";
-    item.coinNumber = "20";
-    item.image = assets.itemEncanto_2;
-    item.imageSize = 65;
-    showItemLabel(item, assets);
-  }
-  if (level == LENCT_ITAM_3)
-  {
-    Item item;
-    item.text = " Aumenta drasticamente a chance de\n capturar um pokemon de raridade maior. Esse\n farol irá ilumiar as aguas e florestas,\n facilitando a caça de pokemons lendarios.";
-    item.coinNumber = "200";
-    item.image = assets.itemEncanto_3;
-    item.imageSize = 65;
-    showItemLabel(item, assets);
-  }
+  // BOTOES SAIR E COMPRAR
 
   if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
@@ -160,49 +120,31 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
       *currentScreen = SELECT_PLACE;
       return;
     }
+
     if (CheckCollisionPointRec(mousePosition, confirmButtonRect))
     {
-      switch (level)
+      switch (botao)
       {
-      case LPRAIA_LIMPA_1:
+      case 1:
+        printf("COMRPOU CU1");
+        break;
 
-        if (buyItem(10))
-        {
-        }
-        else
-        {
-          printf("\neres pobre, no tenes denhero");
-        }
+      case 2:
+        printf("COMRPOU C11");
+
         break;
-      case LPRAIA_LIMPA_2:
-        /* code */
-        break;
-      case LPRAIA_LIMPA_3:
-        /* code */
-        break;
-      case LENCT_ITAM_1:
-        /* code */
-        break;
-      case LENCT_ITAM_2:
-        /* code */
-        break;
-      case LENCT_ITAM_3:
-        /* code */
-        break;
-      case LSINAL_FAROL_1:
-        /* code */
-        break;
-      case LSINAL_FAROL_2:
-        /* code */
-        break;
-      case LSINAL_FAROL_3:
-        /* code */
+
+      case 3:
+        printf("COMRPOU C21");
+
         break;
 
       default:
         printf("\neres pobre, no tenes denhero");
         break;
       }
+
+      printf("cu");
     }
   }
 }
@@ -232,7 +174,7 @@ void showItemLabel(Item item, Assets assets)
   DrawTexture(assets.confirmButton, confirmButtonRect.x, confirmButtonRect.y, RAYWHITE);
 }
 
-static void handleBUttons(Vector2 mousePosition, Assets assets, Levels lvlPraia, Levels lvlFarol, Levels lvlEncanto)
+static void handleButtons(Vector2 mousePosition, Assets assets)
 {
   // Praia LimpaBUtton
   assets.PraiaLimpaButtonBlue.width = 271;
@@ -276,9 +218,9 @@ static void handleBUttons(Vector2 mousePosition, Assets assets, Levels lvlPraia,
   Rectangle leaveButtonRedRec = {749, 578, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
 
   Button buttons[] = {
-      {PraiaLimpaButtonBlueRect, PraiaLimpaButtonRedRect, assets.PraiaLimpaButtonBlue, assets.PraiaLimpaButtonRed, lvlPraia},
-      {SinalFarolButtonBlueRect, SinalFarolButtonRedRect, assets.SinalFarolButtonBlue, assets.SinalFarolButtonRed, lvlFarol},
-      {EncantoItamaracaButtonBlueRect, EncantoItamaracaButtonRedRect, assets.EncantoItamaracaButtonBlue, assets.EncantoItamaracaButtonRed, lvlEncanto},
+      {PraiaLimpaButtonBlueRect, PraiaLimpaButtonRedRect, assets.PraiaLimpaButtonBlue, assets.PraiaLimpaButtonRed, 1},
+      {SinalFarolButtonBlueRect, SinalFarolButtonRedRect, assets.SinalFarolButtonBlue, assets.SinalFarolButtonRed, 2},
+      {EncantoItamaracaButtonBlueRect, EncantoItamaracaButtonRedRect, assets.EncantoItamaracaButtonBlue, assets.EncantoItamaracaButtonRed, 3},
       {leaveButtonBlueRec, leaveButtonRedRec, assets.leaveButtonBlue, assets.leaveButtonRed, -1}};
 
   for (int i = 0; i < sizeof(buttons) / sizeof(buttons[0]); i++)
@@ -286,13 +228,13 @@ static void handleBUttons(Vector2 mousePosition, Assets assets, Levels lvlPraia,
     if (CheckCollisionPointRec(mousePosition, buttons[i].blueRect) && (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
     {
       SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
-      level = buttons[i].level;
+      botao = buttons[i].botao;
     }
   }
 
   for (int i = 0; i < sizeof(buttons) / sizeof(buttons[0]); i++)
   {
-    if (level == buttons[i].level)
+    if (botao == buttons[i].botao)
     {
       DrawTexture(buttons[i].redTexture, buttons[i].redRect.x, buttons[i].redRect.y, RAYWHITE);
     }

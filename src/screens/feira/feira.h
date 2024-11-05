@@ -1,14 +1,16 @@
 #ifndef FEIRA_H
 #define FEIRA_H
 
-typedef enum Levels
-{
-  LVL_0 = 0,
-  LVL_1 = 1,
-  LVL_2 = 2,
-  LVL_3 = 3,
+void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets);
+void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets);
 
-} Levels;
+typedef struct Item
+{
+  Texture2D image;
+  int imageSize;
+  char text[300];
+  char coinNumber[100];
+} Item;
 
 typedef struct Button
 {
@@ -16,20 +18,10 @@ typedef struct Button
   Rectangle redRect;
   Texture2D blueTexture;
   Texture2D redTexture;
-  int level;
+  int botao;
 } Button;
 
-typedef struct Item
-{
-  Texture2D image;
-  int imageSize;
-  char *text;
-  char *coinNumber;
-  Levels level;
-
-} Item;
-
-void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets);
-void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets);
+void handleInitializeAllItems(Assets assets);
+void initializeItems(Item *item, char *coinNumber, char *text, Texture2D image, int imageSize);
 
 #endif
