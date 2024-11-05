@@ -15,9 +15,25 @@
 // Comum - 6
 // Lixo - 9
 
+void imprimir(PokeNode *head, PokeNode *tail)
+{
+  if (head != NULL)
+  {
+    do
+    {
+      printf("%s -> ", head->pokemon.name);
+      head = head->next;
+    } while (head != tail->next);
+  }
+  printf("NULL\n");
+}
+
 int main(void)
 {
   Screen currentScreen = MENU;
+
+  PokeNode *olindaHead = NULL;
+  PokeNode *olindaTail = NULL;
 
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Pernambudex");
 
@@ -26,31 +42,7 @@ int main(void)
   inicializeCharacter("coiso", 0);
   initializePokemon(assets);
 
-  for (int i = 1; i < 5; i++)
-  {
-    if (pokemons[i].rarity == COMMON)
-    {
-      for (int j = 0; j < 5; j++)
-      {
-        inserir(&olindaHead, &olindaTail, pokemons[i]);
-      }
-    }
-
-    if (pokemons[i].rarity == RARE)
-    {
-      for (int j = 0; j < 3; j++)
-      {
-        inserir(&olindaHead, &olindaTail, pokemons[i]);
-      }
-    }
-
-    inserir(&olindaHead, &olindaTail, pokemons[i]);
-  }
-
-  for (int i = 0; i < 9; i++)
-  {
-    inserir(&olindaHead, &olindaTail, pokemons[0]);
-  }
+  initializeCircularList(pokemons, &olindaHead, &olindaTail, 1);
 
   HideCursor();
   while (!WindowShouldClose())

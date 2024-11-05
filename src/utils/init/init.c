@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int frames = 0;
 
@@ -237,13 +238,32 @@ void initializePokemon(Assets assets)
   }
 }
 
+void insertCircular(PokeNode **head, PokeNode **tail, Pokemon pokemon)
+{
+  PokeNode *newPokeNode = (PokeNode *)malloc(sizeof(PokeNode));
+  newPokeNode->pokemon = pokemon;
+
+  if (newPokeNode != NULL)
+  {
+    if (*head == NULL)
+    {
+      *head = *tail = newPokeNode;
+    }
+    else
+    {
+      newPokeNode->next = *head;
+      *head = newPokeNode;
+    }
+    (*tail)->next = *head;
+  }
+}
 // Startindex valores = 1, 6, 11, 16
 void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail, int startIndex)
 {
 
   for (int i = 0; i < 9; i++)
   {
-    insertCircular(&head, &tail, pokemons[0]);
+    insertCircular(head, tail, pokemons[0]);
   }
 
   for (int j = startIndex; j < startIndex + 5; j++)
@@ -254,7 +274,7 @@ void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail
     {
       for (int i = 0; i < 3; i++)
       {
-        insertCircular(&head, &tail, pokemon);
+        insertCircular(head, tail, pokemon);
       }
     }
 
@@ -262,13 +282,13 @@ void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail
     {
       for (int i = 0; i < 2; i++)
       {
-        insertCircular(&head, &tail, pokemon);
+        insertCircular(head, tail, pokemon);
       }
     }
 
     if (pokemon.rarity == LEGENDARY)
     {
-      insertCircular(&head, &tail, pokemon);
+      insertCircular(head, tail, pokemon);
     }
   }
 }

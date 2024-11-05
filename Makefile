@@ -13,7 +13,7 @@ $(TARGET): $(OBJ)
 clean:
 	rm -f $(OBJ) $(TARGET)
 
-all: $(TARGET)
+all: ./$(TARGET)
 
 run: clean all
 	clear
