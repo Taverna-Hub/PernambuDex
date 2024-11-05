@@ -19,7 +19,7 @@ void handleCaptureCircle(Assets assets, Vector2 circlePosition, float innerRadiu
 
 bool handleUpdateCaptureCircle(Vector2 circlePosition, float innerRadius, float *angle)
 {
-  if (IsKeyReleased(KEY_SPACE))
+  if (IsKeyPressed(KEY_SPACE))
   {
     printf("\n");
 
@@ -31,6 +31,7 @@ bool handleUpdateCaptureCircle(Vector2 circlePosition, float innerRadius, float 
 
     if (captureX && captureY)
     {
+      printf("Capturado!");
       return true;
     }
 

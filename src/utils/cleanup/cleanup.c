@@ -49,7 +49,7 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.itemPraiaLimpa_1);
   UnloadTexture(assets.itemPraiaLimpa_2);
   UnloadTexture(assets.itemPraiaLimpa_3);
-  
+
   UnloadTexture(assets.trubbish);
 
   UnloadTexture(assets.garchomp);
@@ -80,4 +80,5 @@ void UnloadAssets(Assets assets)
 
   UnloadTexture(assets.captureCircle);
   UnloadTexture(assets.captureIndicator);
+  UnloadTexture(assets.capturedRectangle);
 }

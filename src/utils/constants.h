@@ -41,4 +41,13 @@ typedef struct PokeNode
   struct PokeNode *next;
 } PokeNode;
 
+typedef struct Shopkeeper
+{
+  Texture2D image;
+  int level;
+  int x;
+  int y;
+
+} Shopkeeper;
+
 #endif

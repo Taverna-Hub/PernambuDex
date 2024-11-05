@@ -99,6 +99,8 @@ typedef struct
 
   Texture2D unknownPokemon;
 
+  Texture2D capturedRectangle;
+
 } Assets;
 
 Assets LoadAssets(void);
@@ -108,5 +110,7 @@ extern Pokemon pokemons[25];
 void initializePokemon(Assets assets);
 
 void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail, int startIndex);
+
+Item in
 
 #endif
