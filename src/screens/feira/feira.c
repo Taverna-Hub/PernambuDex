@@ -15,6 +15,7 @@ static void handleButtons(Vector2 mousePosition, Assets assets);
 
 int shopkeeperLevel = 0;
 static bool showSpeechBubble = false;
+static char *errorMessage = "Eres pobre,\n no tenes dinero.";
 
 int lvl_Praia = 0;
 int lvl_Farol = 0;
@@ -89,7 +90,7 @@ void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   handleButtons(mousePosition, assets);
 }
 
-void showItemLabel(Item item, Assets coin);
+void showItemLabel(Item item, Assets coin, bool error);
 
 void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
@@ -105,17 +106,17 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   // SELEÇÃO DE ITENS
   if (botao == 1)
   {
-    showItemLabel(PraiaLimpa[lvl_Praia], assets);
+    showItemLabel(PraiaLimpa[lvl_Praia], assets, true);
   }
 
   else if (botao == 2)
   {
-    showItemLabel(SinalFarol[lvl_Farol], assets);
+    showItemLabel(SinalFarol[lvl_Farol], assets, true);
   }
 
   else if (botao == 3)
   {
-    showItemLabel(EncantoItamaraca[lvl_Encanto], assets);
+    showItemLabel(EncantoItamaraca[lvl_Encanto], assets, true);
   }
 
   // BOTOES SAIR E COMPRAR
@@ -138,10 +139,10 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
       case 1:
 
         itemPrice = atoi(PraiaLimpa[lvl_Praia].coinNumber); 
+        bool isBought = buyItem(itemPrice);
       
-        if (character.money >= itemPrice) 
+        if (isBought) 
         {
-          character.money -= itemPrice;  
           printf("Você comprou: Praia Limpa! Novo saldo: %ld\n", character.money);
           lvl_Praia++;
           shopkeeperLevel++;
@@ -149,6 +150,7 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
         else
         {
           printf("Eres pobre, no tenes dinero\n");
+          showItemLabel(PraiaLimpa[lvl_Praia], assets, isBought);
         }
         break;
 
@@ -166,6 +168,7 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
         else
         {
           printf("Eres pobre, no tenes dinero\n");
+          errorMessage = "Eres pobre,\n no tenes\n dinero.";
         }
         break;
 
@@ -184,25 +187,37 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
         else
         {
           printf("Eres pobre, no tenes dinero\n");
+          errorMessage = "Eres pobre,\n no tenes\n dinero.";
         }
         break;
 
 
       default:
         printf("\neres pobre, no tenes denhero");
+        //errorMessage = "Eres pobre,\n no tenes\n dinero.";
         break;
       }
     }
   }
 }
 
-void showItemLabel(Item item, Assets assets)
+void showItemLabel(Item item, Assets assets, bool error)
 {
-  assets.coin.height = assets.coin.width = 60;
+  if (error)
+  {
+    assets.coin.height = assets.coin.width = 60;
+    DrawTexture(assets.coin, 356, 142, RAYWHITE);
+    DrawText(item.coinNumber, 420, 152, 48, DARKBROWN);
+  }
+  else
+  {
+    Vector2 position = {332, 133};  
+    float fontSize = 24;
+    DrawText(errorMessage, position.x, position.y, fontSize, DARKGRAY);
+  }
+  
 
-  DrawTexture(assets.coin, 356, 142, RAYWHITE);
 
-  DrawText(item.coinNumber, 420, 152, 48, DARKBROWN);
   item.image.width = item.image.height = item.imageSize;
   DrawTexture(item.image, 343, 448, RAYWHITE);
 
