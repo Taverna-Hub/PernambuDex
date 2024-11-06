@@ -71,6 +71,10 @@ typedef struct
   Texture2D captureCircle;
   Texture2D captureIndicator;
 
+  Texture2D eventCircle;
+  Texture2D eventRectangle;
+  Texture2D eventIndicator;
+
   Texture2D trubbish;
 
   Texture2D garchomp;
