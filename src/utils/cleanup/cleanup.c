@@ -76,15 +76,48 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.sweallow);
   UnloadTexture(assets.yammega);
 
+  //------------------------------------
+
+  UnloadTexture(assets.trubbishBlack);
+
+  UnloadTexture(assets.garchompBlack);
+  UnloadTexture(assets.magikarpBlack);
+  UnloadTexture(assets.sharpedoBlack);
+  UnloadTexture(assets.vaporeonBlack);
+  UnloadTexture(assets.wailordBlack);
+
+  UnloadTexture(assets.chandelureBlack);
+  UnloadTexture(assets.darkraiBlack);
+  UnloadTexture(assets.haunterBlack);
+  UnloadTexture(assets.mismagiusBlack);
+  UnloadTexture(assets.zoroarkBlack);
+
+  UnloadTexture(assets.cacneaBlack);
+  UnloadTexture(assets.flygonBlack);
+  UnloadTexture(assets.groudonBlack);
+  UnloadTexture(assets.mandibuzzBlack);
+  UnloadTexture(assets.sandileBlack);
+
+  UnloadTexture(assets.hoOhBlack);
+  UnloadTexture(assets.ninjaskBlack);
+  UnloadTexture(assets.pidoveBlack);
+  UnloadTexture(assets.sweallowBlack);
+  UnloadTexture(assets.yammegaBlack);
+
   UnloadTexture(assets.unknownPokemon);
 
   UnloadTexture(assets.captureCircle);
   UnloadTexture(assets.captureIndicator);
   UnloadTexture(assets.capturedRectangle);
 
-  UndloadTexture(assets.eventCircle);
-  UndloadTexture(assets.eventRectangle);
-  UndloadTexture(assets.eventIndicator);
+  UnloadTexture(assets.eventCircle);
+  UnloadTexture(assets.eventRectangle);
+  UnloadTexture(assets.eventIndicator);
 
+  UnloadTexture(assets.templateBtnRed);
+  UnloadTexture(assets.templateBtnBlue);
+  UnloadTexture(assets.pokedex);
+
+  UnloadTexture(assets.pernambucoFlag);
   UnloadFont(assets.nunito);
 }

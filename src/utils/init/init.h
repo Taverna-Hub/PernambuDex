@@ -101,9 +101,40 @@ typedef struct
   Texture2D sweallow;
   Texture2D yammega;
 
+  Texture2D trubbishBlack;
+
+  Texture2D garchompBlack;
+  Texture2D magikarpBlack;
+  Texture2D sharpedoBlack;
+  Texture2D vaporeonBlack;
+  Texture2D wailordBlack;
+
+  Texture2D chandelureBlack;
+  Texture2D darkraiBlack;
+  Texture2D haunterBlack;
+  Texture2D mismagiusBlack;
+  Texture2D zoroarkBlack;
+
+  Texture2D cacneaBlack;
+  Texture2D flygonBlack;
+  Texture2D groudonBlack;
+  Texture2D mandibuzzBlack;
+  Texture2D sandileBlack;
+
+  Texture2D hoOhBlack;
+  Texture2D ninjaskBlack;
+  Texture2D pidoveBlack;
+  Texture2D sweallowBlack;
+  Texture2D yammegaBlack;
+
   Texture2D unknownPokemon;
 
+  Texture2D templateBtnRed;
+  Texture2D templateBtnBlue;
+  Texture2D pokedex;
+
   Texture2D capturedRectangle;
+  Texture2D pernambucoFlag;
 
   Font nunito;
 
@@ -111,7 +142,7 @@ typedef struct
 
 Assets LoadAssets(void);
 
-extern Pokemon pokemons[25];
+extern Pokemon pokemons[21];
 
 void initializePokemon(Assets assets);
 

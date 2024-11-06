@@ -25,10 +25,6 @@ bool isInArea = false;
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle leaveButtonRect = {470, 480, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
-  Vector2 circlePosition = {300.0f, 400.0f};
-  float innerRadius = (assets.captureCircle.width / 2.0f) * 0.85f;
-  float speed = 0.001f;
-
   if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
     *currentScreen = SELECT_PLACE;
@@ -43,8 +39,10 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     }
     else
     {
-      isInArea = handleUpdateCaptureCircle(circlePosition, innerRadius, &angle);
-      handleCaptureCircle(assets, circlePosition, innerRadius, speed, &angle);
+      isInArea = handleCaptureCircle(assets);
+
+      currentPokemon->pokemon.shadowImage.width = currentPokemon->pokemon.shadowImage.height = 96;
+      DrawTexture(currentPokemon->pokemon.shadowImage, 800, 507, RAYWHITE);
     }
   }
   else

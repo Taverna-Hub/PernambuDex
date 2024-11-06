@@ -16,7 +16,8 @@ typedef enum Places
   POLINDA = 2,
   PPEDRA = 3,
   PFEIRA = 4,
-  PSAIR = 5,
+  PPOKEDEX = 5,
+  PSAIR = 6
 } Places;
 
 Places place = PBOA_VIAGEM;
@@ -50,7 +51,9 @@ void DrawSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets assets
       {assets.pedraMenu,
        resizeImage(assets.pedraMenu)},
       {assets.feiraMenu,
-       resizeImage(assets.feiraMenu)}};
+       resizeImage(assets.feiraMenu)},
+      {assets.pernambucoFlag,
+       resizeImage(assets.pernambucoFlag)}};
 
   DrawTextureEx(backgrounds[place].texture,
                 (Vector2){backgrounds[place].props.x,
@@ -68,6 +71,7 @@ void UpdateSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets asse
   Rectangle olindaButtonRedRect = {500, 319, assets.olindaButtonRed.width, assets.olindaButtonRed.height};
   Rectangle feiraButtonRedRect = {519, 485, assets.feiraButtonRed.width, assets.feiraButtonRed.height};
   Rectangle leaveButtonBlueRect = {649, 652, assets.leaveButtonBlue.width, assets.leaveButtonBlue.height};
+  Rectangle pokedexButtonSelected = {864, 10, 113, 113};
 
   if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
@@ -86,6 +90,12 @@ void UpdateSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets asse
     if (CheckCollisionPointRec(mousePosition, leaveButtonBlueRect))
     {
       *currentScreen = MENU;
+      return;
+    }
+
+    if (CheckCollisionPointRec(mousePosition, pokedexButtonSelected))
+    {
+      *currentScreen = POKEDEX;
       return;
     }
   }
@@ -146,12 +156,17 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
   assets.leaveButtonBlue.height = heightNotSelected;
   Rectangle leaveButtonBlueRect = {649, 652, assets.leaveButtonBlue.width, assets.leaveButtonBlue.height};
 
+  // pokedex button
+  Rectangle pokedexButtonNotSelected = {886, 18, 79, 79};
+  Rectangle pokedexButtonSelected = {864, 10, 113, 113};
+
   Button buttons[] = {
       {boaViagemButtonBlueRect, boaViagemButtonRedRect, assets.boaViagemButtonBlue, assets.boaViagemButtonRed, PBOA_VIAGEM},
       {olindaButtonBlueRect, olindaButtonRedRect, assets.olindaButtonBlue, assets.olindaButtonRed, POLINDA},
       {noivaButtonBlueRect, noivaButtonRedRect, assets.noivaButtonBlue, assets.noivaButtonRed, PNOIVA},
       {pedraButtonBlueRect, pedraButtonRedRect, assets.pedraButtonBlue, assets.pedraButtonRed, PPEDRA},
-      {feiraButtonBlueRect, feiraButtonRedRect, assets.feiraButtonBlue, assets.feiraButtonRed, PFEIRA}};
+      {feiraButtonBlueRect, feiraButtonRedRect, assets.feiraButtonBlue, assets.feiraButtonRed, PFEIRA},
+      {pokedexButtonNotSelected, pokedexButtonSelected, assets.pokedex, assets.pokedex, PPOKEDEX}};
 
   for (int i = 0; i < sizeof(buttons) / sizeof(buttons[0]); i++)
   {

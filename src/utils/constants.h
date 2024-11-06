@@ -14,7 +14,8 @@ typedef enum Screen
   NOIVA = 3,
   OLINDA = 4,
   PEDRA = 5,
-  FEIRA = 6
+  FEIRA = 6,
+  POKEDEX = 7
 } Screen;
 
 typedef enum Rarity
@@ -31,8 +32,10 @@ typedef struct Pokemon
   char *name;
   Rarity rarity;
   Texture2D image;
+  Texture2D shadowImage;
   Screen place;
   bool captured;
+  int capCont;
 } Pokemon;
 
 typedef struct PokeNode

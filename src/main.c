@@ -72,6 +72,11 @@ int main(void)
       DrawOlinda(&currentScreen, mousePosition, assets);
       UpdateOlinda(&currentScreen, mousePosition, assets);
     }
+    else if (currentScreen == POKEDEX)
+    {
+      DrawPokedex(&currentScreen, mousePosition, assets);
+      updatePokedexScreen(&currentScreen, mousePosition, assets);
+    }
 
     assets.pernamBall.width = 24;
     assets.pernamBall.height = 24;
