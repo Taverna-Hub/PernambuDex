@@ -17,7 +17,7 @@ static float angle = 0.0f;
 static PokeNode *currentPokemon = NULL;
 static float timeCounter = 0.0f;
 bool isPokemonChosen = false;
-bool isInArea = true;
+bool isInArea = false;
 
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
@@ -27,17 +27,14 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   if (isPokemonChosen)
   {
-    handleCaptureCircle(assets, circlePosition, innerRadius, speed, &angle);
-
-    isInArea = handleUpdateCaptureCircle(circlePosition, innerRadius, &angle);
-
     if (isInArea)
     {
       DrawRectangle(0, 189, 1019, 317, RED);
     }
     else
     {
-      DrawRectangle(0, 189, 1019, 317, GREEN);
+      isInArea = handleUpdateCaptureCircle(circlePosition, innerRadius, &angle);
+      handleCaptureCircle(assets, circlePosition, innerRadius, speed, &angle);
     }
   }
   else
