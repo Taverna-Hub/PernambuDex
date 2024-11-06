@@ -14,6 +14,7 @@
 static bool handleChoosePokemon();
 static void handleShowPokemonCaptured(Assets assets);
 static void handleButtons(Assets assets);
+static void resetVariables();
 
 static float angle = 0.0f;
 static PokeNode *currentPokemon = NULL;
@@ -31,6 +32,7 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
     *currentScreen = SELECT_PLACE;
+    resetVariables();
   }
 
   if (isPokemonChosen)
@@ -116,4 +118,13 @@ static void handleButtons(Assets assets)
   Rectangle leaveButtonRect = {470, 480, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
 
   DrawTexture(assets.leaveButtonRed, leaveButtonRect.x, leaveButtonRect.y, RAYWHITE);
+}
+
+static void resetVariables()
+{
+  angle = 0.0f;
+  currentPokemon = NULL;
+  timeCounter = 0.0f;
+  isPokemonChosen = false;
+  isInArea = false;
 }
