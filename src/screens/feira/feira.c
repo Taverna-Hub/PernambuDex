@@ -14,6 +14,16 @@
 static void handleButtons(Vector2 mousePosition, Assets assets);
 
 int shopkeeperLevel = 0;
+static bool showSpeechBubble = false;
+
+int lvl_Praia = 0;
+int lvl_Farol = 0;
+int lvl_Encanto = 0;
+int botao = 0;
+
+Item PraiaLimpa[3];
+Item SinalFarol[3];
+Item EncantoItamaraca[3];
 
 void initializeItems(Item *item, char *coinNumber, char *text, Texture2D image, int imageSize)
 {
@@ -27,14 +37,6 @@ void initializeItems(Item *item, char *coinNumber, char *text, Texture2D image, 
   item->imageSize = imageSize;
 }
 
-int lvl_Praia = 0;
-int lvl_Encanto = 0;
-int lvl_Farol = 0;
-int botao = 0;
-
-Item PraiaLimpa[3];
-Item SinalFarol[3];
-Item EncantoItamaraca[3];
 void handleInitializeAllItems(Assets assets)
 {
   initializeItems(&PraiaLimpa[0], "5", " Reduz minimamente o lixo das áreas criando um\n ambiente mais limpo e preservado ideal para\n ajudar a manter praias e parquer livres de\n residuos, incentivando pokemons e treinadores\n a se aventurarem mais nesses locais", assets.itemPraiaLimpa_1, 69);
@@ -43,7 +45,7 @@ void handleInitializeAllItems(Assets assets)
 
   initializeItems(&SinalFarol[0], "7", " Aumenta suavemente a chance de capturar\n um pokemon de raridade maior. Esse farol irá\n ilumiar as aguas e florestas, facilitando a caça\n de pokemons lendarios.", assets.itemFarol_1, 60);
   initializeItems(&SinalFarol[1], "17", " Facilita ainda mais a captura de pokemons.\n Com essa luz encandeante, os pokemons mais\n resistentes se tornam mais facil de serem\n caçados.", assets.itemFarol_2, 60);
-  initializeItems(&SinalFarol[2], "107", " Cega temporariamente a maioria dos pokemons, facilitando sua captura. Acho que tem uma pedra do sol lá dentro.", assets.itemFarol_3, 60);
+  initializeItems(&SinalFarol[2], "107", " Cega temporariamente a maioria dos pokemons,\n facilitando sua captura. Acho que tem uma\n pedra do sol lá dentro.", assets.itemFarol_3, 60);
 
   initializeItems(&EncantoItamaraca[0], "10", " Aumenta um pouco a sua chance de capturar\n um pokemon. Esse encanto faz com que\n pokemons fiquem mais sucetiveis a cair em\n suas armadilhas e iscas.", assets.itemEncanto_1, 65);
   initializeItems(&EncantoItamaraca[1], "20", " Aumenta ainda mais sua chance de capturar\n um pokemon de raridade maior. Esse encanto\n tem um estranho poder der atrair apenas\n pokemons mais raros.", assets.itemEncanto_2, 65);
@@ -57,12 +59,12 @@ void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   imageProps feiraBackground = resizeImage(assets.feiraPlay);
   DrawTextureEx(assets.feiraPlay, (Vector2){feiraBackground.x, feiraBackground.y}, 0.0f, feiraBackground.scale, WHITE);
 
-  if (shopkeeperLevel <= 3)
+  if (shopkeeperLevel < 3)
   {
     assets.cyndaquill.width = assets.cyndaquill.height = 392;
     DrawTexture(assets.cyndaquill, 16, 115, RAYWHITE);
   }
-  else if (shopkeeperLevel <= 6)
+  else if (shopkeeperLevel < 6)
   {
     assets.quilava.width = assets.quilava.height = 392;
     DrawTexture(assets.quilava, -25, 113, RAYWHITE);
@@ -73,8 +75,11 @@ void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     DrawTexture(assets.typhlosion, -18, 136, RAYWHITE);
   }
 
-  assets.speechBubble.width = assets.speechBubble.height = 472;
-  DrawTexture(assets.speechBubble, 197, -59, RAYWHITE);
+  if(showSpeechBubble)
+  {
+    assets.speechBubble.width = assets.speechBubble.height = 472;
+    DrawTexture(assets.speechBubble, 197, -59, RAYWHITE);
+  }
 
   assets.coin.height = assets.coin.width = 60;
   DrawTexture(assets.coin, 32, 32, RAYWHITE);
@@ -93,7 +98,9 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   Rectangle SinalFarolButtonRect = {688, 341, assets.SinalFarolButtonRed.width, assets.SinalFarolButtonRed.height};
   Rectangle EncantoIlhaButtonRect = {663, 432, assets.EncantoItamaracaButtonRed.width, assets.EncantoItamaracaButtonRed.height};
   Rectangle leaveButtonRedRec = {749, 578, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
-  Rectangle confirmButtonRect = {292, 184, assets.confirmButton.width, assets.confirmButton.height};
+  assets.confirmButton.width = 106;
+  assets.confirmButton.height = 40;
+  Rectangle confirmButtonRect = {324, 616, assets.confirmButton.width, assets.confirmButton.height};
 
   // SELEÇÃO DE ITENS
   if (botao == 1)
@@ -103,7 +110,7 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   else if (botao == 2)
   {
-    showItemLabel(SinalFarol[lvl_Farol + 2], assets);
+    showItemLabel(SinalFarol[lvl_Farol], assets);
   }
 
   else if (botao == 3)
@@ -118,33 +125,73 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     if (CheckCollisionPointRec(mousePosition, leaveButtonRedRec))
     {
       *currentScreen = SELECT_PLACE;
+      showSpeechBubble = false;
       return;
     }
 
     if (CheckCollisionPointRec(mousePosition, confirmButtonRect))
     {
+
+      int itemPrice = 0;
       switch (botao)
       {
       case 1:
-        printf("COMRPOU CU1");
+
+        itemPrice = atoi(PraiaLimpa[lvl_Praia].coinNumber); 
+      
+        if (character.money >= itemPrice) 
+        {
+          character.money -= itemPrice;  
+          printf("Você comprou: Praia Limpa! Novo saldo: %ld\n", character.money);
+          lvl_Praia++;
+          shopkeeperLevel++;
+        }
+        else
+        {
+          printf("Eres pobre, no tenes dinero\n");
+        }
         break;
 
       case 2:
-        printf("COMRPOU C11");
-
+      
+        itemPrice = atoi(SinalFarol[lvl_Farol].coinNumber); 
+      
+        if (character.money >= itemPrice) 
+        {
+          character.money -= itemPrice;  
+          printf("Você comprou: Sinal do Farol! Novo saldo: %ld\n", character.money);
+          lvl_Farol++;
+          shopkeeperLevel++;
+        }
+        else
+        {
+          printf("Eres pobre, no tenes dinero\n");
+        }
         break;
+
 
       case 3:
-        printf("COMRPOU C21");
 
+        itemPrice = atoi(EncantoItamaraca[lvl_Encanto].coinNumber); 
+
+        if (character.money >= itemPrice) 
+        {
+          character.money -= itemPrice;  
+          printf("Você comprou: Encanto de itamaraca! Novo saldo: %ld\n", character.money);
+          lvl_Encanto++;
+          shopkeeperLevel++;
+        }
+        else
+        {
+          printf("Eres pobre, no tenes dinero\n");
+        }
         break;
+
 
       default:
         printf("\neres pobre, no tenes denhero");
         break;
       }
-
-      printf("cu");
     }
   }
 }
@@ -229,6 +276,7 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
     {
       SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
       botao = buttons[i].botao;
+      showSpeechBubble = true;
     }
   }
 
