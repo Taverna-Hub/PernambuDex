@@ -81,4 +81,6 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.captureCircle);
   UnloadTexture(assets.captureIndicator);
   UnloadTexture(assets.capturedRectangle);
+
+  UnloadFont(assets.nunito);
 }

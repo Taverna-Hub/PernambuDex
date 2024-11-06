@@ -101,6 +101,8 @@ typedef struct
 
   Texture2D capturedRectangle;
 
+  Font nunito;
+
 } Assets;
 
 Assets LoadAssets(void);

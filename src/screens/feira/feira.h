@@ -21,6 +21,10 @@ typedef struct Button
   int botao;
 } Button;
 
+extern int lvl_Praia;
+extern int lvl_Farol;
+extern int lvl_Encanto;
+
 void handleInitializeAllItems(Assets assets);
 void initializeItems(Item *item, char *coinNumber, char *text, Texture2D image, int imageSize);
 

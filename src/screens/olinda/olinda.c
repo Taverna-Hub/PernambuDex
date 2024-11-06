@@ -12,6 +12,8 @@
 #include "olinda.h"
 
 static bool handleChoosePokemon();
+static void handleShowPokemonCaptured(Assets assets);
+static void handleButtons(Assets assets);
 
 static float angle = 0.0f;
 static PokeNode *currentPokemon = NULL;
@@ -21,15 +23,21 @@ bool isInArea = false;
 
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
+  Rectangle leaveButtonRect = {470, 480, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
   Vector2 circlePosition = {300.0f, 400.0f};
   float innerRadius = (assets.captureCircle.width / 2.0f) * 0.85f;
   float speed = 0.001f;
+
+  if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+  {
+    *currentScreen = SELECT_PLACE;
+  }
 
   if (isPokemonChosen)
   {
     if (isInArea)
     {
-      DrawRectangle(0, 189, 1019, 317, RED);
+      handleShowPokemonCaptured(assets);
     }
     else
     {
@@ -81,4 +89,31 @@ static bool handleChoosePokemon()
   {
     return true;
   }
+}
+
+static void handleShowPokemonCaptured(Assets assets)
+{
+  Color capturedColor = {115, 114, 168, 255};
+  DrawRectangle(0, 182, 1024, 356, capturedColor);
+  DrawRectangle(0, 172, 1024, 10, WHITE);
+  DrawRectangle(0, 538, 1024, 10, WHITE);
+  currentPokemon->pokemon.image.height = 272;
+  currentPokemon->pokemon.image.width = 272;
+  DrawTexture(currentPokemon->pokemon.image, 371, 150, RAYWHITE);
+
+  Vector2 position = {310, 400};
+
+  char message[100];
+  sprintf(message, "Parabéns! %s foi capturado!", currentPokemon->pokemon.name);
+  DrawTextEx(assets.nunito, message, position, 32, 1.0f, WHITE);
+  handleButtons(assets);
+}
+
+static void handleButtons(Assets assets)
+{
+  assets.leaveButtonRed.width = 84;
+  assets.leaveButtonRed.height = 41;
+  Rectangle leaveButtonRect = {470, 480, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
+
+  DrawTexture(assets.leaveButtonRed, leaveButtonRect.x, leaveButtonRect.y, RAYWHITE);
 }

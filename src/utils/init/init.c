@@ -99,6 +99,8 @@ Assets LoadAssets(void)
   assets.captureIndicator = LoadTexture("assets/captureIndicator.png");
   assets.capturedRectangle = LoadTexture("assets/captured.png");
 
+  assets.nunito = LoadFontEx("assets/fonts/nunito.ttf", 32, 0, 10000);
+
   return assets;
 }
 

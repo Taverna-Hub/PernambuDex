@@ -15,11 +15,11 @@ static void handleButtons(Vector2 mousePosition, Assets assets);
 
 int shopkeeperLevel = 0;
 static bool showSpeechBubble = false;
-static char *errorMessage = "Eres pobre,\n no tenes dinero.";
+bool isBought = true;
 
-int lvl_Praia = 0;
-int lvl_Farol = 0;
-int lvl_Encanto = 0;
+lvl_Praia = 0;
+lvl_Farol = 0;
+lvl_Encanto = 0;
 int botao = 0;
 
 Item PraiaLimpa[3];
@@ -76,7 +76,7 @@ void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     DrawTexture(assets.typhlosion, -18, 136, RAYWHITE);
   }
 
-  if(showSpeechBubble)
+  if (showSpeechBubble)
   {
     assets.speechBubble.width = assets.speechBubble.height = 472;
     DrawTexture(assets.speechBubble, 197, -59, RAYWHITE);
@@ -88,6 +88,7 @@ void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   DrawText(moneyStr, 95, 45, 40, RAYWHITE);
 
   handleButtons(mousePosition, assets);
+  DrawLevel(assets);
 }
 
 void showItemLabel(Item item, Assets coin, bool error);
@@ -104,25 +105,30 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   Rectangle confirmButtonRect = {324, 616, assets.confirmButton.width, assets.confirmButton.height};
 
   // SELEÇÃO DE ITENS
+
   if (botao == 1)
   {
-    showItemLabel(PraiaLimpa[lvl_Praia], assets, true);
+    (lvl_Praia == 3) ? showItemFull() : showItemLabel(PraiaLimpa[lvl_Praia], assets, isBought);
   }
 
   else if (botao == 2)
   {
-    showItemLabel(SinalFarol[lvl_Farol], assets, true);
+    (lvl_Farol == 3) ? showItemFull() : showItemLabel(SinalFarol[lvl_Farol], assets, isBought);
   }
 
   else if (botao == 3)
   {
-    showItemLabel(EncantoItamaraca[lvl_Encanto], assets, true);
+    (lvl_Encanto == 3) ? showItemFull() : showItemLabel(EncantoItamaraca[lvl_Encanto], assets, isBought);
   }
 
   // BOTOES SAIR E COMPRAR
 
   if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
+    if (CheckCollisionPointRec(mousePosition, PraiaLimpaButtonRect) || CheckCollisionPointRec(mousePosition, SinalFarolButtonRect) || CheckCollisionPointRec(mousePosition, EncantoIlhaButtonRect))
+    {
+      isBought = true;
+    }
     if (CheckCollisionPointRec(mousePosition, leaveButtonRedRec))
     {
       *currentScreen = SELECT_PLACE;
@@ -134,67 +140,83 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     {
 
       int itemPrice = 0;
+      isBought = false;
       switch (botao)
       {
       case 1:
 
-        itemPrice = atoi(PraiaLimpa[lvl_Praia].coinNumber); 
-        bool isBought = buyItem(itemPrice);
-      
-        if (isBought) 
+        if (lvl_Praia < 3)
         {
-          printf("Você comprou: Praia Limpa! Novo saldo: %ld\n", character.money);
-          lvl_Praia++;
-          shopkeeperLevel++;
+
+          itemPrice = atoi(PraiaLimpa[lvl_Praia].coinNumber);
+          isBought = buyItem(itemPrice);
+
+          if (isBought)
+          {
+            printf("Você comprou: Praia Limpa! Novo saldo: %ld\n", character.money);
+
+            lvl_Praia++;
+            shopkeeperLevel++;
+          }
+          else
+          {
+            printf(" Eres pobre, no tenes dinero\n");
+            showItemLabel(PraiaLimpa[lvl_Praia], assets, isBought);
+          }
         }
         else
         {
-          printf("Eres pobre, no tenes dinero\n");
-          showItemLabel(PraiaLimpa[lvl_Praia], assets, isBought);
+          showItemFull();
         }
         break;
 
       case 2:
-      
-        itemPrice = atoi(SinalFarol[lvl_Farol].coinNumber); 
-      
-        if (character.money >= itemPrice) 
-        {
-          character.money -= itemPrice;  
-          printf("Você comprou: Sinal do Farol! Novo saldo: %ld\n", character.money);
-          lvl_Farol++;
-          shopkeeperLevel++;
-        }
-        else
-        {
-          printf("Eres pobre, no tenes dinero\n");
-          errorMessage = "Eres pobre,\n no tenes\n dinero.";
-        }
-        break;
 
+        if (lvl_Farol < 3)
+        {
+
+          itemPrice = atoi(SinalFarol[lvl_Farol].coinNumber);
+          isBought = buyItem(itemPrice);
+
+          if (isBought)
+          {
+            printf("Você comprou: Sinal do Farol! Novo saldo: %ld\n", character.money);
+            lvl_Farol++;
+            shopkeeperLevel++;
+          }
+          else
+          {
+            printf("Eres pobre, no tenes dinero\n");
+            showItemLabel(SinalFarol[lvl_Farol], assets, isBought);
+          }
+        }
+
+        break;
 
       case 3:
 
-        itemPrice = atoi(EncantoItamaraca[lvl_Encanto].coinNumber); 
+        if (lvl_Encanto < 3)
+        {
+          itemPrice = atoi(EncantoItamaraca[lvl_Encanto].coinNumber);
+          isBought = buyItem(itemPrice);
 
-        if (character.money >= itemPrice) 
-        {
-          character.money -= itemPrice;  
-          printf("Você comprou: Encanto de itamaraca! Novo saldo: %ld\n", character.money);
-          lvl_Encanto++;
-          shopkeeperLevel++;
-        }
-        else
-        {
-          printf("Eres pobre, no tenes dinero\n");
-          errorMessage = "Eres pobre,\n no tenes\n dinero.";
+          if (isBought)
+          {
+            printf("Você comprou: Encanto de itamaraca! Novo saldo: %ld\n", character.money);
+            lvl_Encanto++;
+            shopkeeperLevel++;
+          }
+          else
+          {
+            printf("Eres pobre, no tenes dinero\n");
+            showItemLabel(EncantoItamaraca[lvl_Encanto], assets, isBought);
+          }
         }
         break;
 
-
       default:
         printf("\neres pobre, no tenes denhero");
-        //errorMessage = "Eres pobre,\n no tenes\n dinero.";
+        showItemLabel(PraiaLimpa[lvl_Praia], assets, isBought);
         break;
       }
     }
@@ -209,31 +231,37 @@ void showItemLabel(Item item, Assets assets, bool error)
     DrawTexture(assets.coin, 356, 142, RAYWHITE);
     DrawText(item.coinNumber, 420, 152, 48, DARKBROWN);
   }
-  else
+  else if (!error)
   {
-    Vector2 position = {332, 133};  
+    Vector2 position = {332, 135};
     float fontSize = 24;
+    char errorMessage[] = " Eres pobre,\n no tenes dinero.";
     DrawText(errorMessage, position.x, position.y, fontSize, DARKGRAY);
   }
-  
-
 
   item.image.width = item.image.height = item.imageSize;
   DrawTexture(item.image, 343, 448, RAYWHITE);
 
-  Vector2 position = {380, 521};
+  Vector2 position = {101, 521};
   Vector2 size = {300, 0};
   float rotation = 0.0f;
-  float fontSize = 15;
+  float fontSize = 18;
   float spacing = 1.0f;
 
-  Font font = GetFontDefault();
-  DrawTextPro(font, item.text, position, size, rotation, fontSize, spacing, BLACK);
+  DrawTextEx(assets.nunito, item.text, position, fontSize, spacing, BLACK);
 
   assets.confirmButton.width = 106;
   assets.confirmButton.height = 40;
   Rectangle confirmButtonRect = {324, 616, assets.confirmButton.width, assets.confirmButton.height};
   DrawTexture(assets.confirmButton, confirmButtonRect.x, confirmButtonRect.y, RAYWHITE);
+}
+
+void showItemFull()
+{
+  Vector2 position = {332, 135};
+  float fontSize = 24;
+  char allBought[] = " Ce compro tudo\n meu cumpade, cabô.";
+  DrawText(allBought, position.x, position.y, fontSize, DARKGRAY);
 }
 
 static void handleButtons(Vector2 mousePosition, Assets assets)
@@ -289,7 +317,6 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
   {
     if (CheckCollisionPointRec(mousePosition, buttons[i].blueRect) && (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
     {
-      SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
       botao = buttons[i].botao;
       showSpeechBubble = true;
     }
@@ -306,4 +333,27 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
       DrawTexture(buttons[i].blueTexture, buttons[i].blueRect.x, buttons[i].blueRect.y, RAYWHITE);
     }
   }
+}
+
+void DrawLevel(Assets assets)
+{
+  Vector2 size = {30, 0};
+  float fontSize = 32;
+  // PRAIA
+  Vector2 positionPraia = {921, 263};
+  char lvlPraiaStr[2];
+  snprintf(lvlPraiaStr, sizeof(lvlPraiaStr), "%d", lvl_Praia);
+  DrawTextEx(assets.nunito, lvlPraiaStr, positionPraia, fontSize, 1.0f, WHITE);
+
+  // FAROL
+  Vector2 positionFarol = {930, 355};
+  char lvlFarolStr[2];
+  snprintf(lvlFarolStr, sizeof(lvlFarolStr), "%d", lvl_Farol);
+  DrawTextEx(assets.nunito, lvlFarolStr, positionFarol, fontSize, 1.0f, WHITE);
+
+  // ENCANTO
+  Vector2 positionEncanto = {959, 440};
+  char lvlEncantoStr[2];
+  snprintf(lvlEncantoStr, sizeof(lvlEncantoStr), "%d", lvl_Encanto);
+  DrawTextEx(assets.nunito, lvlEncantoStr, positionEncanto, fontSize, 1.0f, WHITE);
 }
