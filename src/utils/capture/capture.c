@@ -1,7 +1,9 @@
+#include "raylib.h"
 #include <math.h>
 #include <stdio.h>
-#include "raylib.h"
+
 #include "../init/init.h"
+#include "../animation/animation.h"
 #include "capture.h"
 
 Vector2 circlePosition = {850.0f, 550.0f};
@@ -59,13 +61,12 @@ bool handleUpdateCaptureCircle(float innerRadius)
 {
   if (IsKeyPressed(KEY_SPACE))
   {
-    printf("\n");
 
     float ballX = circlePosition.x + innerRadius * cos(angle);
     float ballY = circlePosition.y + innerRadius * sin(angle);
 
-    int captureX = ballX >= rectanglePositions[position].x && ballX <= rectanglePositions[position].x + rectanglePositions[position].width;
-    int captureY = ballY >= rectanglePositions[position].y && ballY <= rectanglePositions[position].y + rectanglePositions[position].height;
+    int captureX = ballX >= rectanglePositions[position].x - 20 && ballX <= rectanglePositions[position].x + rectanglePositions[position].width;
+    int captureY = ballY >= rectanglePositions[position].y - 20 && ballY <= rectanglePositions[position].y + rectanglePositions[position].height;
 
     if (captureX && captureY)
     {

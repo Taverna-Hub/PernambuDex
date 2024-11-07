@@ -136,6 +136,11 @@ typedef struct
   Texture2D capturedRectangle;
   Texture2D pernambucoFlag;
 
+  Texture2D captureNet1;
+  Texture2D captureNet2;
+  Texture2D captureNet3;
+  Texture2D captureNet4;
+
   Font nunito;
 
 } Assets;

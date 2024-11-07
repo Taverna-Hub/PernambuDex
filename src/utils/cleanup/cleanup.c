@@ -119,5 +119,12 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.pokedex);
 
   UnloadTexture(assets.pernambucoFlag);
+
+  // Animation
+  UnloadTexture(assets.captureNet1);
+  UnloadTexture(assets.captureNet2);
+  UnloadTexture(assets.captureNet3);
+  UnloadTexture(assets.captureNet4);
+
   UnloadFont(assets.nunito);
 }

@@ -12,14 +12,16 @@
 #include "feira.h"
 
 static void handleButtons(Vector2 mousePosition, Assets assets);
+void DrawLevel(Assets assets);
+void showItemFull();
 
 int shopkeeperLevel = 0;
 static bool showSpeechBubble = false;
 bool isBought = true;
 
-lvl_Praia = 0;
-lvl_Farol = 0;
-lvl_Encanto = 0;
+int lvl_Praia = 0;
+int lvl_Farol = 0;
+int lvl_Encanto = 0;
 int botao = 0;
 
 Item PraiaLimpa[3];

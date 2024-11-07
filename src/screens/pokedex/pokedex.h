@@ -3,6 +3,6 @@
 
 void insertOnArray();
 void bubbleSort();
-void updatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets assets);
+void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets assets);
 void DrawPokedex(Screen *currentScreen, Vector2 mousePosition, Assets assets);
 #endif

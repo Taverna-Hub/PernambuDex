@@ -9,6 +9,7 @@
 #include "screens/select-place/place.h"
 #include "screens/feira/feira.h"
 #include "screens/olinda/olinda.h"
+#include "screens/pokedex/pokedex.h"
 #include "character/character.h"
 
 // Lendário - 1
@@ -75,7 +76,7 @@ int main(void)
     else if (currentScreen == POKEDEX)
     {
       DrawPokedex(&currentScreen, mousePosition, assets);
-      updatePokedexScreen(&currentScreen, mousePosition, assets);
+      UpdatePokedexScreen(&currentScreen, mousePosition, assets);
     }
 
     assets.pernamBall.width = 24;

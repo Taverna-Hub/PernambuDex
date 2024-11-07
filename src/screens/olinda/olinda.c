@@ -9,6 +9,7 @@
 #include "../../utils/cleanup/cleanup.h"
 #include "../../utils/button/button.h"
 #include "../../utils/capture/capture.h"
+#include "../../utils/animation/animation.h"
 #include "olinda.h"
 
 static bool handleChoosePokemon();
@@ -21,21 +22,47 @@ static PokeNode *currentPokemon = NULL;
 static float timeCounter = 0.0f;
 bool isPokemonChosen = false;
 bool isInArea = false;
+bool isAnimationPlaying = false;
 
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle leaveButtonRect = {470, 480, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
+  Texture2D frames[] = {
+      assets.captureNet1,
+      assets.captureNet2,
+      assets.captureNet3,
+      assets.captureNet4,
+  };
+
   if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
     *currentScreen = SELECT_PLACE;
     resetVariables();
   }
 
+  if (IsKeyPressed(KEY_SPACE) && !isAnimationPlaying && isPokemonChosen)
+  {
+
+    isAnimationPlaying = true;
+  }
+  if (isPokemonChosen && isAnimationPlaying)
+  {
+    DrawSpriteAnimation(frames, &isAnimationPlaying);
+  }
+  if (!isAnimationPlaying)
+  {
+    DrawTexture(frames[0], 69, WINDOW_HEIGHT - frames[0].height, WHITE);
+  }
+
   if (isPokemonChosen)
   {
     if (isInArea)
     {
-      handleShowPokemonCaptured(assets);
+      if (!isAnimationPlaying)
+      {
+
+        handleShowPokemonCaptured(assets);
+      }
     }
     else
     {

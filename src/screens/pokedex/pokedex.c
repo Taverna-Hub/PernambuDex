@@ -79,7 +79,7 @@ void bubbleSort(PokeNode *head)
   } while (swapped);
 }
 
-void updatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets assets)
+void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle leaveButtonRec = {26, 619, 166, 80};
   if (CheckCollisionPointRec(mousePosition, leaveButtonRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))

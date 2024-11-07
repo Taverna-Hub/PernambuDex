@@ -137,6 +137,12 @@ Assets LoadAssets(void)
   assets.pokedex = LoadTexture("assets/buttons/pokedex.png");
   assets.pernambucoFlag = LoadTexture("assets/bandeiraPe.png");
 
+  // Animation frames
+  assets.captureNet1 = LoadTexture("assets/capture/animation/net/captureNet1.png");
+  assets.captureNet2 = LoadTexture("assets/capture/animation/net/captureNet2.png");
+  assets.captureNet3 = LoadTexture("assets/capture/animation/net/captureNet3.png");
+  assets.captureNet4 = LoadTexture("assets/capture/animation/net/captureNet4.png");
+
   return assets;
 }
 
