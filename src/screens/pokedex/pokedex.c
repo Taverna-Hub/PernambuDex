@@ -111,9 +111,6 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
     else if(CheckCollisionPointRec(mousePosition,lixaoButtonRec)){
       printf("lixao\n");
     }
-    else{
-      //todo add c
-    }
     
     if (CheckCollisionPointRec(mousePosition, leaveButtonRec))
     {
