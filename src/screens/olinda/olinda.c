@@ -20,18 +20,18 @@ static void resetVariables();
 static float angle = 0.0f;
 static PokeNode *currentPokemon = NULL;
 static float timeCounter = 0.0f;
-bool isPokemonChosen = false;
-bool isInArea = false;
-bool isAnimationPlaying = false;
+static bool isPokemonChosen = false;
+static bool isInArea = false;
+static bool isAnimationPlaying = false;
 
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle leaveButtonRect = {470, 480, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
-  Texture2D frames[] = {
-      assets.captureNet1,
-      assets.captureNet2,
-      assets.captureNet3,
-      assets.captureNet4,
+  FrameAndPosition frames[] = {
+      {assets.captureNet1, (Vector2){86, 0}},
+      {assets.captureNet2, (Vector2){0, 0}},
+      {assets.captureNet3, (Vector2){213, 0}},
+      {assets.captureNet4, (Vector2){213, 0}},
   };
 
   if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -42,7 +42,6 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   if (IsKeyPressed(KEY_SPACE) && !isAnimationPlaying && isPokemonChosen)
   {
-
     isAnimationPlaying = true;
   }
   if (isPokemonChosen && isAnimationPlaying)
@@ -51,7 +50,7 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   }
   if (!isAnimationPlaying)
   {
-    DrawTexture(frames[0], 69, WINDOW_HEIGHT - frames[0].height, WHITE);
+    DrawTexture(frames[0].frame, frames[0].position.x, WINDOW_HEIGHT - frames[0].frame.height, WHITE);
   }
 
   if (isPokemonChosen)
@@ -60,8 +59,8 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     {
       if (!isAnimationPlaying)
       {
-
         handleShowPokemonCaptured(assets);
+        pokemons[currentPokemon->pokemon.id].captured = true;
       }
     }
     else
@@ -86,8 +85,8 @@ void DrawOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   ClearBackground(RAYWHITE);
 
-  imageProps olindaBackground = resizeImage(assets.olindaMenu);
-  DrawTextureEx(assets.olindaMenu, (Vector2){olindaBackground.x, olindaBackground.y}, 0.0f, olindaBackground.scale, WHITE);
+  imageProps olindaBackground = resizeImage(assets.olindaPlay);
+  DrawTextureEx(assets.olindaPlay, (Vector2){olindaBackground.x, olindaBackground.y}, 0.0f, olindaBackground.scale, WHITE);
 }
 
 static bool handleChoosePokemon()

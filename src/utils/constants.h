@@ -8,6 +8,7 @@
 #include "raylib.h"
 typedef enum Screen
 {
+  LIXO = -1,
   MENU = 0,
   SELECT_PLACE = 1,
   BOA_VIAGEM = 2,
@@ -52,5 +53,11 @@ typedef struct Shopkeeper
   int y;
 
 } Shopkeeper;
+
+typedef struct FrameAndPosition
+{
+  Texture2D frame;
+  Vector2 position;
+} FrameAndPosition;
 
 #endif

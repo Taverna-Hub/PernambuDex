@@ -2,7 +2,8 @@
 #define ANIMATION_H
 
 #include "raylib.h"
+#include "../constants.h"
 
-void DrawSpriteAnimation(Texture2D frames[4], bool *isAnimationPlaying);
+void DrawSpriteAnimation(FrameAndPosition frames[4], bool *isAnimationPlaying);
 
 #endif

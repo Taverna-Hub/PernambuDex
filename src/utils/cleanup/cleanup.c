@@ -126,5 +126,9 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.captureNet3);
   UnloadTexture(assets.captureNet4);
 
+  UnloadTexture(assets.captureFishing1);
+  UnloadTexture(assets.captureFishing2);
+  UnloadTexture(assets.captureFishing3);
+
   UnloadFont(assets.nunito);
 }

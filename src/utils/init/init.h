@@ -142,6 +142,10 @@ typedef struct
   Texture2D captureNet3;
   Texture2D captureNet4;
 
+  Texture2D captureFishing1;
+  Texture2D captureFishing2;
+  Texture2D captureFishing3;
+
   Font nunito;
 
 } Assets;

@@ -9,6 +9,9 @@
 #include "screens/select-place/place.h"
 #include "screens/feira/feira.h"
 #include "screens/olinda/olinda.h"
+#include "screens/viagem/viagem.h"
+#include "screens/pedra/pedra.h"
+#include "screens/noiva/noiva.h"
 #include "screens/pokedex/pokedex.h"
 #include "character/character.h"
 
@@ -25,6 +28,9 @@ PokeNode *noivaTail = NULL;
 
 PokeNode *pedraHead = NULL;
 PokeNode *pedraTail = NULL;
+
+PokeNode *boaViagemHead = NULL;
+PokeNode *boaViagemTail = NULL;
 
 // Item PraiaLimpa;
 // Item SinalFarol;
@@ -43,8 +49,9 @@ int main(void)
   handleInitializeAllItems(assets);
   initializePokemon(assets);
 
+  initializeCircularList(pokemons, &boaViagemHead, &boaViagemTail, 1);
   initializeCircularList(pokemons, &olindaHead, &olindaTail, 6);
-  initializeCircularList(pokemons, &noivaHead, &noivaTail, 11);
+  initializeCircularList(pokemons, &pedraHead, &pedraTail, 11);
   initializeCircularList(pokemons, &noivaHead, &noivaTail, 16);
 
   HideCursor();
@@ -67,6 +74,21 @@ int main(void)
     {
       DrawFeira(&currentScreen, mousePosition, assets);
       UpdateFeira(&currentScreen, mousePosition, assets);
+    }
+    else if (currentScreen == BOA_VIAGEM)
+    {
+      DrawBoaViagem(&currentScreen, mousePosition, assets);
+      UpdateBoaViagem(&currentScreen, mousePosition, assets);
+    }
+    else if (currentScreen == PEDRA)
+    {
+      DrawPedra(&currentScreen, mousePosition, assets);
+      UpdatePedra(&currentScreen, mousePosition, assets);
+    }
+    else if (currentScreen == NOIVA)
+    {
+      DrawNoiva(&currentScreen, mousePosition, assets);
+      UpdateNoiva(&currentScreen, mousePosition, assets);
     }
     else if (currentScreen == OLINDA)
     {

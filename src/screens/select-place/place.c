@@ -68,13 +68,34 @@ void DrawSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets assets
 
 void UpdateSelectPlace(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
+  Rectangle boaViagemButtonRedRect = {530, 137, assets.boaViagemButtonRed.width, assets.boaViagemButtonRed.height};
   Rectangle olindaButtonRedRect = {500, 319, assets.olindaButtonRed.width, assets.olindaButtonRed.height};
   Rectangle feiraButtonRedRect = {519, 485, assets.feiraButtonRed.width, assets.feiraButtonRed.height};
+  Rectangle pedraButtonRedRect = {494, 402, assets.pedraButtonRed.width, assets.pedraButtonRed.height};
+  Rectangle noivaButtonRedRect = {491, 236, assets.noivaButtonRed.width, assets.noivaButtonRed.height};
   Rectangle leaveButtonBlueRect = {649, 652, assets.leaveButtonBlue.width, assets.leaveButtonBlue.height};
   Rectangle pokedexButtonSelected = {864, 10, 113, 113};
 
   if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
+    if (CheckCollisionPointRec(mousePosition, boaViagemButtonRedRect))
+    {
+      *currentScreen = BOA_VIAGEM;
+      return;
+    }
+
+    if (CheckCollisionPointRec(mousePosition, pedraButtonRedRect))
+    {
+      *currentScreen = PEDRA;
+      return;
+    }
+
+    if (CheckCollisionPointRec(mousePosition, noivaButtonRedRect))
+    {
+      *currentScreen = NOIVA;
+      return;
+    }
+
     if (CheckCollisionPointRec(mousePosition, feiraButtonRedRect))
     {
       *currentScreen = FEIRA;

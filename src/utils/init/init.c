@@ -1,4 +1,5 @@
 #include "init.h"
+#include "../../screens/feira/feira.h"
 #include "../constants.h"
 #include "raylib.h"
 #include <time.h>
@@ -6,6 +7,29 @@
 #include <stdio.h>
 
 int frames = 0;
+int praiaLimpaModifier[] = {
+    9,
+    9 * 0.8,
+    9 * 0.5,
+    9 * 0};
+
+int encantoRareModifier[] = {
+    2,
+    2 * 2,
+    2 * 2,
+    2};
+
+int encantoLegendaryModifier[] = {
+    1,
+    1,
+    1 * 2,
+    1 * 3};
+
+int encantoCommonModifier[] = {
+    3,
+    3,
+    3,
+    3 * 0.4};
 
 Assets LoadAssets(void)
 {
@@ -17,7 +41,11 @@ Assets LoadAssets(void)
   assets.olindaMenu = LoadTexture("assets/backgrounds/olindaMenu.png");
   assets.pedraMenu = LoadTexture("assets/backgrounds/pedraMenu.png");
 
+  assets.boaViagemPlay = LoadTexture("assets/backgrounds/boaViagemPlay.png");
+  assets.noivaPlay = LoadTexture("assets/backgrounds/noivaPlay.png");
   assets.feiraPlay = LoadTexture("assets/backgrounds/feiraPlay.png");
+  assets.olindaPlay = LoadTexture("assets/backgrounds/olindaPlay.png");
+  assets.pedraPlay = LoadTexture("assets/backgrounds/pedraPlay.png");
 
   assets.trapezeSelector = LoadTexture("assets/backgrounds/trapezeSelector.png");
 
@@ -142,6 +170,10 @@ Assets LoadAssets(void)
   assets.captureNet2 = LoadTexture("assets/capture/animation/net/captureNet2.png");
   assets.captureNet3 = LoadTexture("assets/capture/animation/net/captureNet3.png");
   assets.captureNet4 = LoadTexture("assets/capture/animation/net/captureNet4.png");
+
+  assets.captureFishing1 = LoadTexture("assets/capture/animation/fishing/captureFishing1.png");
+  assets.captureFishing2 = LoadTexture("assets/capture/animation/fishing/captureFishing2.png");
+  assets.captureFishing3 = LoadTexture("assets/capture/animation/fishing/captureFishing3.png");
 
   return assets;
 }
@@ -302,7 +334,7 @@ void initializePokemon(Assets assets)
 
   for (int i = 0; i < 21; i++)
   {
-    pokemons[i].captured = false;
+    pokemons[i].captured = true; // mudar depois
     pokemons[i].capCont = 0;
   }
 }
@@ -330,8 +362,7 @@ void insertCircular(PokeNode **head, PokeNode **tail, Pokemon pokemon)
 // Startindex valores = 1, 6, 11, 16
 void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail, int startIndex)
 {
-
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < praiaLimpaModifier[lvlPraia]; i++)
   {
     insertCircular(head, tail, pokemons[0]);
   }
@@ -342,7 +373,7 @@ void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail
 
     if (pokemon.rarity == COMMON)
     {
-      for (int i = 0; i < 3; i++)
+      for (int i = 0; i < encantoCommonModifier[lvlEncanto]; i++)
       {
         insertCircular(head, tail, pokemon);
       }
@@ -350,7 +381,7 @@ void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail
 
     if (pokemon.rarity == RARE)
     {
-      for (int i = 0; i < 2; i++)
+      for (int i = 0; i < encantoRareModifier[lvlEncanto]; i++)
       {
         insertCircular(head, tail, pokemon);
       }
@@ -358,7 +389,10 @@ void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail
 
     if (pokemon.rarity == LEGENDARY)
     {
-      insertCircular(head, tail, pokemon);
+      for (int i = 0; i < encantoLegendaryModifier[lvlEncanto]; i++)
+      {
+        insertCircular(head, tail, pokemon);
+      }
     }
   }
 }

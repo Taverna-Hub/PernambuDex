@@ -4,11 +4,18 @@
 
 #include "../init/init.h"
 #include "../animation/animation.h"
+#include "../../screens/feira/feira.h"
 #include "capture.h"
+
+float speed[] = {
+    0.003f,
+    0.003f * 0.8,
+    0.003f * 0.6,
+    0.003f * 0.4,
+};
 
 Vector2 circlePosition = {850.0f, 550.0f};
 static float angle = 0.0f;
-float speed = 0.001f;
 
 typedef struct Positions
 {
@@ -40,7 +47,7 @@ bool handleCaptureCircle(Assets assets)
   float outerRadius = assets.eventCircle.width / 2.0f;
   float innerRadius = (assets.eventCircle.width / 2.0f) * 0.85f;
 
-  angle += speed;
+  angle += speed[lvlFarol];
 
   float ballX = circlePosition.x + innerRadius * cos(angle) - (assets.eventIndicator.width / 2.0f);
   float ballY = circlePosition.y + innerRadius * sin(angle) - (assets.eventIndicator.height / 2.0f);

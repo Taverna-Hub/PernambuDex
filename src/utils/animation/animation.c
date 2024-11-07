@@ -2,7 +2,7 @@
 #include "animation.h"
 #include "../constants.h"
 
-void DrawSpriteAnimation(Texture2D frames[4], bool *isAnimationPlaying)
+void DrawSpriteAnimation(FrameAndPosition frames[4], bool *isAnimationPlaying)
 {
   static float timeCounter = 0.0f;
   static int currentFrame = 0;
@@ -22,7 +22,7 @@ void DrawSpriteAnimation(Texture2D frames[4], bool *isAnimationPlaying)
     *isAnimationPlaying = false;
   }
 
-  Vector2 position = {69, WINDOW_HEIGHT - frames[currentFrame].height};
+  Vector2 position = {frames[currentFrame].position.x, WINDOW_HEIGHT - frames[currentFrame].frame.height};
 
-  DrawTexture(frames[currentFrame], position.x, position.y, WHITE);
+  DrawTexture(frames[currentFrame].frame, position.x, position.y, WHITE);
 }
