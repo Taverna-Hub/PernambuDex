@@ -46,7 +46,7 @@ int main(void)
   Vector2 mousePosition = GetMousePosition();
 
   inicializeCharacter("coiso", 1000);
-  handleInitializeAllItems(assets);
+  handleInitializeAllItems(assets); 
   initializePokemon(assets);
 
   initializeCircularList(pokemons, &boaViagemHead, &boaViagemTail, 1);

@@ -13,7 +13,7 @@
 
 static void handleButtons(Vector2 mousePosition, Assets assets);
 void DrawLevel(Assets assets);
-void showItemFull();
+void showItemFull(Item item, Assets assets);
 
 int shopkeeperLevel = 0;
 static bool showSpeechBubble = false;
@@ -110,17 +110,17 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   if (botao == 1)
   {
-    (lvlPraia == 3) ? showItemFull() : showItemLabel(PraiaLimpa[lvlPraia], assets, isBought);
+    (lvlPraia == 3) ? showItemFull(PraiaLimpa[2], assets) : showItemLabel(PraiaLimpa[lvlPraia], assets, isBought);
   }
 
   else if (botao == 2)
   {
-    (lvlFarol == 3) ? showItemFull() : showItemLabel(SinalFarol[lvlFarol], assets, isBought);
+    (lvlFarol == 3) ? showItemFull(SinalFarol[2], assets) : showItemLabel(SinalFarol[lvlFarol], assets, isBought);
   }
 
   else if (botao == 3)
   {
-    (lvlEncanto == 3) ? showItemFull() : showItemLabel(EncantoItamaraca[lvlEncanto], assets, isBought);
+    (lvlEncanto == 3) ? showItemFull(EncantoItamaraca[2], assets) : showItemLabel(EncantoItamaraca[lvlEncanto], assets, isBought);
   }
 
   // BOTOES SAIR E COMPRAR
@@ -155,21 +155,16 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
           if (isBought)
           {
-            printf("Você comprou: Praia Limpa! Novo saldo: %ld\n", character.money);
 
             lvlPraia++;
             shopkeeperLevel++;
           }
           else
           {
-            printf(" Eres pobre, no tenes dinero\n");
             showItemLabel(PraiaLimpa[lvlPraia], assets, isBought);
           }
         }
-        else
-        {
-          showItemFull();
-        }
+        
         break;
 
       case 2:
@@ -182,13 +177,11 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
           if (isBought)
           {
-            printf("Você comprou: Sinal do Farol! Novo saldo: %ld\n", character.money);
             lvlFarol++;
             shopkeeperLevel++;
           }
           else
           {
-            printf("Eres pobre, no tenes dinero\n");
             showItemLabel(SinalFarol[lvlFarol], assets, isBought);
           }
         }
@@ -204,20 +197,17 @@ void UpdateFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
           if (isBought)
           {
-            printf("Você comprou: Encanto de itamaraca! Novo saldo: %ld\n", character.money);
             lvlEncanto++;
             shopkeeperLevel++;
           }
           else
           {
-            printf("Eres pobre, no tenes dinero\n");
             showItemLabel(EncantoItamaraca[lvlEncanto], assets, isBought);
           }
         }
         break;
 
       default:
-        printf("\neres pobre, no tenes denhero");
         showItemLabel(PraiaLimpa[lvlPraia], assets, isBought);
         break;
       }
@@ -258,12 +248,21 @@ void showItemLabel(Item item, Assets assets, bool error)
   DrawTexture(assets.confirmButton, confirmButtonRect.x, confirmButtonRect.y, RAYWHITE);
 }
 
-void showItemFull()
+void showItemFull(Item item, Assets assets)
 {
   Vector2 position = {332, 135};
   float fontSize = 24;
   char allBought[] = " Ce compro tudo\n meu cumpade, cabô.";
   DrawText(allBought, position.x, position.y, fontSize, DARKGRAY);
+
+  item.image.width = item.image.height = item.imageSize;
+  DrawTexture(item.image, 343, 448, RAYWHITE);
+
+  float rotation = 0.0f;
+  float spacing = 1.0f;
+  float font = 18;
+  Vector2 pos = {101, 521};
+  DrawTextEx(assets.nunito, item.text, pos , font , spacing, BLACK);
 }
 
 static void handleButtons(Vector2 mousePosition, Assets assets)

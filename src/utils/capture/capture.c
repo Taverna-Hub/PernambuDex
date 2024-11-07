@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include <math.h>
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 #include "../init/init.h"
 #include "../animation/animation.h"
@@ -30,12 +32,15 @@ Positions rectanglePositions[] = {
     {938, 450, 45.0f, 30, 40},
 };
 
-int position = 7;
+int position;
 
 float calculateSpeed(Pokemon chosenPokemon);
 
 bool handleCaptureCircle(Assets assets, Pokemon chosenPokemon)
 {
+  srand(time(NULL));
+  position = rand() % 8;
+  
   assets.eventCircle.height = assets.eventCircle.width = 272;
   assets.eventIndicator.height = assets.eventIndicator.width = 20;
 
