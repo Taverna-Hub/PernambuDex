@@ -31,10 +31,13 @@ int encantoCommonModifier[] = {
     3,
     3 * 0.4};
 
+void shuffleArray(Pokemon *array, int size);
+
 Assets LoadAssets(void)
 {
   Assets assets;
 
+  assets.pokedexBack = LoadTexture("assets/backgrounds/pokedex.png");
   assets.boaViagemMenu = LoadTexture("assets/backgrounds/boaViagemMenu.png");
   assets.noivaMenu = LoadTexture("assets/backgrounds/noivaMenu.png");
   assets.feiraMenu = LoadTexture("assets/backgrounds/feiraMenu.png");
@@ -174,6 +177,19 @@ Assets LoadAssets(void)
   assets.captureFishing1 = LoadTexture("assets/capture/animation/fishing/captureFishing1.png");
   assets.captureFishing2 = LoadTexture("assets/capture/animation/fishing/captureFishing2.png");
   assets.captureFishing3 = LoadTexture("assets/capture/animation/fishing/captureFishing3.png");
+
+  assets.captureTrap1 = LoadTexture("assets/capture/animation/trap/trap1.png");
+  assets.captureTrap2 = LoadTexture("assets/capture/animation/trap/trap2.png");
+  assets.captureCage = LoadTexture("assets/capture/animation/trap/cage.png");
+
+  assets.captureGhostbusters1 = LoadTexture("assets/capture/animation/ghostbusters/gb1.png");
+  assets.captureGhostbusters2 = LoadTexture("assets/capture/animation/ghostbusters/gb2.png");
+  assets.captureGhostbusters3 = LoadTexture("assets/capture/animation/ghostbusters/gb3.png");
+  assets.captureGhostbusters4 = LoadTexture("assets/capture/animation/ghostbusters/gb4.png");
+  assets.captureGhostbusters5 = LoadTexture("assets/capture/animation/ghostbusters/gb5.png");
+  assets.captureGhostbusters6 = LoadTexture("assets/capture/animation/ghostbusters/gb6.png");
+  assets.captureGhostbusters7 = LoadTexture("assets/capture/animation/ghostbusters/gb7.png");
+  assets.captureGhostbusters8 = LoadTexture("assets/capture/animation/ghostbusters/gb8.png");
 
   return assets;
 }
@@ -334,7 +350,7 @@ void initializePokemon(Assets assets)
 
   for (int i = 0; i < 21; i++)
   {
-    pokemons[i].captured = true; // mudar depois
+    pokemons[i].captured = false; // mudar depois
     pokemons[i].capCont = 0;
   }
 }
@@ -362,9 +378,32 @@ void insertCircular(PokeNode **head, PokeNode **tail, Pokemon pokemon)
 // Startindex valores = 1, 6, 11, 16
 void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail, int startIndex)
 {
+  srand(time(NULL));
+
+  int arraySize = praiaLimpaModifier[lvlPraia];
+  for (int j = startIndex; j < startIndex + 5; j++)
+  {
+    Pokemon pokemon = pokemons[j];
+    if (pokemon.rarity == COMMON)
+    {
+      arraySize += encantoCommonModifier[lvlEncanto];
+    }
+    else if (pokemon.rarity == RARE)
+    {
+      arraySize += encantoRareModifier[lvlEncanto];
+    }
+    else if (pokemon.rarity == LEGENDARY)
+    {
+      arraySize += encantoLegendaryModifier[lvlEncanto];
+    }
+  }
+
+  Pokemon *helperPokeArray = (Pokemon *)malloc(arraySize * sizeof(Pokemon));
+  int positionInsert = 0;
+
   for (int i = 0; i < praiaLimpaModifier[lvlPraia]; i++)
   {
-    insertCircular(head, tail, pokemons[0]);
+    helperPokeArray[positionInsert++] = pokemons[0];
   }
 
   for (int j = startIndex; j < startIndex + 5; j++)
@@ -375,24 +414,60 @@ void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail
     {
       for (int i = 0; i < encantoCommonModifier[lvlEncanto]; i++)
       {
-        insertCircular(head, tail, pokemon);
+        helperPokeArray[positionInsert++] = pokemon;
       }
     }
-
-    if (pokemon.rarity == RARE)
+    else if (pokemon.rarity == RARE)
     {
       for (int i = 0; i < encantoRareModifier[lvlEncanto]; i++)
       {
-        insertCircular(head, tail, pokemon);
+        helperPokeArray[positionInsert++] = pokemon;
       }
     }
-
-    if (pokemon.rarity == LEGENDARY)
+    else if (pokemon.rarity == LEGENDARY)
     {
       for (int i = 0; i < encantoLegendaryModifier[lvlEncanto]; i++)
       {
-        insertCircular(head, tail, pokemon);
+        helperPokeArray[positionInsert++] = pokemon;
       }
     }
+  }
+
+  shuffleArray(helperPokeArray, arraySize);
+
+  for (int i = 0; i < arraySize; i++)
+  {
+    insertCircular(head, tail, helperPokeArray[i]);
+  }
+
+  free(helperPokeArray);
+}
+
+void freeCircularList(PokeNode **head, PokeNode **tail)
+{
+  if (*head != NULL)
+  {
+    PokeNode *aux = *head;
+    if (*head == *tail)
+    {
+      *head = *tail = NULL;
+    }
+    else
+    {
+      *head = (*head)->next;
+      (*tail)->next = *head;
+    }
+    free(aux);
+  }
+}
+
+void shuffleArray(Pokemon *array, int size)
+{
+  for (int i = size - 1; i > 0; i--)
+  {
+    int j = rand() % (i + 1);
+    Pokemon temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
 }

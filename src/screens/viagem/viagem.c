@@ -10,6 +10,7 @@
 #include "../../utils/button/button.h"
 #include "../../utils/capture/capture.h"
 #include "../../utils/animation/animation.h"
+#include "../../character/character.h"
 #include "viagem.h"
 
 static bool handleChoosePokemon();
@@ -33,9 +34,16 @@ void UpdateBoaViagem(Screen *currentScreen, Vector2 mousePosition, Assets assets
       {assets.captureFishing3, (Vector2){179, 0}},
       {assets.captureFishing3, (Vector2){179, 0}},
   };
+  size_t framesArraySize = sizeof(frames) / sizeof(frames[0]);
 
   if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
+    if (isInArea)
+    {
+      pokemons[currentPokemon->pokemon.id].capCont += 1;
+      addMoney(currentPokemon->pokemon.id);
+    }
+
     *currentScreen = SELECT_PLACE;
     resetVariables();
   }
@@ -46,7 +54,7 @@ void UpdateBoaViagem(Screen *currentScreen, Vector2 mousePosition, Assets assets
   }
   if (isAnimationPlaying)
   {
-    DrawSpriteAnimation(frames, &isAnimationPlaying);
+    DrawSpriteAnimation(frames, &isAnimationPlaying, framesArraySize);
   }
 
   if (!isPokemonChosen && !isAnimationPlaying)
@@ -70,7 +78,7 @@ void UpdateBoaViagem(Screen *currentScreen, Vector2 mousePosition, Assets assets
     }
     else
     {
-      isInArea = handleCaptureCircle(assets);
+      isInArea = handleCaptureCircle(assets, currentPokemon->pokemon);
 
       currentPokemon->pokemon.shadowImage.width = currentPokemon->pokemon.shadowImage.height = 96;
       DrawTexture(currentPokemon->pokemon.shadowImage, 800, 507, RAYWHITE);
@@ -128,8 +136,7 @@ static void handleShowPokemonCaptured(Assets assets)
   DrawRectangle(0, 182, 1024, 356, capturedColor);
   DrawRectangle(0, 172, 1024, 10, WHITE);
   DrawRectangle(0, 538, 1024, 10, WHITE);
-  currentPokemon->pokemon.image.height = 272;
-  currentPokemon->pokemon.image.width = 272;
+  currentPokemon->pokemon.image.height = currentPokemon->pokemon.image.width = 250;
   DrawTexture(currentPokemon->pokemon.image, 371, 150, RAYWHITE);
 
   Vector2 position = {310, 400};
@@ -138,6 +145,14 @@ static void handleShowPokemonCaptured(Assets assets)
   sprintf(message, "Parabéns! %s foi capturado!", currentPokemon->pokemon.name);
   DrawTextEx(assets.nunito, message, position, 32, 1.0f, WHITE);
   handleButtons(assets);
+
+  char money[5];
+  Vector2 moneyPosition = {882, 215};
+  sprintf(money, "+ %d", currentPokemon->pokemon.rarity * 5);
+  DrawTextEx(assets.nunito, money, moneyPosition, 36, 1.0f, WHITE);
+
+  assets.coin.width = assets.coin.height = 60;
+  DrawTexture(assets.coin, 943, 202, RAYWHITE);
 }
 
 static void handleButtons(Assets assets)

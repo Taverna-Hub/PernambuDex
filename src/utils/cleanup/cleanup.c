@@ -3,6 +3,7 @@
 
 void UnloadAssets(Assets assets)
 {
+  UnloadTexture(assets.pokedexBack);
   UnloadTexture(assets.boaViagemMenu);
   UnloadTexture(assets.boaViagemPlay);
   UnloadTexture(assets.olindaMenu);
@@ -130,5 +131,17 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.captureFishing2);
   UnloadTexture(assets.captureFishing3);
 
+  UnloadTexture(assets.captureTrap1);
+  UnloadTexture(assets.captureTrap2);
+  UnloadTexture(assets.captureCage);
+
+  UnloadTexture(assets.captureGhostbusters1);
+  UnloadTexture(assets.captureGhostbusters2);
+  UnloadTexture(assets.captureGhostbusters3);
+  UnloadTexture(assets.captureGhostbusters4);
+  UnloadTexture(assets.captureGhostbusters5);
+  UnloadTexture(assets.captureGhostbusters6);
+  UnloadTexture(assets.captureGhostbusters7);
+  UnloadTexture(assets.pokedexBack);
   UnloadFont(assets.nunito);
 }

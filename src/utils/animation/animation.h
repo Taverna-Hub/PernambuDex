@@ -4,6 +4,6 @@
 #include "raylib.h"
 #include "../constants.h"
 
-void DrawSpriteAnimation(FrameAndPosition frames[4], bool *isAnimationPlaying);
+void DrawSpriteAnimation(FrameAndPosition *frames, bool *isAnimationPlaying, int framesLength);
 
 #endif

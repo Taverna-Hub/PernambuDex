@@ -6,6 +6,8 @@
 #include <stdio.h>
 typedef struct
 {
+  Texture2D pokedexBack;
+
   Texture2D boaViagemMenu;
   Texture2D boaViagemPlay;
 
@@ -146,6 +148,19 @@ typedef struct
   Texture2D captureFishing2;
   Texture2D captureFishing3;
 
+  Texture2D captureTrap1;
+  Texture2D captureTrap2;
+  Texture2D captureCage;
+
+  Texture2D captureGhostbusters1;
+  Texture2D captureGhostbusters2;
+  Texture2D captureGhostbusters3;
+  Texture2D captureGhostbusters4;
+  Texture2D captureGhostbusters5;
+  Texture2D captureGhostbusters6;
+  Texture2D captureGhostbusters7;
+  Texture2D captureGhostbusters8;
+
   Font nunito;
 
 } Assets;
@@ -157,5 +172,7 @@ extern Pokemon pokemons[21];
 void initializePokemon(Assets assets);
 
 void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail, int startIndex);
+
+void freeCircularList(PokeNode **head, PokeNode **tail);
 
 #endif

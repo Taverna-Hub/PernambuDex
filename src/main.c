@@ -77,21 +77,45 @@ int main(void)
     }
     else if (currentScreen == BOA_VIAGEM)
     {
+      if (boaViagemHead != NULL)
+      {
+        freeCircularList(&boaViagemHead, &boaViagemTail);
+      }
+
+      initializeCircularList(pokemons, &boaViagemHead, &boaViagemTail, 1);
       DrawBoaViagem(&currentScreen, mousePosition, assets);
       UpdateBoaViagem(&currentScreen, mousePosition, assets);
     }
     else if (currentScreen == PEDRA)
     {
+      if (pedraHead != NULL)
+      {
+        freeCircularList(&pedraHead, &pedraTail);
+      }
+
+      initializeCircularList(pokemons, &pedraHead, &pedraTail, 11);
       DrawPedra(&currentScreen, mousePosition, assets);
       UpdatePedra(&currentScreen, mousePosition, assets);
     }
     else if (currentScreen == NOIVA)
     {
+      if (noivaHead != NULL)
+      {
+        freeCircularList(&noivaHead, &noivaTail);
+      }
+
+      initializeCircularList(pokemons, &noivaHead, &noivaTail, 16);
       DrawNoiva(&currentScreen, mousePosition, assets);
       UpdateNoiva(&currentScreen, mousePosition, assets);
     }
     else if (currentScreen == OLINDA)
     {
+      if (olindaHead != NULL)
+      {
+        freeCircularList(&olindaHead, &olindaTail);
+      }
+
+      initializeCircularList(pokemons, &olindaHead, &olindaTail, 6);
       DrawOlinda(&currentScreen, mousePosition, assets);
       UpdateOlinda(&currentScreen, mousePosition, assets);
     }

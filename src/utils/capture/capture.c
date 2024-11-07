@@ -7,13 +7,6 @@
 #include "../../screens/feira/feira.h"
 #include "capture.h"
 
-float speed[] = {
-    0.003f,
-    0.003f * 0.8,
-    0.003f * 0.6,
-    0.003f * 0.4,
-};
-
 Vector2 circlePosition = {850.0f, 550.0f};
 static float angle = 0.0f;
 
@@ -39,13 +32,23 @@ Positions rectanglePositions[] = {
 
 int position = 7;
 
-bool handleCaptureCircle(Assets assets)
+float calculateSpeed(Pokemon chosenPokemon);
+
+bool handleCaptureCircle(Assets assets, Pokemon chosenPokemon)
 {
   assets.eventCircle.height = assets.eventCircle.width = 272;
   assets.eventIndicator.height = assets.eventIndicator.width = 20;
 
   float outerRadius = assets.eventCircle.width / 2.0f;
   float innerRadius = (assets.eventCircle.width / 2.0f) * 0.85f;
+
+  float calculatedSpeed = calculateSpeed(chosenPokemon);
+  float speed[] = {
+      calculatedSpeed,
+      calculatedSpeed * 0.8,
+      calculatedSpeed * 0.6,
+      calculatedSpeed * 0.4,
+  };
 
   angle += speed[lvlFarol];
 
@@ -82,5 +85,25 @@ bool handleUpdateCaptureCircle(float innerRadius)
     }
 
     return false;
+  }
+}
+
+float calculateSpeed(Pokemon chosenPokemon)
+{
+  if (chosenPokemon.rarity == TRASH)
+  {
+    return 0.001f;
+  }
+  else if (chosenPokemon.rarity == COMMON)
+  {
+    return 0.002f;
+  }
+  else if (chosenPokemon.rarity == RARE)
+  {
+    return 0.003f;
+  }
+  else if (chosenPokemon.rarity == LEGENDARY)
+  {
+    return 0.004f;
   }
 }

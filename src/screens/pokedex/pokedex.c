@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../../utils/constants.h"
 #include "../../utils/resizeImage/resizeImage.h"
@@ -35,10 +36,11 @@ typedef struct ButtonPokemon
 static void showLabel(Assets assets, int x, int y, char *label);
 static void handleButtons(Assets assets, Vector2 mousePosition);
 void ShowPokemonButtons(Assets assets, Vector2 mousePosition, PokeNode *pokeLocation);
+void showPokemon(Assets assets, Pokemon pokemonShown);
 
 void push(PokeNode **head, Pokemon pokemon, Screen screen)
 {
-  if (pokemon.place == screen && pokemon.captured)
+  if (pokemon.place == screen)
   {
     PokeNode *newPokemon = (PokeNode *)malloc(sizeof(PokeNode));
     newPokemon->pokemon = pokemon;
@@ -98,14 +100,14 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
   Rectangle olindaButtonRec = {X, 213, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
   Rectangle pedraFuradaButtonRec = {X, 283, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
   Rectangle veuNoivaButtonRec = {X, 353, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
-  Rectangle lixaoButtonRec = {62, 546, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
+  Rectangle lixaoButtonRec = {100, 546, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
 
   if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
     if (CheckCollisionPointRec(mousePosition, boaViagemButtonRec))
     {
-      boaViagemNode = NULL;
       printf("BV\n");
+      boaViagemNode = NULL;
       for (int i = 0; i < 21; i++)
       {
         push(&boaViagemNode, pokemons[i], BOA_VIAGEM);
@@ -146,6 +148,12 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
       bubbleSort(pedraFuradaNode);
       ShowPokemonButtons(assets, mousePosition, pedraFuradaNode);
     }
+    else if (CheckCollisionPointRec(mousePosition, lixaoButtonRec))
+    {
+      printf("Lixao\n");
+      Pokemon trubbish = pokemons[0];
+      showPokemon(assets, trubbish);
+    }
 
     if (CheckCollisionPointRec(mousePosition, leaveButtonRec))
     {
@@ -153,6 +161,7 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
       ClearPokedex(&olindaNode);
       ClearPokedex(&pedraFuradaNode);
       ClearPokedex(&veuDaNoivaNode);
+      location = -1;
       *currentScreen = SELECT_PLACE;
     }
   }
@@ -161,11 +170,10 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
 void DrawPokedex(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   ClearBackground(RAYWHITE);
-  imageProps olindaBackground = resizeImage(assets.olindaMenu);
-  DrawTextureEx(assets.olindaMenu, (Vector2){olindaBackground.x, olindaBackground.y}, 0.0f, olindaBackground.scale, WHITE);
+  imageProps pokedexBackground = resizeImage(assets.pokedexBack);
+  DrawTextureEx(assets.pokedexBack, (Vector2){pokedexBackground.x, pokedexBackground.y}, 0.0f, pokedexBackground.scale, WHITE);
   handleButtons(assets, mousePosition);
 
-  // Adiciona a chamada da função para desenhar os botões de Pokémon
   if (location == BOA_VIAGEM)
     ShowPokemonButtons(assets, mousePosition, boaViagemNode);
   else if (location == OLINDA)
@@ -232,26 +240,81 @@ void ShowPokemonButtons(Assets assets, Vector2 mousePosition, PokeNode *pokeLoca
         pokemonId = buttons[j].Pokemon.id;
       }
     }
-
+    char pokemonName[30];
     for (int i = 0; i < sizeof(buttons) / sizeof(buttons[0]); i++)
     {
+      if (buttons[i].Pokemon.captured)
+      {
+        strcpy(pokemonName, buttons[i].Pokemon.name);
+      }
+      else
+      {
+        strcpy(pokemonName, "???");
+      }
       if (pokemonId == buttons[i].Pokemon.id)
       {
         DrawTexture(buttons[i].redTexture, buttons[i].redRect.x, buttons[i].redRect.y, RAYWHITE);
-        showLabel(assets, buttons[i].redRect.x, buttons[i].redRect.y, arrayLocationsLabel[i]);
+        showLabel(assets, buttons[i].redRect.x, buttons[i].redRect.y, pokemonName);
+        showPokemon(assets, buttons[i].Pokemon);
       }
       else
       {
         DrawTexture(buttons[i].blueTexture, buttons[i].blueRect.x, buttons[i].blueRect.y, RAYWHITE);
-        showLabel(assets, buttons[i].blueRect.x, buttons[i].blueRect.y, arrayLocationsLabel[i]);
+        showLabel(assets, buttons[i].blueRect.x, buttons[i].blueRect.y, pokemonName);
       }
     }
-
-    DrawTextureRec(buttons[j].blueTexture, (Rectangle){0, 0, buttons[j].blueTexture.width, buttons[j].blueTexture.height}, (Vector2){buttons[j].blueRect.x, buttons[j].blueRect.y}, WHITE);
-    showLabel(assets, buttons[j].blueRect.x, buttons[j].blueRect.y, buttons[j].Pokemon.name);
-
-    printf("Renderizando botão para Pokémon: %s\n", buttons[j].Pokemon.name);
   }
+}
+
+void showPokemon(Assets assets, Pokemon pokemonShown)
+{
+  float spacing = 1.0f;
+  Vector2 positionName = {392, 492};
+
+  if (!pokemonShown.captured)
+  {
+
+    // pokemon image shadow
+    pokemonShown.image.width = pokemonShown.image.height = 379;
+    pokemonShown.shadowImage.width = pokemonShown.shadowImage.height = 379;
+    DrawTexture(pokemonShown.shadowImage, 322, 96, RAYWHITE);
+
+    DrawTextEx(assets.nunito, "??????", positionName, 48, spacing, BLACK);
+  }
+  else
+  {
+
+    // pokemon image
+    pokemonShown.image.width = pokemonShown.image.height = 379;
+    pokemonShown.shadowImage.width = pokemonShown.shadowImage.height = 379;
+    DrawTexture(pokemonShown.image, 322, 96, RAYWHITE);
+
+    // pokemon name
+    DrawTextEx(assets.nunito, pokemonShown.name, positionName, 48, spacing, BLACK);
+  }
+
+  // pokemon id
+  char idLabel[10];
+  sprintf(idLabel, "Nº %d", pokemonShown.id);
+  Vector2 positionNumber = {452, 52};
+  DrawTextEx(assets.nunito, idLabel, positionNumber, 48, spacing, BLACK);
+
+  // pokeball
+  assets.pernamBall.width = assets.pernamBall.height = 120;
+  DrawTexture(assets.pernamBall, 275, 581, RAYWHITE);
+
+  // pokemon quantity
+  char quantLabel[30];
+  if (pokemonShown.capCont <= 1)
+  {
+    sprintf(quantLabel, " %d capturado", pokemonShown.capCont);
+  }
+  else
+  {
+    sprintf(quantLabel, " %d capturados", pokemonShown.capCont);
+  }
+  Vector2 positionCaptured = {434, 634};
+  DrawTextEx(assets.nunito, quantLabel, positionCaptured, 20, spacing, WHITE);
 }
 
 static void handleButtons(Assets assets, Vector2 mousePosition)
@@ -302,6 +365,10 @@ static void handleButtons(Assets assets, Vector2 mousePosition)
     {
       DrawTexture(buttons[i].redTexture, buttons[i].redRect.x, buttons[i].redRect.y, RAYWHITE);
       showLabel(assets, buttons[i].redRect.x, buttons[i].redRect.y, arrayLocationsLabel[i]);
+      if (location == LIXO)
+      {
+        showPokemon(assets, pokemons[0]);
+      }
     }
     else
     {
