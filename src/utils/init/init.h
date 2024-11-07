@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "../constants.h"
+#include <stdio.h>
 typedef struct
 {
   Texture2D boaViagemMenu;
