@@ -20,7 +20,7 @@ void DrawMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 void UpdateMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle playButtonRect = {411, 293, assets.playButton.width, assets.playButton.height};
-  Rectangle mastersButtonRect = {298, 405, assets.mastersButton.width, assets.mastersButton.height};
+  // Rectangle mastersButtonRect = {298, 405, assets.mastersButton.width, assets.mastersButton.height};
   Rectangle leaveButtonRect = {427, 517, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
 
   if (CheckCollisionPointRec(mousePosition, playButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -44,10 +44,10 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
   assets.playButton.height = buttonsHeight;
   Rectangle playButtonRect = {411, 293, assets.playButton.width, assets.playButton.height};
 
-  // Masters button
-  assets.mastersButton.width = 428;
-  assets.mastersButton.height = buttonsHeight;
-  Rectangle mastersButtonRect = {298, 405, assets.mastersButton.width, assets.mastersButton.height};
+  // // Masters button
+  // assets.mastersButton.width = 428;
+  // assets.mastersButton.height = buttonsHeight;
+  // Rectangle mastersButtonRect = {298, 405, assets.mastersButton.width, assets.mastersButton.height};
 
   // Leave button
   assets.leaveButtonRed.width = 166;
@@ -55,15 +55,15 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
   Rectangle leaveButtonRect = {427, 517, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
 
   DrawTexture(assets.playButton, playButtonRect.x, playButtonRect.y, RAYWHITE);
-  DrawTexture(assets.mastersButton, mastersButtonRect.x, mastersButtonRect.y, RAYWHITE);
+  // DrawTexture(assets.mastersButton, mastersButtonRect.x, mastersButtonRect.y, RAYWHITE);
   DrawTexture(assets.leaveButtonRed, leaveButtonRect.x, leaveButtonRect.y, RAYWHITE);
 
   handleButtonCollision(mousePosition, assets.playButton, playButtonRect);
-  handleButtonCollision(mousePosition, assets.mastersButton, mastersButtonRect);
+  // handleButtonCollision(mousePosition, assets.mastersButton, mastersButtonRect);
   handleButtonCollision(mousePosition, assets.leaveButtonRed, leaveButtonRect);
 
   if (!CheckCollisionPointRec(mousePosition, playButtonRect) &&
-      !CheckCollisionPointRec(mousePosition, mastersButtonRect) &&
+      // !CheckCollisionPointRec(mousePosition, mastersButtonRect) &&
       !CheckCollisionPointRec(mousePosition, leaveButtonRect))
   {
     SetMouseCursor(MOUSE_CURSOR_DEFAULT);

@@ -46,7 +46,7 @@ int main(void)
   Vector2 mousePosition = GetMousePosition();
 
   inicializeCharacter("coiso", 1000);
-  handleInitializeAllItems(assets);
+  handleInitializeAllItems(assets); 
   initializePokemon(assets);
 
   initializeCircularList(pokemons, &boaViagemHead, &boaViagemTail, 1);
@@ -57,6 +57,9 @@ int main(void)
   HideCursor();
   while (!WindowShouldClose())
   {
+      if (IsKeyPressed(KEY_F11)) {
+        ToggleFullscreen(); // falta configurar certinho
+      }
     BeginDrawing();
     mousePosition = GetMousePosition();
 
