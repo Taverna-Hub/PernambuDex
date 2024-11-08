@@ -57,6 +57,9 @@ int main(void)
   HideCursor();
   while (!WindowShouldClose())
   {
+      if (IsKeyPressed(KEY_F11)) {
+        ToggleFullscreen(); // falta configurar certinho
+      }
     BeginDrawing();
     mousePosition = GetMousePosition();
 
