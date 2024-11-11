@@ -31,6 +31,7 @@ static int countTries = 0;
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle leaveButtonRect = {470, 480, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
+  //array de frames da animação
   FrameAndPosition frames[] = {
       {assets.captureGhostbusters1, (Vector2){69, 0}},
       {assets.captureGhostbusters2, (Vector2){69, 0}},
@@ -42,7 +43,7 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
       {assets.captureGhostbusters8, (Vector2){69, 0}},
   };
   size_t framesArraySize = sizeof(frames) / sizeof(frames[0]);
-
+  //capturou (animaçao)
   if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
     if (isInArea)
@@ -54,7 +55,7 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     *currentScreen = SELECT_PLACE;
     resetVariables();
   }
-
+  // vai travar a lista no pokemon atual
   if (IsKeyPressed(KEY_SPACE) && !isAnimationPlaying && isPokemonChosen)
   {
     isAnimationPlaying = true;
@@ -69,14 +70,16 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   }
 
   if (isPokemonChosen)
-  {
+  { 
+    // erra o evento
     if (IsKeyPressed(KEY_SPACE) && !isInArea)
     {
       countTries = countTries + 1;
     }
-
+    // acertou o evento
     if (isInArea)
-    {
+    { 
+      
       if (!isAnimationPlaying)
       {
         handleShowPokemonCaptured(assets);
@@ -101,12 +104,9 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     DrawSpriteAnimation(buttonFrames, &isButtonAnimationPlaying, 2);
 
     isPokemonChosen = handleChoosePokemon();
-    if (currentPokemon != NULL)
-    {
-      printf("%s -> ", currentPokemon->pokemon.name);
-    }
-  }
 
+  }
+  // perde
   if (countTries == 2 && !isInArea && !isAnimationPlaying)
   {
     handleCaptureFailed(assets);
@@ -120,7 +120,7 @@ void DrawOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   imageProps olindaBackground = resizeImage(assets.olindaPlay);
   DrawTextureEx(assets.olindaPlay, (Vector2){olindaBackground.x, olindaBackground.y}, 0.0f, olindaBackground.scale, WHITE);
 }
-
+// percorre a lista, ate SPACE ser clicado
 static bool handleChoosePokemon()
 {
   timeCounter += GetFrameTime();
@@ -148,6 +148,7 @@ static bool handleChoosePokemon()
     return true;
   }
 }
+//se capturou
 
 static void handleShowPokemonCaptured(Assets assets)
 {
@@ -173,7 +174,7 @@ static void handleShowPokemonCaptured(Assets assets)
   assets.coin.width = assets.coin.height = 60;
   DrawTexture(assets.coin, 943, 202, RAYWHITE);
 }
-
+// se não pegou
 static void handleCaptureFailed(Assets assets)
 {
   Color capturedColor = {220, 38, 38, 255};
@@ -197,7 +198,7 @@ static void handleButtons(Assets assets)
 
   DrawTexture(assets.leaveButtonRed, leaveButtonRect.x, leaveButtonRect.y, RAYWHITE);
 }
-
+// reseta toda vez que sai da tela
 static void resetVariables()
 {
   angle = 0.0f;

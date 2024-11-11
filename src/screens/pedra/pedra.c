@@ -96,10 +96,6 @@ void UpdatePedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     DrawSpriteAnimation(buttonFrames, &isButtonAnimationPlaying, 2);
 
     isPokemonChosen = handleChoosePokemon();
-    if (currentPokemon != NULL)
-    {
-      printf("%s -> ", currentPokemon->pokemon.name);
-    }
   }
 
   if (countTries == 2 && !isInArea && !isAnimationPlaying)

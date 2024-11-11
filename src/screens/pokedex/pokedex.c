@@ -54,7 +54,6 @@ void ClearPokedex(PokeNode **head)
   while (*head != NULL)
   {
     PokeNode *temp = *head;
-    printf("Limpando Pokémon: %s\n", temp->pokemon.name);
     *head = (*head)->next;
     free(temp);
   }
@@ -106,7 +105,6 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
   {
     if (CheckCollisionPointRec(mousePosition, boaViagemButtonRec))
     {
-      printf("BV\n");
       boaViagemNode = NULL;
       for (int i = 0; i < 21; i++)
       {
@@ -117,7 +115,6 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
     }
     else if (CheckCollisionPointRec(mousePosition, olindaButtonRec))
     {
-      printf("Olinda\n");
       olindaNode = NULL;
       for (int i = 0; i < 21; i++)
       {
@@ -128,7 +125,6 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
     }
     else if (CheckCollisionPointRec(mousePosition, veuNoivaButtonRec))
     {
-      printf("Véu da Noiva\n");
       veuDaNoivaNode = NULL;
       for (int i = 0; i < 21; i++)
       {
@@ -139,7 +135,6 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
     }
     else if (CheckCollisionPointRec(mousePosition, pedraFuradaButtonRec))
     {
-      printf("Pedra Furada\n");
       pedraFuradaNode = NULL;
       for (int i = 0; i < 21; i++)
       {
@@ -150,7 +145,6 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
     }
     else if (CheckCollisionPointRec(mousePosition, lixaoButtonRec))
     {
-      printf("Lixao\n");
       Pokemon trubbish = pokemons[0];
       showPokemon(assets, trubbish);
     }
@@ -354,7 +348,6 @@ static void handleButtons(Assets assets, Vector2 mousePosition)
     {
       SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
       location = buttons[i].location;
-      printf("click x: %lf y: %lf\n", mousePosition.x, mousePosition.y);
     }
   }
 

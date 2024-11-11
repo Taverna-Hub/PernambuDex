@@ -85,7 +85,6 @@ bool handleUpdateCaptureCircle(float innerRadius)
 
     if (captureX && captureY)
     {
-      printf("Capturado!");
       return true;
     }
 
@@ -95,9 +94,6 @@ bool handleUpdateCaptureCircle(float innerRadius)
 
 float calculateSpeed(Pokemon chosenPokemon)
 { 
-    // Calcula a proporção entre as dimensões da tela e da janela
-    float widthRatio = (float)GetScreenWidth() / WINDOW_WIDTH;
-    float heightRatio = (float)GetScreenHeight() / WINDOW_HEIGHT;
 
     // A velocidade base depende da raridade do Pokémon
     float speed;
@@ -119,10 +115,7 @@ float calculateSpeed(Pokemon chosenPokemon)
         speed = 0.004f;
     }
 
-    // A velocidade final será ajustada com base na proporção da largura e altura da tela
-    // A média das proporções (largura e altura) afeta a velocidade diretamente
-    float screenFactor = (widthRatio + heightRatio) / 2.0f;
 
-    return speed * screenFactor;
+    return speed;
 }
 
