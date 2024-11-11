@@ -26,8 +26,8 @@ Positions rectanglePositions[] = {
     {730, 350, 18.0f, 33, 40},
     {835, 267, 0.0f, 33, 40},
     {835, 495, 0.0f, 33, 37},
-    {721, 581, 0.0f, 32, 37},
-    {948, 581, 0.0f, 30, 37},
+    {721, 381, 0.0f, 32, 37}, // 4
+    {948, 381, 0.0f, 30, 37}, // 5
     {946, 430, 29.0f, 30, 40},
     {938, 300, 45.0f, 30, 40},
 };
@@ -39,8 +39,7 @@ float calculateSpeed(Pokemon chosenPokemon);
 bool handleCaptureCircle(Assets assets, Pokemon chosenPokemon)
 {
   srand(time(NULL));
-  position = 7;
-
+  position = rand()%8;
   assets.eventCircle.height = assets.eventCircle.width = 272;
   assets.eventIndicator.height = assets.eventIndicator.width = 20;
 
@@ -85,7 +84,6 @@ bool handleUpdateCaptureCircle(float innerRadius)
 
     if (captureX && captureY)
     {
-      printf("Capturado!");
       return true;
     }
 
@@ -95,9 +93,6 @@ bool handleUpdateCaptureCircle(float innerRadius)
 
 float calculateSpeed(Pokemon chosenPokemon)
 { 
-    // Calcula a proporção entre as dimensões da tela e da janela
-    float widthRatio = (float)GetScreenWidth() / WINDOW_WIDTH;
-    float heightRatio = (float)GetScreenHeight() / WINDOW_HEIGHT;
 
     // A velocidade base depende da raridade do Pokémon
     float speed;
@@ -119,10 +114,7 @@ float calculateSpeed(Pokemon chosenPokemon)
         speed = 0.004f;
     }
 
-    // A velocidade final será ajustada com base na proporção da largura e altura da tela
-    // A média das proporções (largura e altura) afeta a velocidade diretamente
-    float screenFactor = (widthRatio + heightRatio) / 2.0f;
 
-    return speed * screenFactor;
+    return speed;
 }
 

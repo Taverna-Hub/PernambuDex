@@ -52,7 +52,7 @@ void handleInitializeAllItems(Assets assets)
 
   initializeItems(&EncantoItamaraca[0], "10", " Aumenta um pouco a sua chance de capturar\n um pokemon. Esse encanto faz com que\n pokemons fiquem mais sucetiveis a cair em\n suas armadilhas e iscas.", assets.itemEncanto_1, 65);
   initializeItems(&EncantoItamaraca[1], "20", " Aumenta ainda mais sua chance de capturar\n um pokemon de raridade maior. Esse encanto\n tem um estranho poder der atrair apenas\n pokemons mais raros.", assets.itemEncanto_2, 65);
-  initializeItems(&EncantoItamaraca[2], "110", " Aumenta drasticamente a chance de\n capturar um pokemon de raridade maior. Esse\n farol irá ilumiar as aguas e florestas,\n facilitando a caça de pokemons lendarios.", assets.itemEncanto_3, 65); // todo
+  initializeItems(&EncantoItamaraca[2], "110", " Aumenta drasticamente a chance de\n capturar um pokemon de raridade maior. Esse\n farol irá ilumiar as aguas e florestas,\n facilitando a caça de pokemons lendarios.", assets.itemEncanto_3, 65); 
 }
 
 void DrawFeira(Screen *currentScreen, Vector2 mousePosition, Assets assets)

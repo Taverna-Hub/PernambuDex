@@ -2,6 +2,6 @@
 #define MENU_H
 
 void DrawMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets);
-void UpdateMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets);
+bool UpdateMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets);
 
 #endif
