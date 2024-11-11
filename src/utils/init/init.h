@@ -158,6 +158,9 @@ typedef struct
   Texture2D captureGhostbusters7;
   Texture2D captureGhostbusters8;
 
+  Texture2D spaceButtonDefault;
+  Texture2D spaceButtonPressed;
+
   Font nunito;
 
 } Assets;

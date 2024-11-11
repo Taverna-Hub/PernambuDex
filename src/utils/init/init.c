@@ -187,6 +187,9 @@ Assets LoadAssets(void)
   assets.captureGhostbusters7 = LoadTexture("assets/capture/animation/ghostbusters/gb7.png");
   assets.captureGhostbusters8 = LoadTexture("assets/capture/animation/ghostbusters/gb8.png");
 
+  assets.spaceButtonDefault = LoadTexture("assets/buttons/spaceButtonDefault.png");
+  assets.spaceButtonPressed = LoadTexture("assets/buttons/spaceButtonPressed.png");
+
   return assets;
 }
 

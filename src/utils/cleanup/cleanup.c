@@ -140,5 +140,9 @@ void UnloadAssets(Assets assets)
   UnloadTexture(assets.captureGhostbusters6);
   UnloadTexture(assets.captureGhostbusters7);
   UnloadTexture(assets.pokedexBack);
+
+  UnloadTexture(assets.spaceButtonDefault);
+  UnloadTexture(assets.spaceButtonPressed);
+
   UnloadFont(assets.nunito);
 }

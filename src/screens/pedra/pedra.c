@@ -25,6 +25,7 @@ static float timeCounter = 0.0f;
 static bool isPokemonChosen = false;
 static bool isInArea = false;
 static bool isAnimationPlaying = false;
+static bool isButtonAnimationPlaying = true;
 static int countTries = 0;
 
 void UpdatePedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
@@ -56,6 +57,7 @@ void UpdatePedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   {
     DrawSpriteAnimation(frames, &isAnimationPlaying, framesArraySize);
   }
+
   if (!isAnimationPlaying)
   {
     DrawTexture(frames[0].frame, frames[0].position.x, WINDOW_HEIGHT - frames[0].frame.height, WHITE);
@@ -86,6 +88,13 @@ void UpdatePedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   }
   else
   {
+    FrameAndPosition buttonFrames[] = {
+        {assets.spaceButtonDefault, (Vector2){400, 0}},
+        {assets.spaceButtonPressed, (Vector2){400, 0}},
+    };
+
+    DrawSpriteAnimation(buttonFrames, &isButtonAnimationPlaying, 2);
+
     isPokemonChosen = handleChoosePokemon();
     if (currentPokemon != NULL)
     {

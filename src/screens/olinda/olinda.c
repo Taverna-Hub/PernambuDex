@@ -25,6 +25,7 @@ static float timeCounter = 0.0f;
 static bool isPokemonChosen = false;
 static bool isInArea = false;
 static bool isAnimationPlaying = false;
+static bool isButtonAnimationPlaying = true;
 static int countTries = 0;
 
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
@@ -92,6 +93,13 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   }
   else
   {
+    FrameAndPosition buttonFrames[] = {
+        {assets.spaceButtonDefault, (Vector2){400, 0}},
+        {assets.spaceButtonPressed, (Vector2){400, 0}},
+    };
+
+    DrawSpriteAnimation(buttonFrames, &isButtonAnimationPlaying, 2);
+
     isPokemonChosen = handleChoosePokemon();
     if (currentPokemon != NULL)
     {
