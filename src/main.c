@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <raylib.h>
 #include <stdlib.h>
+#include <math.h>
 #include "utils/constants.h"
 #include "utils/resizeImage/resizeImage.h"
 #include "utils/init/init.h"
@@ -44,8 +45,7 @@ int main(void)
 
   Assets assets = LoadAssets();
   Vector2 mousePosition = GetMousePosition();
-
-  inicializeCharacter("coiso", 1000);
+  inicializeCharacter("coiso", 0);
   handleInitializeAllItems(assets); 
   initializePokemon(assets);
 
@@ -54,15 +54,72 @@ int main(void)
   initializeCircularList(pokemons, &pedraHead, &pedraTail, 11);
   initializeCircularList(pokemons, &noivaHead, &noivaTail, 16);
 
+    float scale = 1.0f;
+    int offsetX = 0, offsetY = 0;
+    bool isFullscreen = false;
+
   HideCursor();
   while (!WindowShouldClose())
   {
-      if (IsKeyPressed(KEY_F11)) {
-        ToggleFullscreen(); // falta configurar certinho
-      }
-    BeginDrawing();
-    mousePosition = GetMousePosition();
+if (IsKeyPressed(KEY_F11)) {
+    isFullscreen = !isFullscreen;
+    if (isFullscreen) {
+        // Ativar modo tela cheia, mas não alterar o tamanho da janela manualmente
+        ToggleFullscreen();
 
+        // Obter as dimensões do monitor
+        int screenWidth = GetMonitorWidth(0);
+        int screenHeight = GetMonitorHeight(0);
+
+        // Calcular a posição central para a janela
+        int offsetX = (screenWidth - WINDOW_WIDTH) / 2;
+        int offsetY = (screenHeight - WINDOW_HEIGHT) / 2;
+
+        // Definir a posição da janela para centralizar
+        SetWindowPosition(offsetX, offsetY);
+    } else {
+        // Sair do modo tela cheia
+        ToggleFullscreen();
+        
+        // Retornar ao tamanho original da janela
+        SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        // Obter as dimensões do monitor novamente
+        int screenWidth = GetMonitorWidth(0);
+        int screenHeight = GetMonitorHeight(0);
+
+        // Calcular a posição central para a janela
+        int offsetX = (screenWidth - WINDOW_WIDTH) / 2;
+        int offsetY = (screenHeight - WINDOW_HEIGHT) / 2;
+
+        // Definir a posição da janela para centralizar novamente
+        SetWindowPosition(offsetX, offsetY);
+    }
+}
+
+        int screenWidth = GetScreenWidth();
+        int screenHeight = GetScreenHeight();
+
+        // Calcular scale para manter a proporção
+        scale = fmin((float)screenWidth / WINDOW_WIDTH, (float)screenHeight / WINDOW_HEIGHT);
+        offsetX = (screenWidth - (int)(WINDOW_WIDTH * scale)) / 2;
+        offsetY = (screenHeight - (int)(WINDOW_HEIGHT * scale)) / 2;
+
+        BeginDrawing();
+        ClearBackground(BLACK); // Preencher as barras excedentes com preto
+
+        // Desenhar jogo dentro de uma "viewport" centralizada
+        BeginScissorMode(offsetX, offsetY, (int)(WINDOW_WIDTH * scale), (int)(WINDOW_HEIGHT * scale));
+        ClearBackground(RAYWHITE); // Fundo do jogo
+
+        // Atualizar posição do mouse
+        mousePosition = GetMousePosition();
+  
+        // Ajustar a posição do mouse de acordo com a scale
+        Vector2 adjustedMousePos = {
+            (mousePosition.x - offsetX) / scale,
+            (mousePosition.y - offsetY) / scale
+        };
     if (currentScreen == MENU)
     {
       DrawMenu(&currentScreen, mousePosition, assets);
