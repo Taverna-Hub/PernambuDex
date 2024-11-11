@@ -94,21 +94,35 @@ bool handleUpdateCaptureCircle(float innerRadius)
 }
 
 float calculateSpeed(Pokemon chosenPokemon)
-{
-  if (chosenPokemon.rarity == TRASH)
-  {
-    return 0.001f;
-  }
-  else if (chosenPokemon.rarity == COMMON)
-  {
-    return 0.002f;
-  }
-  else if (chosenPokemon.rarity == RARE)
-  {
-    return 0.003f;
-  }
-  else if (chosenPokemon.rarity == LEGENDARY)
-  {
-    return 0.004f;
-  }
+{ 
+    // Calcula a proporção entre as dimensões da tela e da janela
+    float widthRatio = (float)GetScreenWidth() / WINDOW_WIDTH;
+    float heightRatio = (float)GetScreenHeight() / WINDOW_HEIGHT;
+
+    // A velocidade base depende da raridade do Pokémon
+    float speed;
+
+    if (chosenPokemon.rarity == TRASH)
+    {
+        speed = 0.001f;
+    }
+    else if (chosenPokemon.rarity == COMMON)
+    {
+        speed = 0.002f;
+    }
+    else if (chosenPokemon.rarity == RARE)
+    {
+        speed = 0.003f;
+    }
+    else if (chosenPokemon.rarity == LEGENDARY)
+    {
+        speed = 0.004f;
+    }
+
+    // A velocidade final será ajustada com base na proporção da largura e altura da tela
+    // A média das proporções (largura e altura) afeta a velocidade diretamente
+    float screenFactor = (widthRatio + heightRatio) / 2.0f;
+
+    return speed * screenFactor;
 }
+
