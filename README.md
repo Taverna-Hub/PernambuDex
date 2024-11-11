@@ -16,12 +16,12 @@
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-- A versão mais recente de `<linguagem / dependência / requeridos>`
 - Você tem uma máquina `<Linux / Mac>`.
+-  A versão mais recente de `<GCC / Make / Git>`
 
 ## 🚀 Instalando Penambudex
 
-Para instalar o <nome_do_projeto>, siga estas etapas:
+Para instalar a Pernambudex, siga estas etapas:
 
 Linux e macOS:
 
@@ -62,8 +62,6 @@ cd PernambuDex-temp
 ```
 make run
 ```
-
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Forneça uma referência de opções para pontos de bônus!
 
 ## 🤝 Colaboradores
 
