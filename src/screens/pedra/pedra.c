@@ -15,6 +15,7 @@
 
 static bool handleChoosePokemon();
 static void handleShowPokemonCaptured(Assets assets);
+static void handleCaptureFailed(Assets assets);
 static void handleButtons(Assets assets);
 static void resetVariables();
 
@@ -24,6 +25,7 @@ static float timeCounter = 0.0f;
 static bool isPokemonChosen = false;
 static bool isInArea = false;
 static bool isAnimationPlaying = false;
+static int countTries = 0;
 
 void UpdatePedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
@@ -61,6 +63,11 @@ void UpdatePedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   if (isPokemonChosen)
   {
+    if (IsKeyPressed(KEY_SPACE) && !isInArea)
+    {
+      countTries = countTries + 1;
+    }
+
     if (isInArea)
     {
       if (!isAnimationPlaying)
@@ -74,7 +81,7 @@ void UpdatePedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
       isInArea = handleCaptureCircle(assets, currentPokemon->pokemon);
 
       currentPokemon->pokemon.shadowImage.width = currentPokemon->pokemon.shadowImage.height = 96;
-      DrawTexture(currentPokemon->pokemon.shadowImage, 800, 507, RAYWHITE);
+      DrawTexture(currentPokemon->pokemon.shadowImage, 800, 357, RAYWHITE);
     }
   }
   else
@@ -84,6 +91,11 @@ void UpdatePedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     {
       printf("%s -> ", currentPokemon->pokemon.name);
     }
+  }
+
+  if (countTries == 2 && !isInArea && !isAnimationPlaying)
+  {
+    handleCaptureFailed(assets);
   }
 }
 
@@ -149,6 +161,21 @@ static void handleShowPokemonCaptured(Assets assets)
   DrawTexture(assets.coin, 943, 202, RAYWHITE);
 }
 
+static void handleCaptureFailed(Assets assets)
+{
+  Color capturedColor = {220, 38, 38, 255};
+  DrawRectangle(0, 182, 1024, 356, capturedColor);
+  DrawRectangle(0, 172, 1024, 10, WHITE);
+  DrawRectangle(0, 538, 1024, 10, WHITE);
+  DrawTexture(assets.captureFailed, 460, 250, RAYWHITE);
+
+  Vector2 position = {170, 400};
+
+  char *message = "Que pena! O pokemon escapou e não foi possível capturá-lo :(";
+  DrawTextEx(assets.nunito, message, position, 32, 1.0f, WHITE);
+  handleButtons(assets);
+}
+
 static void handleButtons(Assets assets)
 {
   assets.leaveButtonRed.width = 84;
@@ -165,4 +192,6 @@ static void resetVariables()
   timeCounter = 0.0f;
   isPokemonChosen = false;
   isInArea = false;
+  isAnimationPlaying = false;
+  countTries = 0;
 }

@@ -9,7 +9,7 @@
 #include "../../screens/feira/feira.h"
 #include "capture.h"
 
-Vector2 circlePosition = {850.0f, 550.0f};
+Vector2 circlePosition = {850.0f, 400.0f};
 static float angle = 0.0f;
 
 typedef struct Positions
@@ -22,14 +22,14 @@ typedef struct Positions
 } Positions;
 
 Positions rectanglePositions[] = {
-    {770, 600, 48.75f, 27.3, 40},
-    {730, 500, 18.0f, 33, 40},
-    {835, 417, 0.0f, 33, 40},
-    {835, 645, 0.0f, 33, 37},
-    {721, 531, 0.0f, 32, 37},
-    {948, 531, 0.0f, 30, 37},
-    {946, 580, 29.0f, 30, 40},
-    {938, 450, 45.0f, 30, 40},
+    {770, 450, 48.75f, 27.3, 40},
+    {730, 350, 18.0f, 33, 40},
+    {835, 267, 0.0f, 33, 40},
+    {835, 495, 0.0f, 33, 37},
+    {721, 581, 0.0f, 32, 37},
+    {948, 581, 0.0f, 30, 37},
+    {946, 430, 29.0f, 30, 40},
+    {938, 300, 45.0f, 30, 40},
 };
 
 int position;
@@ -39,8 +39,8 @@ float calculateSpeed(Pokemon chosenPokemon);
 bool handleCaptureCircle(Assets assets, Pokemon chosenPokemon)
 {
   srand(time(NULL));
-  position = rand() % 8;
-  
+  position = 7;
+
   assets.eventCircle.height = assets.eventCircle.width = 272;
   assets.eventIndicator.height = assets.eventIndicator.width = 20;
 

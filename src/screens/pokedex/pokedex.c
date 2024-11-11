@@ -246,21 +246,22 @@ void ShowPokemonButtons(Assets assets, Vector2 mousePosition, PokeNode *pokeLoca
       if (buttons[i].Pokemon.captured)
       {
         strcpy(pokemonName, buttons[i].Pokemon.name);
-      }
-      else
-      {
-        strcpy(pokemonName, "???");
-      }
-      if (pokemonId == buttons[i].Pokemon.id)
-      {
-        DrawTexture(buttons[i].redTexture, buttons[i].redRect.x, buttons[i].redRect.y, RAYWHITE);
-        showLabel(assets, buttons[i].redRect.x, buttons[i].redRect.y, pokemonName);
-        showPokemon(assets, buttons[i].Pokemon);
-      }
-      else
-      {
-        DrawTexture(buttons[i].blueTexture, buttons[i].blueRect.x, buttons[i].blueRect.y, RAYWHITE);
-        showLabel(assets, buttons[i].blueRect.x, buttons[i].blueRect.y, pokemonName);
+        //}
+        // else
+        //{
+        // strcpy(pokemonName, "???");
+        //}
+        if (pokemonId == buttons[i].Pokemon.id)
+        {
+          DrawTexture(buttons[i].redTexture, buttons[i].redRect.x, buttons[i].redRect.y, RAYWHITE);
+          showLabel(assets, buttons[i].redRect.x, buttons[i].redRect.y, pokemonName);
+          showPokemon(assets, buttons[i].Pokemon);
+        }
+        else
+        {
+          DrawTexture(buttons[i].blueTexture, buttons[i].blueRect.x, buttons[i].blueRect.y, RAYWHITE);
+          showLabel(assets, buttons[i].blueRect.x, buttons[i].blueRect.y, pokemonName);
+        }
       }
     }
   }

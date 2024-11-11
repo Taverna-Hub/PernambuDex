@@ -12,8 +12,8 @@ void DrawMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   ClearBackground(RAYWHITE);
 
-  imageProps imageProps = resizeImage(assets.noivaMenu);
-  DrawTextureEx(assets.noivaMenu, (Vector2){imageProps.x, imageProps.y}, 0.0f, imageProps.scale, WHITE);
+  imageProps imageProps = resizeImage(assets.olindaPlay);
+  DrawTextureEx(assets.olindaPlay, (Vector2){imageProps.x, imageProps.y}, 0.0f, imageProps.scale, WHITE);
   handleButtons(mousePosition, assets);
 }
 
@@ -21,7 +21,7 @@ void UpdateMenu(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle playButtonRect = {411, 293, assets.playButton.width, assets.playButton.height};
   // Rectangle mastersButtonRect = {298, 405, assets.mastersButton.width, assets.mastersButton.height};
-  Rectangle leaveButtonRect = {427, 517, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
+  Rectangle leaveButtonRect = {427, 405, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
 
   if (CheckCollisionPointRec(mousePosition, playButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
@@ -52,7 +52,7 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
   // Leave button
   assets.leaveButtonRed.width = 166;
   assets.leaveButtonRed.height = buttonsHeight;
-  Rectangle leaveButtonRect = {427, 517, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
+  Rectangle leaveButtonRect = {427, 405, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
 
   DrawTexture(assets.playButton, playButtonRect.x, playButtonRect.y, RAYWHITE);
   // DrawTexture(assets.mastersButton, mastersButtonRect.x, mastersButtonRect.y, RAYWHITE);

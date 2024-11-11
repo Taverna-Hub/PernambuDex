@@ -107,13 +107,10 @@ void UnloadAssets(Assets assets)
 
   UnloadTexture(assets.unknownPokemon);
 
-  UnloadTexture(assets.captureCircle);
-  UnloadTexture(assets.captureIndicator);
-  UnloadTexture(assets.capturedRectangle);
-
   UnloadTexture(assets.eventCircle);
   UnloadTexture(assets.eventRectangle);
   UnloadTexture(assets.eventIndicator);
+  UnloadTexture(assets.captureFailed);
 
   UnloadTexture(assets.templateBtnRed);
   UnloadTexture(assets.templateBtnBlue);

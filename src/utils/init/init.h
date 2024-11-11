@@ -71,12 +71,10 @@ typedef struct
 
   Texture2D speechBubble;
 
-  Texture2D captureCircle;
-  Texture2D captureIndicator;
-
   Texture2D eventCircle;
   Texture2D eventRectangle;
   Texture2D eventIndicator;
+  Texture2D captureFailed;
 
   Texture2D trubbish;
 
@@ -136,7 +134,6 @@ typedef struct
   Texture2D templateBtnBlue;
   Texture2D pokedex;
 
-  Texture2D capturedRectangle;
   Texture2D pernambucoFlag;
 
   Texture2D captureNet1;

@@ -95,7 +95,6 @@ Assets LoadAssets(void)
   assets.cyndaquill = LoadTexture("assets/pokemons/feira/cyndaquill.png");
   assets.typhlosion = LoadTexture("assets/pokemons/feira/typhlosion.png");
   assets.quilava = LoadTexture("assets/pokemons/feira/quilava.png");
-  assets.captureIndicator = LoadTexture("assets/captureIndicator.png");
 
   assets.trubbish = LoadTexture("assets/pokemons/trubbish.png");
   assets.magikarp = LoadTexture("assets/pokemons/boaViagem/magikarp.png");
@@ -153,13 +152,10 @@ Assets LoadAssets(void)
 
   assets.speechBubble = LoadTexture("assets/speech-bubble.png");
 
-  assets.captureCircle = LoadTexture("assets/captureCircle.png");
-  assets.captureIndicator = LoadTexture("assets/captureIndicator.png");
-  assets.capturedRectangle = LoadTexture("assets/captured.png");
-
   assets.eventCircle = LoadTexture("assets/capture/eventCircle.png");
   assets.eventRectangle = LoadTexture("assets/capture/eventRectangle.png");
   assets.eventIndicator = LoadTexture("assets/capture/eventIndicator.png");
+  assets.captureFailed = LoadTexture("assets/capture/failedCapture.png");
 
   assets.nunito = LoadFontEx("assets/fonts/nunito.ttf", 32, 0, 10000);
 
