@@ -6,10 +6,9 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/Taverna-Hub/PernambuDex-temp?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/Taverna-Hub/PernambuDex-temp?style=for-the-badge)
 
-
+<img src="https://github.com/user-attachments/assets/c349090a-2eef-4307-9e79-7dc740decc75" width="300px">
 
 > Pernambudex é um jogo a desenvolvido em C utilizando a biblioteca Raylib, ambientado em pontos turísticos de Pernambuco como Olinda, Boa Viagem, Cachoeira do Véu da Noiva, Pedra Furada e Feira de Caruaru.
-
 
 
 ## 💻 Pré-requisitos
@@ -70,9 +69,9 @@ make run
   <tr>
     <td align="center">
       <a href="https://github.com/Pandor4b">
-        <img src="https://avatars.githubusercontent.com/u/142419823?v=4" width="100px;" alt="Ana"/><br>
+        <img src="https://avatars.githubusercontent.com/u/142419823?v=4" width="100px;" alt="Ana Clara"/><br>
         <sub>
-          <b>Ana</b>
+          <b>Ana Clara Gomes</b>
         </sub>
       </a>
     </td>
