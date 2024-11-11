@@ -37,7 +37,7 @@ int main(void)
 
   Assets assets = LoadAssets();
   Vector2 mousePosition = GetMousePosition();
-  inicializeCharacter("coiso", 0);
+  inicializeCharacter("PANELA", 0);
   handleInitializeAllItems(assets); 
   initializePokemon(assets);
 

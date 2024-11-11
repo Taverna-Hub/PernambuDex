@@ -91,7 +91,7 @@ PokeNode *boaViagemNode;
 PokeNode *olindaNode;
 PokeNode *pedraFuradaNode;
 PokeNode *veuDaNoivaNode;
-
+bool wasClosed = false;
 void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle leaveButtonRec = {26, 619, 166, 80};
@@ -100,7 +100,21 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
   Rectangle pedraFuradaButtonRec = {X, 283, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
   Rectangle veuNoivaButtonRec = {X, 353, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
   Rectangle lixaoButtonRec = {100, 546, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
+  if (checkCompletion() && !wasClosed){
 
+    assets.completionBanner.width = 1024;
+    assets.completionBanner.height = 356;
+    DrawTexture(assets.completionBanner, 0, 182, RAYWHITE);
+
+    Rectangle closeCompleteBannerBntRec = {432, 279, assets.templateBtnRed.width, assets.templateBtnRed.height};
+    DrawTexture(assets.templateBtnRed, 432, 279, RAYWHITE);
+    showLabel(assets, 432, 279, "Fechar");
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePosition, closeCompleteBannerBntRec)){
+        wasClosed = true;
+    }
+
+
+  }
   if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
     if (CheckCollisionPointRec(mousePosition, boaViagemButtonRec))
@@ -156,6 +170,7 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
       ClearPokedex(&pedraFuradaNode);
       ClearPokedex(&veuDaNoivaNode);
       location = -1;
+      wasClosed = false;
       *currentScreen = SELECT_PLACE;
     }
   }
@@ -377,4 +392,12 @@ static void handleButtons(Assets assets, Vector2 mousePosition)
   Rectangle leaveButtonRect = {26, 619, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
 
   DrawTexture(assets.leaveButtonRed, leaveButtonRect.x, leaveButtonRect.y, RAYWHITE);
+}
+
+bool checkCompletion(){
+  for (int i = 0; i < 21; i++)
+  { 
+    if (!pokemons[i].captured) return false; 
+  }
+    return true;
 }

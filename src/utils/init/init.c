@@ -190,6 +190,8 @@ Assets LoadAssets(void)
   assets.spaceButtonDefault = LoadTexture("assets/buttons/spaceButtonDefault.png");
   assets.spaceButtonPressed = LoadTexture("assets/buttons/spaceButtonPressed.png");
 
+  assets.completionBanner = LoadTexture("assets/Completion.png");
+
   return assets;
 }
 
@@ -349,7 +351,7 @@ void initializePokemon(Assets assets)
 
   for (int i = 0; i < 21; i++)
   {
-    pokemons[i].captured = false; // mudar depois
+    pokemons[i].captured = false;
     pokemons[i].capCont = 0;
   }
 }
