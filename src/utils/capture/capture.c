@@ -39,7 +39,7 @@ float calculateSpeed(Pokemon chosenPokemon);
 bool handleCaptureCircle(Assets assets, Pokemon chosenPokemon)
 {
   srand(time(NULL));
-  position = rand()%8;
+  position = rand() % 8;
   assets.eventCircle.height = assets.eventCircle.width = 272;
   assets.eventIndicator.height = assets.eventIndicator.width = 20;
 
@@ -92,29 +92,27 @@ bool handleUpdateCaptureCircle(float innerRadius)
 }
 
 float calculateSpeed(Pokemon chosenPokemon)
-{ 
+{
 
-    // A velocidade base depende da raridade do Pokémon
-    float speed;
+  // A velocidade base depende da raridade do Pokémon
+  float speed;
 
-    if (chosenPokemon.rarity == TRASH)
-    {
-        speed = 0.001f;
-    }
-    else if (chosenPokemon.rarity == COMMON)
-    {
-        speed = 0.002f;
-    }
-    else if (chosenPokemon.rarity == RARE)
-    {
-        speed = 0.003f;
-    }
-    else if (chosenPokemon.rarity == LEGENDARY)
-    {
-        speed = 0.004f;
-    }
+  if (chosenPokemon.rarity == TRASH)
+  {
+    speed = 0.001f;
+  }
+  else if (chosenPokemon.rarity == COMMON)
+  {
+    speed = 0.002f;
+  }
+  else if (chosenPokemon.rarity == RARE)
+  {
+    speed = 0.003f;
+  }
+  else if (chosenPokemon.rarity == LEGENDARY)
+  {
+    speed = 0.004f;
+  }
 
-
-    return speed;
+  return speed;
 }
-

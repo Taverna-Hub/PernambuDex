@@ -100,7 +100,8 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
   Rectangle pedraFuradaButtonRec = {X, 283, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
   Rectangle veuNoivaButtonRec = {X, 353, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
   Rectangle lixaoButtonRec = {100, 546, assets.templateBtnBlue.width, assets.templateBtnBlue.height};
-  if (checkCompletion() && !wasClosed){
+  if (checkCompletion() && !wasClosed)
+  {
 
     assets.completionBanner.width = 1024;
     assets.completionBanner.height = 356;
@@ -109,11 +110,10 @@ void UpdatePokedexScreen(Screen *currentScreen, Vector2 mousePosition, Assets as
     Rectangle closeCompleteBannerBntRec = {432, 279, assets.templateBtnRed.width, assets.templateBtnRed.height};
     DrawTexture(assets.templateBtnRed, 432, 279, RAYWHITE);
     showLabel(assets, 432, 279, "Fechar");
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePosition, closeCompleteBannerBntRec)){
-        wasClosed = true;
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mousePosition, closeCompleteBannerBntRec))
+    {
+      wasClosed = true;
     }
-
-
   }
   if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
@@ -255,22 +255,21 @@ void ShowPokemonButtons(Assets assets, Vector2 mousePosition, PokeNode *pokeLoca
       if (buttons[i].Pokemon.captured)
       {
         strcpy(pokemonName, buttons[i].Pokemon.name);
-        //}
-        // else
-        //{
-        // strcpy(pokemonName, "???");
-        //}
-        if (pokemonId == buttons[i].Pokemon.id)
-        {
-          DrawTexture(buttons[i].redTexture, buttons[i].redRect.x, buttons[i].redRect.y, RAYWHITE);
-          showLabel(assets, buttons[i].redRect.x, buttons[i].redRect.y, pokemonName);
-          showPokemon(assets, buttons[i].Pokemon);
-        }
-        else
-        {
-          DrawTexture(buttons[i].blueTexture, buttons[i].blueRect.x, buttons[i].blueRect.y, RAYWHITE);
-          showLabel(assets, buttons[i].blueRect.x, buttons[i].blueRect.y, pokemonName);
-        }
+      }
+      else
+      {
+        strcpy(pokemonName, "???");
+      }
+      if (pokemonId == buttons[i].Pokemon.id)
+      {
+        DrawTexture(buttons[i].redTexture, buttons[i].redRect.x, buttons[i].redRect.y, RAYWHITE);
+        showLabel(assets, buttons[i].redRect.x, buttons[i].redRect.y, pokemonName);
+        showPokemon(assets, buttons[i].Pokemon);
+      }
+      else
+      {
+        DrawTexture(buttons[i].blueTexture, buttons[i].blueRect.x, buttons[i].blueRect.y, RAYWHITE);
+        showLabel(assets, buttons[i].blueRect.x, buttons[i].blueRect.y, pokemonName);
       }
     }
   }
@@ -394,10 +393,12 @@ static void handleButtons(Assets assets, Vector2 mousePosition)
   DrawTexture(assets.leaveButtonRed, leaveButtonRect.x, leaveButtonRect.y, RAYWHITE);
 }
 
-bool checkCompletion(){
+bool checkCompletion()
+{
   for (int i = 0; i < 21; i++)
-  { 
-    if (!pokemons[i].captured) return false; 
+  {
+    if (!pokemons[i].captured)
+      return false;
   }
-    return true;
+  return true;
 }

@@ -28,7 +28,6 @@ PokeNode *pedraTail = NULL;
 PokeNode *boaViagemHead = NULL;
 PokeNode *boaViagemTail = NULL;
 
-
 int main(void)
 {
   Screen currentScreen = MENU;
@@ -38,7 +37,7 @@ int main(void)
   Assets assets = LoadAssets();
   Vector2 mousePosition = GetMousePosition();
   inicializeCharacter("PANELA", 0);
-  handleInitializeAllItems(assets); 
+  handleInitializeAllItems(assets);
   initializePokemon(assets);
 
   initializeCircularList(pokemons, &boaViagemHead, &boaViagemTail, 1);
@@ -46,16 +45,18 @@ int main(void)
   initializeCircularList(pokemons, &pedraHead, &pedraTail, 11);
   initializeCircularList(pokemons, &noivaHead, &noivaTail, 16);
 
-    float scale = 1.0f;
-    int offsetX = 0, offsetY = 0;
-    bool isFullscreen = false;
+  float scale = 1.0f;
+  int offsetX = 0, offsetY = 0;
+  bool isFullscreen = false;
 
   HideCursor();
   while (!WindowShouldClose())
   {
-if (IsKeyPressed(KEY_F11)) {
-    isFullscreen = !isFullscreen;
-    if (isFullscreen) {
+    if (IsKeyPressed(KEY_F11))
+    {
+      isFullscreen = !isFullscreen;
+      if (isFullscreen)
+      {
         ToggleFullscreen();
 
         int screenWidth = GetMonitorWidth(0);
@@ -65,9 +66,11 @@ if (IsKeyPressed(KEY_F11)) {
         int offsetY = (screenHeight - WINDOW_HEIGHT) / 2;
 
         SetWindowPosition(offsetX, offsetY);
-    } else {
+      }
+      else
+      {
         ToggleFullscreen();
-        
+
         SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
         int screenWidth = GetMonitorWidth(0);
@@ -77,33 +80,33 @@ if (IsKeyPressed(KEY_F11)) {
         int offsetY = (screenHeight - WINDOW_HEIGHT) / 2;
 
         SetWindowPosition(offsetX, offsetY);
+      }
     }
-}
 
-        int screenWidth = GetScreenWidth();
-        int screenHeight = GetScreenHeight();
+    int screenWidth = GetScreenWidth();
+    int screenHeight = GetScreenHeight();
 
-        scale = fmin((float)screenWidth / WINDOW_WIDTH, (float)screenHeight / WINDOW_HEIGHT);
-        offsetX = (screenWidth - (int)(WINDOW_WIDTH * scale)) / 2;
-        offsetY = (screenHeight - (int)(WINDOW_HEIGHT * scale)) / 2;
+    scale = fmin((float)screenWidth / WINDOW_WIDTH, (float)screenHeight / WINDOW_HEIGHT);
+    offsetX = (screenWidth - (int)(WINDOW_WIDTH * scale)) / 2;
+    offsetY = (screenHeight - (int)(WINDOW_HEIGHT * scale)) / 2;
 
-        BeginDrawing();
-        ClearBackground(BLACK); // Preencher as barras excedentes com preto
+    BeginDrawing();
+    ClearBackground(BLACK); // Preencher as barras excedentes com preto
 
-        BeginScissorMode(offsetX, offsetY, (int)(WINDOW_WIDTH * scale), (int)(WINDOW_HEIGHT * scale));
-        ClearBackground(RAYWHITE); // Fundo do jogo
+    BeginScissorMode(offsetX, offsetY, (int)(WINDOW_WIDTH * scale), (int)(WINDOW_HEIGHT * scale));
+    ClearBackground(RAYWHITE); // Fundo do jogo
 
-        mousePosition = GetMousePosition();
-  
-        Vector2 adjustedMousePos = {
-            (mousePosition.x - offsetX) / scale,
-            (mousePosition.y - offsetY) / scale
-        };
+    mousePosition = GetMousePosition();
+
+    Vector2 adjustedMousePos = {
+        (mousePosition.x - offsetX) / scale,
+        (mousePosition.y - offsetY) / scale};
     if (currentScreen == MENU)
     {
       DrawMenu(&currentScreen, mousePosition, assets);
       bool close = UpdateMenu(&currentScreen, mousePosition, assets);
-      if (close){
+      if (close)
+      {
         break;
       }
     }

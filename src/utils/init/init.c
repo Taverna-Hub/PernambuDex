@@ -382,6 +382,7 @@ void initializeCircularList(Pokemon pokemons[], PokeNode **head, PokeNode **tail
   srand(time(NULL));
 
   int arraySize = praiaLimpaModifier[lvlPraia];
+
   for (int j = startIndex; j < startIndex + 5; j++)
   {
     Pokemon pokemon = pokemons[j];
