@@ -23,7 +23,9 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 Para instalar a Pernambudex, siga estas etapas:
 
-Linux e macOS:
+---
+
+### Linux e macOS:
 
 1º)  Você precisará do GCC, make e git para baixar e compilar a biblioteca (Caso já tenha, ignore esse passo):
 ```
@@ -63,7 +65,9 @@ cd PernambuDex-temp
 make run
 ```
 
-# windows
+---
+
+### Windows
 
 1º) Baixe o MSYS2:
 
