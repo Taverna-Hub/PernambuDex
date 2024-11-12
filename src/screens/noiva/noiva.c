@@ -67,6 +67,11 @@ void UpdateNoiva(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   if (isPokemonChosen)
   {
+    if (IsKeyPressed(KEY_SPACE) && !isInArea)
+    {
+      countTries = countTries + 1;
+    }
+
     if (isInArea)
     {
       if (!isAnimationPlaying)
@@ -115,17 +120,14 @@ static bool handleChoosePokemon()
 
   if (!IsKeyPressed(KEY_SPACE))
   {
+    if (currentPokemon == NULL)
+    {
+      currentPokemon = noivaHead;
+    }
+
     if (timeCounter >= 0.5f)
     {
-      if (currentPokemon == NULL)
-      {
-        currentPokemon = noivaHead;
-      }
-      else
-      {
-        currentPokemon = currentPokemon->next;
-      }
-
+      currentPokemon = currentPokemon->next;
       timeCounter = 0.0f;
     }
 

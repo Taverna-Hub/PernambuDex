@@ -31,7 +31,7 @@ static int countTries = 0;
 void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
   Rectangle leaveButtonRect = {470, 480, assets.leaveButtonRed.width, assets.leaveButtonRed.height};
-  //array de frames da animação
+  // array de frames da animação
   FrameAndPosition frames[] = {
       {assets.captureGhostbusters1, (Vector2){69, 0}},
       {assets.captureGhostbusters2, (Vector2){69, 0}},
@@ -43,7 +43,7 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
       {assets.captureGhostbusters8, (Vector2){69, 0}},
   };
   size_t framesArraySize = sizeof(frames) / sizeof(frames[0]);
-  //capturou (animaçao)
+  // capturou (animaçao)
   if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
   {
     if (isInArea)
@@ -70,7 +70,7 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   }
 
   if (isPokemonChosen)
-  { 
+  {
     // erra o evento
     if (IsKeyPressed(KEY_SPACE) && !isInArea)
     {
@@ -78,8 +78,8 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     }
     // acertou o evento
     if (isInArea)
-    { 
-      
+    {
+
       if (!isAnimationPlaying)
       {
         handleShowPokemonCaptured(assets);
@@ -104,7 +104,6 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
     DrawSpriteAnimation(buttonFrames, &isButtonAnimationPlaying, 2);
 
     isPokemonChosen = handleChoosePokemon();
-
   }
   // perde
   if (countTries == 2 && !isInArea && !isAnimationPlaying)
@@ -127,17 +126,14 @@ static bool handleChoosePokemon()
 
   if (!IsKeyPressed(KEY_SPACE))
   {
+    if (currentPokemon == NULL)
+    {
+      currentPokemon = olindaHead;
+    }
+
     if (timeCounter >= 0.5f)
     {
-      if (currentPokemon == NULL)
-      {
-        currentPokemon = olindaHead;
-      }
-      else
-      {
-        currentPokemon = currentPokemon->next;
-      }
-
+      currentPokemon = currentPokemon->next;
       timeCounter = 0.0f;
     }
 
@@ -148,7 +144,7 @@ static bool handleChoosePokemon()
     return true;
   }
 }
-//se capturou
+// se capturou
 
 static void handleShowPokemonCaptured(Assets assets)
 {

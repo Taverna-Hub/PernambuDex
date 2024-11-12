@@ -103,7 +103,6 @@ void UpdateBoaViagem(Screen *currentScreen, Vector2 mousePosition, Assets assets
     DrawSpriteAnimation(buttonFrames, &isButtonAnimationPlaying, 2);
 
     isPokemonChosen = handleChoosePokemon();
-
   }
 
   if (countTries == 2 && !isInArea && !isAnimationPlaying)
@@ -126,17 +125,14 @@ static bool handleChoosePokemon()
 
   if (!IsKeyPressed(KEY_SPACE))
   {
+    if (currentPokemon == NULL)
+    {
+      currentPokemon = boaViagemHead;
+    }
+
     if (timeCounter >= 0.5f)
     {
-      if (currentPokemon == NULL)
-      {
-        currentPokemon = boaViagemHead;
-      }
-      else
-      {
-        currentPokemon = currentPokemon->next;
-      }
-
+      currentPokemon = currentPokemon->next;
       timeCounter = 0.0f;
     }
 
