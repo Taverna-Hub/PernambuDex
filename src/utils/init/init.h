@@ -162,6 +162,7 @@ typedef struct
   Texture2D spaceButtonPressed;
 
   Texture2D completionBanner;
+  Texture2D logoBanner;
 
   Font nunito;
 

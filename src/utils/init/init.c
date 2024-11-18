@@ -192,6 +192,8 @@ Assets LoadAssets(void)
 
   assets.completionBanner = LoadTexture("assets/Completion.png");
 
+  assets.logoBanner = LoadTexture("assets/pernambudex-logo.png");
+
   return assets;
 }
 

@@ -102,7 +102,7 @@ int main(void)
         (mousePosition.x - offsetX) / scale,
         (mousePosition.y - offsetY) / scale};
     if (currentScreen == MENU)
-    {
+    { 
       DrawMenu(&currentScreen, mousePosition, assets);
       bool close = UpdateMenu(&currentScreen, mousePosition, assets);
       if (close)

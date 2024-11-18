@@ -143,6 +143,7 @@ void UnloadAssets(Assets assets)
 
   UnloadTexture(assets.spaceButtonDefault);
   UnloadTexture(assets.spaceButtonPressed);
+  UnloadTexture(assets.logoBanner);
 
   UnloadFont(assets.nunito);
 }

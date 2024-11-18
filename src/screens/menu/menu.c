@@ -39,6 +39,10 @@ static void handleButtons(Vector2 mousePosition, Assets assets)
 {
   int buttonsHeight = 80;
 
+  // Logo Jogo
+  assets.logoBanner.width = 465;
+  assets.logoBanner.height = 209;
+  DrawTexture(assets.logoBanner, 279, 90, RAYWHITE);
   // Play button
   assets.playButton.width = 200;
   assets.playButton.height = buttonsHeight;
