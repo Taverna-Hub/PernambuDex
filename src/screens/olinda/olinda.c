@@ -44,16 +44,30 @@ void UpdateOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
   };
   size_t framesArraySize = sizeof(frames) / sizeof(frames[0]);
   // capturou (animaçao)
-  if (CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+  if (countTries >= 2 && !isInArea && !isAnimationPlaying)
   {
-    if (isInArea)
-    {
-      pokemons[currentPokemon->pokemon.id].capCont += 1;
-      addMoney(currentPokemon->pokemon.id);
-    }
+  
+  if ((CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) || IsKeyPressed(KEY_SPACE))
+  {
 
     *currentScreen = SELECT_PLACE;
     resetVariables();
+    return;
+  }
+  }
+
+  else if(isInArea)
+  {
+      if ((CheckCollisionPointRec(mousePosition, leaveButtonRect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) || IsKeyPressed(KEY_SPACE))
+  {
+      pokemons[currentPokemon->pokemon.id].capCont += 1;
+      addMoney(currentPokemon->pokemon.id);
+    
+
+    *currentScreen = SELECT_PLACE;
+    resetVariables();
+    return;
+  }
   }
   // vai travar a lista no pokemon atual
   if (IsKeyPressed(KEY_SPACE) && !isAnimationPlaying && isPokemonChosen)

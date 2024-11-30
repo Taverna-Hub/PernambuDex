@@ -47,12 +47,21 @@ bool handleCaptureCircle(Assets assets, Pokemon chosenPokemon)
   float innerRadius = (assets.eventCircle.width / 2.0f) * 0.85f;
 
   float calculatedSpeed = calculateSpeed(chosenPokemon);
-  float speed[] = {
-      calculatedSpeed,
-      calculatedSpeed * 0.8,
-      calculatedSpeed * 0.6,
-      calculatedSpeed * 0.4,
-  };
+  float multiplier;
+  if (IsWindowFullscreen()) // desativa qualquer coisa
+  {
+    multiplier = 9;
+  }
+  else{
+    multiplier = 3;
+  }
+  
+    float speed[] = {
+        calculatedSpeed * multiplier,
+        calculatedSpeed * 0.8f * multiplier,
+        calculatedSpeed * 0.6f * multiplier,
+        calculatedSpeed * 0.4f * multiplier,
+    };
 
   angle += speed[lvlFarol];
 
