@@ -14,6 +14,7 @@
 #include "noiva.h"
 
 static bool handleChoosePokemon();
+static void handleTries(Assets Assets);
 static void handleShowPokemonCaptured(Assets assets);
 static void handleCaptureFailed(Assets assets);
 static void handleButtons(Assets assets);
@@ -126,6 +127,7 @@ void DrawNoiva(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   imageProps noivaBackground = resizeImage(assets.noivaPlay);
   DrawTextureEx(assets.noivaPlay, (Vector2){noivaBackground.x, noivaBackground.y}, 0.0f, noivaBackground.scale, WHITE);
+   handleTries(assets);
 }
 
 static bool handleChoosePokemon()
@@ -212,4 +214,11 @@ static void resetVariables()
   isInArea = false;
   isAnimationPlaying = false;
   countTries = 0;
+}
+
+void handleTries(Assets assets){
+  for (int i = 0; i < (2 - countTries); i++){
+    assets.pernamBall.height =  assets.pernamBall.width = 58;
+    DrawTexture(assets.pernamBall, 43 + (i*55), 34, RAYWHITE);
+  }
 }

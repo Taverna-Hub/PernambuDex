@@ -50,10 +50,10 @@ bool handleCaptureCircle(Assets assets, Pokemon chosenPokemon)
   float multiplier;
   if (IsWindowFullscreen()) // desativa qualquer coisa
   {
-    multiplier = 9;
+    multiplier = 6;  
   }
   else{
-    multiplier = 3;
+    multiplier = 2;
   }
   
     float speed[] = {

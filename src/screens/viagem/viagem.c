@@ -14,6 +14,7 @@
 #include "viagem.h"
 
 static bool handleChoosePokemon();
+static void handleTries(Assets Assets);
 static void handleShowPokemonCaptured(Assets assets);
 static void handleCaptureFailed(Assets assets);
 static void handleButtons(Assets assets);
@@ -127,10 +128,12 @@ void UpdateBoaViagem(Screen *currentScreen, Vector2 mousePosition, Assets assets
 
 void DrawBoaViagem(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 {
+
   ClearBackground(RAYWHITE);
 
   imageProps boaViagemBackground = resizeImage(assets.boaViagemPlay);
   DrawTextureEx(assets.boaViagemPlay, (Vector2){boaViagemBackground.x, boaViagemBackground.y}, 0.0f, boaViagemBackground.scale, WHITE);
+  handleTries(assets);
 }
 
 static bool handleChoosePokemon()
@@ -216,4 +219,11 @@ static void resetVariables()
   isInArea = false;
   isAnimationPlaying = false;
   countTries = 0;
+}
+
+void handleTries(Assets assets){
+  for (int i = 0; i < (2 - countTries); i++){
+    assets.pernamBall.height =  assets.pernamBall.width = 58;
+    DrawTexture(assets.pernamBall, 43 + (i*55), 34, RAYWHITE);
+  }
 }

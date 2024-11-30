@@ -14,6 +14,7 @@
 #include "pedra.h"
 
 static bool handleChoosePokemon();
+static void handleTries(Assets Assets);
 static void handleShowPokemonCaptured(Assets assets);
 static void handleCaptureFailed(Assets assets);
 static void handleButtons(Assets assets);
@@ -125,6 +126,7 @@ void DrawPedra(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   imageProps pedraBackground = resizeImage(assets.pedraPlay);
   DrawTextureEx(assets.pedraPlay, (Vector2){pedraBackground.x, pedraBackground.y}, 0.0f, pedraBackground.scale, WHITE);
+  handleTries(assets);
 }
 
 static bool handleChoosePokemon()
@@ -211,4 +213,11 @@ static void resetVariables()
   isInArea = false;
   isAnimationPlaying = false;
   countTries = 0;
+}
+
+void handleTries(Assets assets){
+  for (int i = 0; i < (2 - countTries); i++){
+    assets.pernamBall.height =  assets.pernamBall.width = 58;
+    DrawTexture(assets.pernamBall, 43 + (i*55), 34, RAYWHITE);
+  }
 }

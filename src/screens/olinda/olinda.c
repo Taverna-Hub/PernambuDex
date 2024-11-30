@@ -14,6 +14,7 @@
 #include "olinda.h"
 
 static bool handleChoosePokemon();
+static void handleTries(Assets Assets);
 static void handleShowPokemonCaptured(Assets assets);
 static void handleCaptureFailed(Assets assets);
 static void handleButtons(Assets assets);
@@ -132,6 +133,7 @@ void DrawOlinda(Screen *currentScreen, Vector2 mousePosition, Assets assets)
 
   imageProps olindaBackground = resizeImage(assets.olindaPlay);
   DrawTextureEx(assets.olindaPlay, (Vector2){olindaBackground.x, olindaBackground.y}, 0.0f, olindaBackground.scale, WHITE);
+   handleTries(assets);
 }
 // percorre a lista, ate SPACE ser clicado
 static bool handleChoosePokemon()
@@ -218,4 +220,10 @@ static void resetVariables()
   isInArea = false;
   isAnimationPlaying = false;
   countTries = 0;
+}
+void handleTries(Assets assets){
+  for (int i = 0; i < (2 - countTries); i++){
+    assets.pernamBall.height =  assets.pernamBall.width = 58;
+    DrawTexture(assets.pernamBall, 43 + (i*55), 34, RAYWHITE);
+  }
 }
